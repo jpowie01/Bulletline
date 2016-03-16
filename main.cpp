@@ -1,29 +1,24 @@
-
-//
-// Disclamer:
-// ----------
-//
-// This code will work only if you selected window, graphics and audio.
-//
-// Note that the "Run Script" build phase will copy the required frameworks
-// or dylibs to your application bundle so you can execute it on any OS X
-// computer.
-//
-// Your resource files (images, sounds, fonts, ...) are also copied to your
-// application bundle. To get the path to these resource, use the helper
-// method resourcePath() from ResourcePath.hpp
-//
-
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-
-// Here is a small helper for you ! Have a look.
 #include "ResourcePath.hpp"
+
+#include "Player.hpp"
 
 int main(int, char const**)
 {
+    // Window settings
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
+
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(1200, 680), "CS 1.5 Alpha", sf::Style::Close, settings);
+
+    // Create player
+    Player* player = new Player(20.0f, 20.0f);
+
+    // Last frame for animation
+    sf::Clock clock;
+    sf::Time lastFrame;
 
     // Start the game loop
     while (window.isOpen())
@@ -43,11 +38,34 @@ int main(int, char const**)
             }
         }
 
+        // Move player
+        // TODO: Repair walking in both X&Y axis
+        float movement = player->getSpeed() * lastFrame.asSeconds();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            player->move(-movement, 0.0f);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            player->move(movement, 0.0f);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            player->move(0.0f, movement);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+            player->move(0.0f, -movement);
+        }
+
         // Clear screen
-        window.clear();
+        window.clear(sf::Color::White);
+
+        // Draw player
+        player->draw(window);
 
         // Update the window
         window.display();
+
+        // Set last frame
+        lastFrame = clock.getElapsedTime();
+        clock.restart();
     }
 
     return EXIT_SUCCESS;
