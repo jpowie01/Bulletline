@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "ResourcePath.hpp"
 
+#include "Obstacle.h"
 #include "Player.hpp"
 
 int main(int, char const**)
@@ -16,6 +17,9 @@ int main(int, char const**)
     // Create player
     Player* player = new Player(20.0f, 20.0f);
 
+	//Create obstacle
+	Obstacle* obstacle1 = new Obstacle(10, 10, 30, 50);
+
     // Last frame for animation
     sf::Clock clock;
     sf::Time lastFrame;
@@ -27,6 +31,7 @@ int main(int, char const**)
         sf::Event event;
         while (window.pollEvent(event))
         {
+
             // Close window: exit
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -59,6 +64,12 @@ int main(int, char const**)
 
         // Draw player
         player->draw(window);
+
+		//Draw obstacle
+		obstacle1->draw(window);
+
+		//Draw obstacle
+		obstacle1->draw(window);
 
         // Update the window
         window.display();
