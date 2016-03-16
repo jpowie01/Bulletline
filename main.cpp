@@ -68,6 +68,9 @@ int main(int, char const**)
 		//Draw obstacle
 		obstacle1->draw(window);
 
+		//Draw obstacle
+		obstacle1->draw(window);
+
         // Update the window
         window.display();
 
