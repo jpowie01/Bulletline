@@ -1,3 +1,4 @@
+#include <cmath>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "ResourcePath.hpp"
@@ -14,15 +15,19 @@ int main(int, char const**)
 
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(1200, 680), "CS 1.5 Alpha", sf::Style::Close, settings);
-
-    // Create player
-    Player* player = new Player(20.0f, 20.0f);
+    window.setVerticalSyncEnabled(true);
 
     //Create obstacle
-    Obstacle* obstacle1 = new Obstacle(10, 10, 30, 50);
+    Obstacle* obstacle1 = new Obstacle(200, 250, 100, 300);
 
     //Create map
     Map* map = new Map();
+
+    // Adding obstacle to the map
+    map->add(obstacle1);
+
+    // Create player
+    Player* player = new Player(400.0f, 200.0f);
 
     // Last frame for animation
     sf::Clock clock;
@@ -47,27 +52,49 @@ int main(int, char const**)
             }
         }
 
-        // Move player
-        // TODO: Repair walking in both X&Y axis
+        // Calculate player movement
         float movement = player->getSpeed() * lastFrame.asSeconds();
+        float movementX = 0.0f;
+        float movementY = 0.0f;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            player->move(-movement, 0.0f);
+            movementX -= movement;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            player->move(movement, 0.0f);
+            movementX += movement;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            player->move(0.0f, movement);
+            movementY += movement;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            player->move(0.0f, -movement);
+            movementY -= movement;
+        }
+
+        // Resolve walking in both directions
+        if (movementX && movementY) {
+            if (movementX >= 0) {
+                movementX = sqrt(movementX);
+            } else {
+                movementX = -sqrt(-movementX);
+            }
+            if (movementY >= 0) {
+                movementY = sqrt(movementY);
+            } else {
+                movementY = -sqrt(-movementY);
+            }
+        }
+
+        // Check collisions in both directions
+        player->move(movementX, 0.0f);
+        if (map->checkCollision(*player)) {
+            player->move(-movementX, 0.0f);
+        }
+        player->move(0.0f, movementY);
+        if (map->checkCollision(*player)) {
+            player->move(0.0f, -movementY);
         }
 
         // Clear screen
         window.clear(sf::Color::White);
-
-        // Adding obstacle to the map
-        map->add(obstacle1);
 
         // Draw map
         map->draw(window);
