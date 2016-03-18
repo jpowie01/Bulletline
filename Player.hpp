@@ -16,10 +16,13 @@ public:
     Player();
     Player(float x, float y);
     ~Player();
+    int getSpeed();
+    int getRadius();
+    float getPositionX();
+    float getPositionY();
     void move(float x, float y);
     void shot(float x, float y);
     void draw(sf::RenderWindow& window);
-    int getSpeed();
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Obstacle.hpp"
+#include "Player.hpp"
 using namespace std;
 
 class Map {
@@ -13,6 +14,7 @@ public:
     Map();
     ~Map();
     void add(Obstacle* obstacle);
+    bool checkCollision(Player& player);
     void draw(sf::RenderWindow& window);
 };
 #endif
