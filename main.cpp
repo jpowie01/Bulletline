@@ -6,6 +6,7 @@
 #include "Obstacle.hpp"
 #include "Player.hpp"
 #include "Map.hpp"
+#include "LevelOne.hpp"
 
 int main(int, char const**)
 {
@@ -17,14 +18,8 @@ int main(int, char const**)
     sf::RenderWindow window(sf::VideoMode(1200, 680), "CS 1.5 Alpha", sf::Style::Close, settings);
     window.setVerticalSyncEnabled(true);
 
-    //Create obstacle
-    Obstacle* obstacle1 = new Obstacle(200, 250, 100, 300);
-
-    //Create map
-    Map* map = new Map();
-
-    // Adding obstacle to the map
-    map->add(obstacle1);
+    //Create first map - level one
+    LevelOne* levelOne = new LevelOne();
 
     // Create player
     Player* player = new Player(400.0f, 200.0f);
@@ -85,19 +80,19 @@ int main(int, char const**)
 
         // Check collisions in both directions
         player->move(movementX, 0.0f);
-        if (map->checkCollision(*player)) {
+        if (levelOne->checkCollision(*player)) {
             player->move(-movementX, 0.0f);
         }
         player->move(0.0f, movementY);
-        if (map->checkCollision(*player)) {
+        if (levelOne->checkCollision(*player)) {
             player->move(0.0f, -movementY);
         }
 
         // Clear screen
         window.clear(sf::Color::White);
 
-        // Draw map
-        map->draw(window);
+        // Draw map (level one)
+        levelOne->draw(window);
 
         // Draw player
         player->draw(window);

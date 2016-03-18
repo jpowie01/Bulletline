@@ -1,7 +1,6 @@
 #include "Obstacle.hpp"
 #include <SFML/Graphics.hpp>
 
-
 Obstacle::Obstacle() {
     this->_obstacle.setSize(sf::Vector2f(0.0f, 0.0f));
     this->_obstacle.setPosition(sf::Vector2f(0.0f, 0.0f));
@@ -12,7 +11,6 @@ Obstacle::Obstacle() {
     this->_width = 0.0f;
     this->_height = 0.0f;
 }
-
 
 Obstacle::~Obstacle() {
 }
