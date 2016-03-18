@@ -1,3 +1,4 @@
+#include <cmath>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "ResourcePath.hpp"
@@ -15,12 +16,13 @@ int main(int, char const**)
 
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(1200, 680), "CS 1.5 Alpha", sf::Style::Close, settings);
-
-    // Create player
-    Player* player = new Player(20.0f, 20.0f);
+    window.setVerticalSyncEnabled(true);
 
     //Create first map - level one
     LevelOne* levelOne = new LevelOne();
+
+    // Create player
+    Player* player = new Player(400.0f, 200.0f);
 
     // Last frame for animation
     sf::Clock clock;
@@ -45,20 +47,45 @@ int main(int, char const**)
             }
         }
 
-        // Move player
-        // TODO: Repair walking in both X&Y axis
+        // Calculate player movement
         float movement = player->getSpeed() * lastFrame.asSeconds();
+        float movementX = 0.0f;
+        float movementY = 0.0f;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            player->move(-movement, 0.0f);
+            movementX -= movement;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            player->move(movement, 0.0f);
+            movementX += movement;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            player->move(0.0f, movement);
+            movementY += movement;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            player->move(0.0f, -movement);
+            movementY -= movement;
+        }
+
+        // Resolve walking in both directions
+        if (movementX && movementY) {
+            if (movementX >= 0) {
+                movementX = sqrt(movementX);
+            } else {
+                movementX = -sqrt(-movementX);
+            }
+            if (movementY >= 0) {
+                movementY = sqrt(movementY);
+            } else {
+                movementY = -sqrt(-movementY);
+            }
+        }
+
+        // Check collisions in both directions
+        player->move(movementX, 0.0f);
+        if (levelOne->checkCollision(*player)) {
+            player->move(-movementX, 0.0f);
+        }
+        player->move(0.0f, movementY);
+        if (levelOne->checkCollision(*player)) {
+            player->move(0.0f, -movementY);
         }
 
         // Clear screen

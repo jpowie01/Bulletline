@@ -26,6 +26,26 @@ Obstacle::Obstacle(float x, float y, float width, float height) {
     this->_height = height;
 }
 
+bool Obstacle::checkCollision(Player& player) {
+    float x = player.getPositionX();
+    float y = player.getPositionY();
+    int r = player.getRadius();
+
+    float distanceX = fabs(x - this->_width/2 - this->_x + r);
+    float distanceY = fabs(y - this->_height/2 - this->_y + r);
+
+    if (distanceX > this->_width/2 + r) return false;
+    if (distanceY > this->_height/2 + r) return false;
+
+    if (distanceX <= this->_width/2) return true;
+    if (distanceY <= this->_height/2) return true;
+
+    float cornerDistance = (distanceX - this->_width/2) * (distanceX - this->_width/2) +
+                           (distanceY - this->_height/2) * (distanceY - this->_height/2);
+
+    return (cornerDistance <= r * r);
+}
+
 void Obstacle::draw(sf::RenderWindow& window) {
     window.draw(this->_obstacle);
 }
