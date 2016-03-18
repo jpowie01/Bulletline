@@ -1,10 +1,21 @@
 #include "Map.hpp"
 #include "Obstacle.hpp"
 #include <vector>
+
 using namespace std;
 
-
 Map::Map() {
+    // Creating borders for map
+    Obstacle* upper = new Obstacle(0, 0, 1200, 20);
+    Obstacle* left = new Obstacle(0, 0, 20, 680);
+    Obstacle* right = new Obstacle(1180, 0, 20, 680);
+    Obstacle* lower = new Obstacle(0, 600, 1200, 80);
+
+    // Adding borders
+    add(upper);
+    add(left);
+    add(right);
+    add(lower);
 }
 
 

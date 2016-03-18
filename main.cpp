@@ -5,6 +5,7 @@
 #include "Obstacle.hpp"
 #include "Player.hpp"
 #include "Map.hpp"
+#include "LevelOne.hpp"
 
 int main(int, char const**)
 {
@@ -18,11 +19,8 @@ int main(int, char const**)
     // Create player
     Player* player = new Player(20.0f, 20.0f);
 
-    //Create obstacle
-    Obstacle* obstacle1 = new Obstacle(10, 10, 30, 50);
-
-    //Create map
-    Map* map = new Map();
+    //Create first map - level one
+    LevelOne* levelOne = new LevelOne();
 
     // Last frame for animation
     sf::Clock clock;
@@ -66,11 +64,8 @@ int main(int, char const**)
         // Clear screen
         window.clear(sf::Color::White);
 
-        // Adding obstacle to the map
-        map->add(obstacle1);
-
-        // Draw map
-        map->draw(window);
+        // Draw map (level one)
+        levelOne->draw(window);
 
         // Draw player
         player->draw(window);

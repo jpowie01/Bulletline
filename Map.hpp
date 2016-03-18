@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Obstacle.hpp"
+
 using namespace std;
 
 class Map {
