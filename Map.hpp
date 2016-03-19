@@ -2,20 +2,28 @@
 #define Map_hpp
 
 #include <vector>
-#include "Obstacle.hpp"
 #include "Player.hpp"
+#include "Obstacle.hpp"
+#include "Bullet.hpp"
 
 using namespace std;
 
 class Map {
 private:
-    vector <Obstacle*> listOfObstacles;
+    vector <Player*> players;
+    vector <Obstacle*> obstacles;
+    vector <Bullet*> bullets;
+    sf::Time _lastFrame;
+    sf::Clock _clock;
 
 public:
     Map();
     ~Map();
-    void add(Obstacle* obstacle);
-    bool checkCollision(Player& player);
+    void addPlayer(Player* player);
+    void addObstacle(Obstacle* obstacle);
+    void addBullet(Bullet* obstacle);
+    bool checkCollision(Player* player);
+    void update();
     void draw(sf::RenderWindow& window);
 };
 #endif

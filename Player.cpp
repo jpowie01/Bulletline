@@ -1,6 +1,8 @@
 #include "Player.hpp"
+#include "Map.hpp"
 
 Player::Player() {
+    this->_mainPlayer = false;
     this->_health = 100.0f;
     this->_speed = 100.0f;
     this->_radius = 15.0f;
@@ -11,9 +13,11 @@ Player::Player() {
     this->_shape.setOutlineColor(sf::Color::Black);
     this->_shape.setOutlineThickness(2);
     this->_shape.setFillColor(sf::Color::Blue);
+    this->_map = NULL;
 }
 
-Player::Player(float x, float y) {
+Player::Player(bool mainPlayer, float x, float y, Map* map) {
+    this->_mainPlayer = mainPlayer;
     this->_health = 100.0f;
     this->_speed = 100.0f;
     this->_radius = 15.0f;
@@ -24,10 +28,13 @@ Player::Player(float x, float y) {
     this->_shape.setOutlineColor(sf::Color::Black);
     this->_shape.setOutlineThickness(2);
     this->_shape.setFillColor(sf::Color::Blue);
+    this->_map = map;
 }
 
-Player::~Player() {
-    // TODO: Add destructor
+Player::~Player() {}
+
+bool Player::isMainPlayer() {
+    return this->_mainPlayer;
 }
 
 int Player::getSpeed() {
@@ -44,6 +51,30 @@ float Player::getPositionX() {
 
 float Player::getPositionY() {
     return this->_y;
+}
+
+void Player::update(int directionX, int directionY, sf::Time lastFrame) {
+    // Calculate player movement
+    float movement = this->_speed * lastFrame.asSeconds();
+
+    // Resolve walking in both directions
+    if (directionX && directionY) {
+        movement = sqrt(movement);
+    }
+
+    // Check collisions in both directions
+    this->move(directionX * movement, 0.0f);
+    if (this->_map->checkCollision(this)) {
+        this->move(-directionX * movement, 0.0f);
+    }
+    this->move(0.0f, directionY * movement);
+    if (this->_map->checkCollision(this)) {
+        this->move(0.0f, -directionY * movement);
+    }
+}
+
+void Player::update(sf::Time lastFrame) {
+    // Make player predictions about direction
 }
 
 void Player::move(float x, float y) {
