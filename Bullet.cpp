@@ -1,4 +1,6 @@
 #include "Bullet.hpp"
+#include "Player.hpp"
+#include "Map.hpp"
 
 Bullet::Bullet() {
     this->_x = 0;
@@ -32,11 +34,24 @@ Bullet::Bullet(float x, float y, float directionX, float directionY, Player* pla
 
 Bullet::~Bullet() {}
 
-void Bullet::update(sf::Time lastFrame) {
+float Bullet::getPositionX() {
+    return this->_x;
+}
+
+float Bullet::getPositionY() {
+    return this->_y;
+}
+
+float Bullet::getRadius() {
+    return this->_radius;
+}
+
+bool Bullet::update(sf::Time lastFrame) {
     float movement = this->_speed * lastFrame.asSeconds();
     float movementX = movement * this->_directionX;
     float movementY = movement * this->_directionY;
     this->move(movementX, movementY);
+    return this->_player->getMap()->checkBulletCollision(this);
 }
 
 void Bullet::move(float x, float y) {

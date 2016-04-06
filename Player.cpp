@@ -4,7 +4,7 @@
 Player::Player() {
     this->_mainPlayer = false;
     this->_health = 100.0f;
-    this->_speed = 100.0f;
+    this->_speed = 150.0f;
     this->_radius = 15.0f;
     this->_x = 0.0f - this->_radius;
     this->_y = 0.0f - this->_radius;
@@ -19,7 +19,7 @@ Player::Player() {
 Player::Player(bool mainPlayer, float x, float y, Map* map) {
     this->_mainPlayer = mainPlayer;
     this->_health = 100.0f;
-    this->_speed = 100.0f;
+    this->_speed = 150.0f;
     this->_radius = 15.0f;
     this->_x = x - this->_radius;
     this->_y = y - this->_radius;
@@ -29,6 +29,7 @@ Player::Player(bool mainPlayer, float x, float y, Map* map) {
     this->_shape.setOutlineThickness(2);
     this->_shape.setFillColor(sf::Color::Blue);
     this->_map = map;
+    this->_lastShot.restart();
 }
 
 Player::~Player() {}
@@ -51,6 +52,10 @@ float Player::getPositionX() {
 
 float Player::getPositionY() {
     return this->_y;
+}
+
+Map* Player::getMap() {
+    return this->_map;
 }
 
 void Player::update(int directionX, int directionY, sf::Time lastFrame) {
@@ -83,8 +88,16 @@ void Player::move(float x, float y) {
     this->_shape.setPosition(this->_x, this->_y);
 }
 
-void Player::shot(float x, float y) {
-    // TODO: Implement
+void Player::shot(float mouseX, float mouseY) {
+    if (this->_lastShot.getElapsedTime().asSeconds() < sf::seconds(0.08f).asSeconds()) return;
+    float x = mouseX - this->_x - this->_radius;
+    float y = mouseY - this->_y - this->_radius;
+    float length = sqrt(x*x + y*y);
+    x /= length;
+    y /= length;
+    Bullet* bullet = new Bullet(this->_x + this->_radius, this->_y + this->_radius, x, y, this);
+    this->_map->addBullet(bullet);
+    this->_lastShot.restart();
 }
 
 void Player::draw(sf::RenderWindow& window) {

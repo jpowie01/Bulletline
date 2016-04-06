@@ -46,6 +46,15 @@ bool Map::checkCollision(Player* player) {
     return false;
 }
 
+bool Map::checkBulletCollision(Bullet* bullet) {
+    for (int i = 0; i < obstacles.size(); i++) {
+        if (obstacles[i]->checkBulletCollision(bullet)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void Map::update() {
     // Check user directions
     int directionX = 0, directionY = 0;
@@ -65,7 +74,11 @@ void Map::update() {
 
     // Update bullet positions
     for (int i = 0; i < bullets.size(); i++) {
-        bullets[i]->update(this->_lastFrame);
+        bool deleteBullet = bullets[i]->update(this->_lastFrame);
+        if (deleteBullet) {
+            bullets.erase(bullets.begin() + i);
+            i--;
+        }
     }
 
     // Reset the clock
@@ -74,18 +87,18 @@ void Map::update() {
 }
 
 void Map::draw(sf::RenderWindow& window) {
-    // Draw players
-    for (int i = 0; i < players.size(); i++) {
-        players[i]->draw(window);
+    // Draw bullets
+    for (int i = 0; i < bullets.size(); i++) {
+        bullets[i]->draw(window);
     }
 
     // Draw obstacles
     for (int i = 0; i < obstacles.size(); i++) {
         obstacles[i]->draw(window);
     }
-
-    // Draw bullets
-    for (int i = 0; i < bullets.size(); i++) {
-        bullets[i]->draw(window);
+    
+    // Draw players
+    for (int i = 0; i < players.size(); i++) {
+        players[i]->draw(window);
     }
 }
