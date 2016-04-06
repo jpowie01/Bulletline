@@ -12,8 +12,7 @@ Obstacle::Obstacle() {
     this->_height = 0.0f;
 }
 
-Obstacle::~Obstacle() {
-}
+Obstacle::~Obstacle() {}
 
 Obstacle::Obstacle(float x, float y, float width, float height) {
     this->_obstacle.setSize(sf::Vector2f(width, height));
@@ -26,10 +25,10 @@ Obstacle::Obstacle(float x, float y, float width, float height) {
     this->_height = height;
 }
 
-bool Obstacle::checkCollision(Player& player) {
-    float x = player.getPositionX();
-    float y = player.getPositionY();
-    int r = player.getRadius();
+bool Obstacle::checkCollision(Player* player) {
+    float x = player->getPositionX();
+    float y = player->getPositionY();
+    int r = player->getRadius();
 
     float distanceX = fabs(x - this->_width/2 - this->_x + r);
     float distanceY = fabs(y - this->_height/2 - this->_y + r);

@@ -15,7 +15,7 @@ public:
     Obstacle();
     ~Obstacle();
     Obstacle(float x, float y, float width, float height);
-    bool checkCollision(Player& player);
+    bool checkCollision(Player* player);
     void draw(sf::RenderWindow& window);
 };
 
