@@ -44,6 +44,11 @@ int main(int, char const**)
                 window.close();
             }
         }
+        
+        // Player shooting
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            player->shot(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+        }
 
         // Update the whole map
         levelOne->update();

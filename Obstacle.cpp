@@ -45,6 +45,26 @@ bool Obstacle::checkCollision(Player* player) {
     return (cornerDistance <= r * r);
 }
 
+bool Obstacle::checkBulletCollision(Bullet* bullet) {
+    float x = bullet->getPositionX();
+    float y = bullet->getPositionY();
+    int r = bullet->getRadius();
+    
+    float distanceX = fabs(x - this->_width/2 - this->_x + r);
+    float distanceY = fabs(y - this->_height/2 - this->_y + r);
+    
+    if (distanceX > this->_width/2 + r) return false;
+    if (distanceY > this->_height/2 + r) return false;
+    
+    if (distanceX <= this->_width/2) return true;
+    if (distanceY <= this->_height/2) return true;
+    
+    float cornerDistance = (distanceX - this->_width/2) * (distanceX - this->_width/2) +
+    (distanceY - this->_height/2) * (distanceY - this->_height/2);
+    
+    return (cornerDistance <= r * r);
+}
+
 void Obstacle::draw(sf::RenderWindow& window) {
     window.draw(this->_obstacle);
 }

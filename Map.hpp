@@ -23,6 +23,7 @@ public:
     void addObstacle(Obstacle* obstacle);
     void addBullet(Bullet* obstacle);
     bool checkCollision(Player* player);
+    bool checkBulletCollision(Bullet* bullet);
     void update();
     void draw(sf::RenderWindow& window);
 };

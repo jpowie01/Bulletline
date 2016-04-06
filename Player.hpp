@@ -16,6 +16,7 @@ private:
     int _health;
     int _radius;
     Map* _map;
+    sf::Clock _lastShot;
 
 public:
     Player();
@@ -26,10 +27,11 @@ public:
     int getRadius();
     float getPositionX();
     float getPositionY();
+    Map* getMap();
     void update(int directionX, int directionY, sf::Time lastFrame);
     void update(sf::Time lastFrame);
     void move(float x, float y);
-    void shot(float x, float y);
+    void shot(float mouseX, float mouseY);
     void draw(sf::RenderWindow& window);
 };
 

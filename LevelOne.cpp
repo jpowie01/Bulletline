@@ -35,26 +35,6 @@ LevelOne::LevelOne() {
     this->addObstacle(obstacle13);
     this->addObstacle(obstacle14);
     this->addObstacle(obstacle15);
-
-    // Creating example bullets
-    Bullet* bullet1 = new Bullet(500.0f, 300.0f, 1.0f, 0.0f, NULL);
-    Bullet* bullet2 = new Bullet(500.0f, 300.0f, 0.0f, 1.0f, NULL);
-    Bullet* bullet3 = new Bullet(500.0f, 300.0f, -1.0f, 0.0f, NULL);
-    Bullet* bullet4 = new Bullet(500.0f, 300.0f, 0.0f, -1.0f, NULL);
-    Bullet* bullet5 = new Bullet(500.0f, 300.0f, 0.7f, 0.7f, NULL);
-    Bullet* bullet6 = new Bullet(500.0f, 300.0f, 0.7f, -0.7f, NULL);
-    Bullet* bullet7 = new Bullet(500.0f, 300.0f, -0.7f, 0.7f, NULL);
-    Bullet* bullet8 = new Bullet(500.0f, 300.0f, -0.7f, -0.7f, NULL);
-
-    // Adding example bullets
-    addBullet(bullet1);
-    addBullet(bullet2);
-    addBullet(bullet3);
-    addBullet(bullet4);
-    addBullet(bullet5);
-    addBullet(bullet6);
-    addBullet(bullet7);
-    addBullet(bullet8);
 }
 
 LevelOne::~LevelOne() {}
