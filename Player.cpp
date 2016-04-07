@@ -1,33 +1,17 @@
 #include "Player.hpp"
 #include "Map.hpp"
 
-Player::Player() {
+Player::Player() : Circle() {
     this->_mainPlayer = false;
     this->_health = 100.0f;
     this->_speed = 150.0f;
-    this->_radius = 15.0f;
-    this->_x = 0.0f - this->_radius;
-    this->_y = 0.0f - this->_radius;
-    this->_shape.setRadius(this->_radius);
-    this->_shape.setPosition(0.0f, 0.0f);
-    this->_shape.setOutlineColor(sf::Color::Black);
-    this->_shape.setOutlineThickness(2);
-    this->_shape.setFillColor(sf::Color::Blue);
     this->_map = NULL;
 }
 
-Player::Player(bool mainPlayer, float x, float y, Map* map) {
+Player::Player(bool mainPlayer, float x, float y, Map* map) : Circle(x, y, 15.0f, sf::Color::Black, 2, sf::Color::Blue) {
     this->_mainPlayer = mainPlayer;
     this->_health = 100.0f;
     this->_speed = 150.0f;
-    this->_radius = 15.0f;
-    this->_x = x - this->_radius;
-    this->_y = y - this->_radius;
-    this->_shape.setRadius(this->_radius);
-    this->_shape.setPosition(this->_x, this->_y);
-    this->_shape.setOutlineColor(sf::Color::Black);
-    this->_shape.setOutlineThickness(2);
-    this->_shape.setFillColor(sf::Color::Blue);
     this->_map = map;
     this->_lastShot.restart();
 }
@@ -40,18 +24,6 @@ bool Player::isMainPlayer() {
 
 int Player::getSpeed() {
     return this->_speed;
-}
-
-int Player::getRadius() {
-    return this->_radius;
-}
-
-float Player::getPositionX() {
-    return this->_x;
-}
-
-float Player::getPositionY() {
-    return this->_y;
 }
 
 Map* Player::getMap() {

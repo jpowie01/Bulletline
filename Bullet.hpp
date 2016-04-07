@@ -4,22 +4,19 @@
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
 
+#include "Circle.hpp"
+
 class Player;
 
-class Bullet {
+class Bullet : public Circle {
 private:
-    sf::CircleShape _shape;
-    float _x, _y;
     float _directionX, _directionY;
-    float _speed, _radius;
+    float _speed;
     Player* _player;
 public:
     Bullet();
     Bullet(float x, float y, float directionX, float directionY, Player* player);
     ~Bullet();
-    float getPositionX();
-    float getPositionY();
-    float getRadius();
     bool update(sf::Time lastFrame);
     void move(float x, float y);
     void draw(sf::RenderWindow& window);
