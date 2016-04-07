@@ -16,8 +16,6 @@ Bullet::Bullet(float x, float y, float directionX, float directionY, Player* pla
     this->_player = player;
 }
 
-Bullet::~Bullet() {}
-
 bool Bullet::update(sf::Time lastFrame) {
     float movement = this->_speed * lastFrame.asSeconds();
     float movementX = movement * this->_directionX;

@@ -36,5 +36,3 @@ LevelOne::LevelOne() {
     this->addObstacle(obstacle14);
     this->addObstacle(obstacle15);
 }
-
-LevelOne::~LevelOne() {}

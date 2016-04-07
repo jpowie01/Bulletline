@@ -12,8 +12,6 @@ Obstacle::Obstacle() {
     this->_height = 0.0f;
 }
 
-Obstacle::~Obstacle() {}
-
 Obstacle::Obstacle(float x, float y, float width, float height) {
     this->_obstacle.setSize(sf::Vector2f(width, height));
     this->_obstacle.setPosition(sf::Vector2f(x, y));

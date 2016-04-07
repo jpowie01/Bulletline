@@ -7,7 +7,6 @@ class LevelOne: public Map  {
 
 public:
     LevelOne();
-    ~LevelOne();
 };
 
 #endif

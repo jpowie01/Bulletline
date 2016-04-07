@@ -63,5 +63,9 @@ int main(int, char const**)
         window.display();
     }
 
+    // Release memory
+    delete levelOne;
+
+    // Exit game
     return EXIT_SUCCESS;
 }

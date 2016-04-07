@@ -15,7 +15,6 @@ private:
 
 public:
     Obstacle();
-    ~Obstacle();
     Obstacle(float x, float y, float width, float height);
     bool checkCollision(Circle* circle);
     void draw(sf::RenderWindow& window);

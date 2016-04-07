@@ -20,7 +20,6 @@ private:
 public:
     Player();
     Player(bool mainPlayer, float x, float y, Map* map);
-    ~Player();
     bool isMainPlayer();
     int getSpeed();
     Map* getMap();
