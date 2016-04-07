@@ -5,16 +5,15 @@
 #include <stdio.h>
 #include <cmath>
 
+#include "Circle.hpp"
+
 class Map;
 
-class Player {
+class Player : public Circle {
 private:
-    sf::CircleShape _shape;
     bool _mainPlayer;
-    float _x, _y;
     int _speed;
     int _health;
-    int _radius;
     Map* _map;
     sf::Clock _lastShot;
 
@@ -24,9 +23,6 @@ public:
     ~Player();
     bool isMainPlayer();
     int getSpeed();
-    int getRadius();
-    float getPositionX();
-    float getPositionY();
     Map* getMap();
     void update(int directionX, int directionY, sf::Time lastFrame);
     void update(sf::Time lastFrame);

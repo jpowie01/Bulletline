@@ -3,55 +3,27 @@
 #include "Map.hpp"
 
 Bullet::Bullet() {
-    this->_x = 0;
-    this->_y = 0;
     this->_directionX = 0;
     this->_directionY = 0;
     this->_speed = 300;
-    this->_radius = 2;
-    this->_shape.setRadius(this->_radius);
-    this->_shape.setPosition(0.0f, 0.0f);
-    this->_shape.setOutlineColor(sf::Color::Black);
-    this->_shape.setOutlineThickness(1);
-    this->_shape.setFillColor(sf::Color(255, 140, 0));
     this->_player = NULL;
 }
 
-Bullet::Bullet(float x, float y, float directionX, float directionY, Player* player) {
-    this->_x = x;
-    this->_y = y;
+Bullet::Bullet(float x, float y, float directionX, float directionY, Player* player) : Circle(x, y, 2.0f, sf::Color::Black, 1, sf::Color(255, 140, 0)) {
     this->_directionX = directionX;
     this->_directionY = directionY;
     this->_speed = 300;
-    this->_radius = 2;
-    this->_shape.setRadius(this->_radius);
-    this->_shape.setPosition(x, y);
-    this->_shape.setOutlineColor(sf::Color::Black);
-    this->_shape.setOutlineThickness(1);
-    this->_shape.setFillColor(sf::Color(255, 140, 0));
     this->_player = player;
 }
 
 Bullet::~Bullet() {}
-
-float Bullet::getPositionX() {
-    return this->_x;
-}
-
-float Bullet::getPositionY() {
-    return this->_y;
-}
-
-float Bullet::getRadius() {
-    return this->_radius;
-}
 
 bool Bullet::update(sf::Time lastFrame) {
     float movement = this->_speed * lastFrame.asSeconds();
     float movementX = movement * this->_directionX;
     float movementY = movement * this->_directionY;
     this->move(movementX, movementY);
-    return this->_player->getMap()->checkBulletCollision(this);
+    return this->_player->getMap()->checkCollision(this);
 }
 
 void Bullet::move(float x, float y) {

@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <SFML/Graphics.hpp>
+#include "Circle.hpp"
 #include "Player.hpp"
 #include "Bullet.hpp"
 
@@ -16,8 +17,7 @@ public:
     Obstacle();
     ~Obstacle();
     Obstacle(float x, float y, float width, float height);
-    bool checkCollision(Player* player);
-    bool checkBulletCollision(Bullet* bullet);
+    bool checkCollision(Circle* circle);
     void draw(sf::RenderWindow& window);
 };
 

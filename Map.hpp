@@ -2,6 +2,7 @@
 #define Map_hpp
 
 #include <vector>
+#include "Circle.hpp"
 #include "Player.hpp"
 #include "Obstacle.hpp"
 #include "Bullet.hpp"
@@ -22,8 +23,7 @@ public:
     void addPlayer(Player* player);
     void addObstacle(Obstacle* obstacle);
     void addBullet(Bullet* obstacle);
-    bool checkCollision(Player* player);
-    bool checkBulletCollision(Bullet* bullet);
+    bool checkCollision(Circle* player);
     void update();
     void draw(sf::RenderWindow& window);
 };

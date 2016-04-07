@@ -37,18 +37,9 @@ void Map::addBullet(Bullet* obstacle) {
     bullets.push_back(obstacle);
 }
 
-bool Map::checkCollision(Player* player) {
+bool Map::checkCollision(Circle* circle) {
     for (int i = 0; i < obstacles.size(); i++) {
-        if (obstacles[i]->checkCollision(player)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool Map::checkBulletCollision(Bullet* bullet) {
-    for (int i = 0; i < obstacles.size(); i++) {
-        if (obstacles[i]->checkBulletCollision(bullet)) {
+        if (obstacles[i]->checkCollision(circle)) {
             return true;
         }
     }
