@@ -1,10 +1,10 @@
 # Counter Strike 2D
 All of the documentation is located in the `docs`, source in `src` and assets in `assets`.
 
-# Technology
+## Technology
 - C++
 - SFML
 
-# Authors
+## Authors
 - [Jakub Powierza](https://github.com/jpowie01)
 - [Karolina Olszewska](https://github.com/kolszewska)
