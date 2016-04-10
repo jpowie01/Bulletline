@@ -8,7 +8,6 @@ Game::Game() {
 }
 
 Game::~Game() {
-
 }
 
 int Game::run(sf::RenderWindow& window) {
@@ -57,5 +56,9 @@ int Game::run(sf::RenderWindow& window) {
         // Update the window
         window.display();
     }
+
+    // Release memory
+    delete levelOne;
+
     return(-1);
 }

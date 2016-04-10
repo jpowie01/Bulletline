@@ -15,8 +15,10 @@
 #include "core/Screen.hpp"
 #include "core/Game.hpp"
 #include "levels/LevelOne.hpp"
+#include "core/MainMenu.hpp"
 
 #include "helpers/ResourcePath.hpp"
+
 
 int main(int, char const**)
 {
@@ -32,8 +34,13 @@ int main(int, char const**)
     sf::RenderWindow window(sf::VideoMode(1200, 680), "CS 1.5 Alpha", sf::Style::Close, settings);
     window.setVerticalSyncEnabled(true);
 
-    // Screens preparations
+    // Create Main Menu
+    MainMenu* mainMenu = new MainMenu();
+    // Create Game screen
     Game* game = new Game();
+
+    // Screens preparations
+    screens.push_back(mainMenu);
     screens.push_back(game);
 
     //  Main loop
