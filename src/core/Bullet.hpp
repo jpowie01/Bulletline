@@ -1,3 +1,10 @@
+/*
+ * Counter Strike 2D
+ *
+ * (c) 2016 Jakub Powierza & Karolina Olszewska
+ *
+ */
+
 #ifndef Bullet_hpp
 #define Bullet_hpp
 
@@ -10,12 +17,16 @@ class Player;
 
 class Bullet : public Circle {
 private:
-    float _directionX, _directionY;
-    float _speed;
-    Player* _player;
+    float m_directionX, m_directionY;
+    float m_speed;
+    Player* m_player;
+
 public:
+    // Constructors
     Bullet();
     Bullet(float x, float y, float directionX, float directionY, Player* player);
+    
+    // Core
     bool update(sf::Time lastFrame);
     void move(float x, float y);
     void draw(sf::RenderWindow& window);

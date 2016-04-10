@@ -1,9 +1,20 @@
+/*
+ * Counter Strike 2D
+ *
+ * (c) 2016 Jakub Powierza & Karolina Olszewska
+ *
+ */
+
 #include "LevelOne.hpp"
-#include "Obstacle.hpp"
+#include "../core/Obstacle.hpp"
+
+//================================================================================
+// Constructors
+//================================================================================
 
 LevelOne::LevelOne() {
     // Create all obstacles on map - level one
-    Obstacle* obstacle1 = new Obstacle(100, 120, 40, 100); // x, y, width, height
+    Obstacle* obstacle1 = new Obstacle(100, 120, 40, 100);
     Obstacle* obstacle2 = new Obstacle(20, 300, 100, 40); 
     Obstacle* obstacle3 = new Obstacle(240, 350, 40, 120);
     Obstacle* obstacle4 = new Obstacle(140, 450, 140, 40);

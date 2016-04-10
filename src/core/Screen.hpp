@@ -1,7 +1,7 @@
 #ifndef Screen_hpp
 #define Screen_hpp
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 class Screen {
 public:
