@@ -1,15 +1,22 @@
-#include <iostream>
+/*
+ * Counter Strike 2D
+ *
+ * (c) 2016 Jakub Powierza & Karolina Olszewska
+ *
+ */
+
 #include <cmath>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-#include "ResourcePath.hpp"
 
-#include "Obstacle.hpp"
-#include "Player.hpp"
-#include "Map.hpp"
-#include "LevelOne.hpp"
-#include "Screen.hpp"
-#include "Game.hpp"
+#include "core/Obstacle.hpp"
+#include "core/Player.hpp"
+#include "core/Map.hpp"
+#include "core/Screen.hpp"
+#include "core/Game.hpp"
+#include "levels/LevelOne.hpp"
+
+#include "helpers/ResourcePath.hpp"
 
 int main(int, char const**)
 {
@@ -33,9 +40,6 @@ int main(int, char const**)
     while (screen >= 0) {
         screen = screens[screen]->run(window);
     }
-
-    // Release memory
-    delete levelOne;
 
     // Exit game
     return EXIT_SUCCESS;

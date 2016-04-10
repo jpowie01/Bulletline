@@ -1,3 +1,10 @@
+/*
+ * Counter Strike 2D
+ *
+ * (c) 2016 Jakub Powierza & Karolina Olszewska
+ *
+ */
+
 #ifndef Player_hpp
 #define Player_hpp
 
@@ -11,18 +18,22 @@ class Map;
 
 class Player : public Circle {
 private:
-    bool _mainPlayer;
-    int _speed;
-    int _health;
-    Map* _map;
-    sf::Clock _lastShot;
+    bool m_mainPlayer;
+    int m_speed, m_health;
+    Map* m_map;
+    sf::Clock m_lastShot;
 
 public:
+    // Constuctor
     Player();
     Player(bool mainPlayer, float x, float y, Map* map);
-    bool isMainPlayer();
+
+    // Getters
     int getSpeed();
     Map* getMap();
+    bool isMainPlayer();
+    
+    // Core
     void update(int directionX, int directionY, sf::Time lastFrame);
     void update(sf::Time lastFrame);
     void move(float x, float y);
