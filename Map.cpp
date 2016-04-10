@@ -22,8 +22,22 @@ Map::Map() {
     this->_lastFrame = this->_clock.getElapsedTime();
 }
 
+Map::~Map() {
+    // Delete all obstacles
+    while (this->obstacles.size() > 0) {
+        this->obstacles.erase(this->obstacles.begin());
+    }
 
-Map::~Map() {}
+    // Delete all bullets
+    while (this->bullets.size() > 0) {
+        this->bullets.erase(this->bullets.begin());
+    }
+
+    // Delete all players
+    while (this->players.size() > 0) {
+        this->players.erase(this->players.begin());
+    }
+}
 
 void Map::addPlayer(Player* player) {
     players.push_back(player);
@@ -67,6 +81,7 @@ void Map::update() {
     for (int i = 0; i < bullets.size(); i++) {
         bool deleteBullet = bullets[i]->update(this->_lastFrame);
         if (deleteBullet) {
+            delete bullets[i];
             bullets.erase(bullets.begin() + i);
             i--;
         }

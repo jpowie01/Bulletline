@@ -16,7 +16,6 @@ private:
 public:
     Bullet();
     Bullet(float x, float y, float directionX, float directionY, Player* player);
-    ~Bullet();
     bool update(sf::Time lastFrame);
     void move(float x, float y);
     void draw(sf::RenderWindow& window);

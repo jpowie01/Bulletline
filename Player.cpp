@@ -16,8 +16,6 @@ Player::Player(bool mainPlayer, float x, float y, Map* map) : Circle(x, y, 15.0f
     this->_lastShot.restart();
 }
 
-Player::~Player() {}
-
 bool Player::isMainPlayer() {
     return this->_mainPlayer;
 }
