@@ -30,6 +30,7 @@ public:
 
     // Getters
     int getSpeed();
+    int getHealth();
     Map* getMap();
     bool isMainPlayer();
     
