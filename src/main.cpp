@@ -17,7 +17,6 @@
 #include "levels/LevelOne.hpp"
 #include "core/MainMenu.hpp"
 
-
 int main(int, char const**)
 {
     // Create screens

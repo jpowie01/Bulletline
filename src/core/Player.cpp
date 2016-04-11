@@ -35,6 +35,10 @@ int Player::getSpeed() {
     return this->m_speed;
 }
 
+int Player::getHealth() {
+    return this->m_health;
+}
+
 Map* Player::getMap() {
     return this->m_map;
 }
