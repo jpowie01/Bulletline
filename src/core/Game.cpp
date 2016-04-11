@@ -1,5 +1,12 @@
+/*
+ * Counter Strike 2D
+ *
+ * (c) 2016 Jakub Powierza & Karolina Olszewska
+ *
+ */
+
 #include "Game.hpp"
-#include "LevelOne.hpp"
+#include "../levels/LevelOne.hpp"
 #include "Player.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -8,7 +15,6 @@ Game::Game() {
 }
 
 Game::~Game() {
-
 }
 
 int Game::run(sf::RenderWindow& window) {
@@ -57,5 +63,9 @@ int Game::run(sf::RenderWindow& window) {
         // Update the window
         window.display();
     }
+
+    // Release memory
+    delete levelOne;
+
     return(-1);
 }

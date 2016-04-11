@@ -1,2 +1,13 @@
 # Plist
 *.plist
+
+# Logs
+*.log
+
+# Visual Studio
+Debug/
+Release/
+x64/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
