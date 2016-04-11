@@ -17,8 +17,6 @@
 #include "levels/LevelOne.hpp"
 #include "core/MainMenu.hpp"
 
-#include "helpers/ResourcePath.hpp"
-
 
 int main(int, char const**)
 {

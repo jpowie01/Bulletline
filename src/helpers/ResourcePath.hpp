@@ -38,6 +38,12 @@
 /// with the main bundle or an empty string is there is no bundle.
 ///
 ////////////////////////////////////////////////////////////
-std::string resourcePath(void);
+#ifdef _WIN32
+    std::string resourcePath(void) {
+        return "";
+    }
+#else
+    std::string resourcePath(void);
+#endif
 
 #endif

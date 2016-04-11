@@ -1,3 +1,10 @@
+/*
+ * Counter Strike 2D
+ *
+ * (c) 2016 Jakub Powierza & Karolina Olszewska
+ *
+ */  
+
 #ifndef Game_hpp
 #define Game_hpp
 
