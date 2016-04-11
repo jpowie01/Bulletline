@@ -13,8 +13,6 @@
 #include <SFML\Graphics.hpp>
 
 class MainMenu: public Screen {
-private:
-    bool playing;
 public:
     MainMenu();
     ~MainMenu();
