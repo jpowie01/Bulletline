@@ -9,40 +9,50 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
+#include "Definitions.hpp"
 #include "core/Obstacle.hpp"
 #include "core/Player.hpp"
 #include "core/Map.hpp"
 #include "core/Screen.hpp"
-#include "core/Game.hpp"
 #include "levels/LevelOne.hpp"
-#include "core/MainMenu.hpp"
+#include "screens/Game.hpp"
+#include "screens/MainMenu.hpp"
 
 int main(int, char const**)
 {
-    // Create screens
-    vector <Screen*> screens;
-    int screen = 0;
+    // Screens table
+    Screen* screens[NUMBER_OF_SCREENS];
+    int screenNumber = STARTING_SCREEN;
 
     // Window settings
     sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
+    settings.antialiasingLevel = ANTIALIASING_LEVEL;
 
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(1200, 680), "CS 1.5 Alpha", sf::Style::Close, settings);
+    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), GAME_TITLE, sf::Style::Close, settings);
     window.setVerticalSyncEnabled(true);
 
-    // Create Main Menu
+    // Create screens
     MainMenu* mainMenu = new MainMenu();
-    // Create Game screen
     Game* game = new Game();
 
-    // Screens preparations
-    screens.push_back(mainMenu);
-    screens.push_back(game);
+    // Add screens to table
+    screens[MAIN_MENU] = mainMenu;
+    screens[GAME] = game;
 
     //  Main loop
-    while (screen >= 0) {
-        screen = screens[screen]->run(window);
+    while (screenNumber >= 0) {
+        // Do everything before
+        screens[screenNumber]->before(window);
+        
+        // Run screen
+        int newScreenNumber = screens[screenNumber]->run(window);
+        
+        // Do everything after
+        screens[screenNumber]->after(window);
+        
+        // Change screen
+        screenNumber = newScreenNumber;
     }
 
     // Exit game

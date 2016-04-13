@@ -13,6 +13,7 @@
 #include "Player.hpp"
 #include "Obstacle.hpp"
 #include "Bullet.hpp"
+#include "../Definitions.hpp"
 
 using namespace std;
 

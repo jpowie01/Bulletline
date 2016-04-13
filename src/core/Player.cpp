@@ -14,15 +14,15 @@
 
 Player::Player() : Circle() {
     this->m_mainPlayer = false;
-    this->m_health = 100.0f;
-    this->m_speed = 150.0f;
+    this->m_health = PLAYER_HEALTH;
+    this->m_speed = PLAYER_SPEED;
     this->m_map = NULL;
 }
 
 Player::Player(bool mainPlayer, float x, float y, Map* map) : Circle(x, y, 15.0f, sf::Color::Black, 2, sf::Color::Blue) {
     this->m_mainPlayer = mainPlayer;
-    this->m_health = 100.0f;
-    this->m_speed = 150.0f;
+    this->m_health = PLAYER_HEALTH;
+    this->m_speed = PLAYER_SPEED;
     this->m_map = map;
     this->m_lastShot.restart();
 }

@@ -13,6 +13,7 @@
 #include <cmath>
 
 #include "Circle.hpp"
+#include "../Definitions.hpp"
 
 class Map;
 
