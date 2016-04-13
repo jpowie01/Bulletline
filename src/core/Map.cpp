@@ -17,10 +17,10 @@ using namespace std;
 
 Map::Map() {
     // Creating borders for map
-    Obstacle* upper = new Obstacle(0, 0, 1200, 20);
-    Obstacle* left = new Obstacle(0, 0, 20, 680);
-    Obstacle* right = new Obstacle(1180, 0, 20, 680);
-    Obstacle* lower = new Obstacle(0, 600, 1200, 80);
+    Obstacle* upper = new Obstacle(0, 0, SCREEN_WIDTH, 20);
+    Obstacle* left = new Obstacle(0, 0, 20, SCREEN_HEIGHT);
+    Obstacle* right = new Obstacle(SCREEN_WIDTH-20, 0, 20, SCREEN_HEIGHT);
+    Obstacle* lower = new Obstacle(0, SCREEN_HEIGHT-80, SCREEN_WIDTH, 80);
 
     // Adding borders
     addObstacle(upper);

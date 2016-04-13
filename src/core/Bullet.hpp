@@ -12,6 +12,7 @@
 #include <stdio.h>
 
 #include "Circle.hpp"
+#include "../Definitions.hpp"
 
 class Player;
 

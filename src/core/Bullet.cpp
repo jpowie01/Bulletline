@@ -16,14 +16,14 @@
 Bullet::Bullet() {
     this->m_directionX = 0;
     this->m_directionY = 0;
-    this->m_speed = 300;
+    this->m_speed = BULLET_SPEED;
     this->m_player = NULL;
 }
 
 Bullet::Bullet(float x, float y, float directionX, float directionY, Player* player) : Circle(x, y, 2.0f, sf::Color::Black, 1, sf::Color(255, 140, 0)) {
     this->m_directionX = directionX;
     this->m_directionY = directionY;
-    this->m_speed = 300;
+    this->m_speed = BULLET_SPEED;
     this->m_player = player;
 }
 

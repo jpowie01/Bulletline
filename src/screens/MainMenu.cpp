@@ -5,24 +5,33 @@
  *
  */
 
-#include "MainMenu.hpp"
-#include "../helpers/ResourcePath.hpp"
-
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include <SFML/Graphics.hpp>
+
+#include "MainMenu.hpp"
+#include "../Definitions.hpp"
+#include "../helpers/ResourcePath.hpp"
 
 using namespace std;
 
-MainMenu::MainMenu() {
-}
+//================================================================================
+// Contructors
+//================================================================================
 
-MainMenu::~MainMenu() {
-}
+MainMenu::MainMenu() {}
+
+MainMenu::~MainMenu() {}
+
+//================================================================================
+// Core
+//================================================================================
+
+void MainMenu::before(sf::RenderWindow &window) {}
 
 int MainMenu::run(sf::RenderWindow& window) {
 
     // Set mouse position
-    sf::Mouse::setPosition(sf::Vector2i(600, 600), window);
+    sf::Mouse::setPosition(sf::Vector2i(SCREEN_WIDTH/2, SCREEN_HEIGHT/2), window);
    
     // Load font
     sf::Font font;
@@ -35,7 +44,7 @@ int MainMenu::run(sf::RenderWindow& window) {
     sf::Text gameTitle;
     gameTitle.setColor(sf::Color::White);
     gameTitle.setCharacterSize(100);
-    gameTitle.setString("Counter Strike 2D");
+    gameTitle.setString(GAME_TITLE);
     gameTitle.setPosition(100,50);
     gameTitle.setFont(font);
 
@@ -90,14 +99,14 @@ int MainMenu::run(sf::RenderWindow& window) {
             // Play button clicked
             if (position.x >= 100 && position.x < 250 && position.y >= 200 && position.y < 280) {
                 // Play
-                return 1;
+                return GAME;
             }
             if (position.x >= 100 && position.x < 360 && position.y >= 300 && position.x < 380) {
                 // Authors 
             }
             if (position.x >= 100 && position.x < 250 && position.y >= 400 && position.x < 480) {
                 // Exit
-                return (-1);
+                return EXIT;
             }
         }
 
@@ -127,5 +136,9 @@ int MainMenu::run(sf::RenderWindow& window) {
         // Update the window
         window.display();       
     }
-    return (-1);
+    
+    // Change screen
+    return EXIT;
 }
+
+void MainMenu::after(sf::RenderWindow &window) {}
