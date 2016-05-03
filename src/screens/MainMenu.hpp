@@ -10,7 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Screen.hpp"
+#include "../core/Screen.hpp"
 #include "../Definitions.hpp"
 
 class MainMenu: public Screen {

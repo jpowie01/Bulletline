@@ -39,7 +39,7 @@
 ///
 ////////////////////////////////////////////////////////////
 #ifdef _WIN32
-    std::string resourcePath(void) {
+    inline std::string resourcePath(void) {
         return "";
     }
 #else
