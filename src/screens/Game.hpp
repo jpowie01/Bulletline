@@ -10,7 +10,12 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Screen.hpp"
+#include "../Definitions.hpp"
+#include "../core/Player.hpp"
+#include "../levels/LevelOne.hpp"
+#include "../utils/Converter.hpp"
+#include "../helpers/ResourcePath.hpp"
+#include "../core/Screen.hpp"
 
 class Game : public Screen {
 

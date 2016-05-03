@@ -9,11 +9,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "Game.hpp"
-#include "../Definitions.hpp"
-#include "../core/Player.hpp"
-#include "../levels/LevelOne.hpp"
-#include "../utils/Converter.hpp"
-#include "../helpers/ResourcePath.hpp"
 
 //================================================================================
 // Contructors
@@ -32,7 +27,7 @@ void Game::before(sf::RenderWindow &window) {
     sf::Font arial;
     if (!arial.loadFromFile(resourcePath() + "/assets/fonts/Arial.ttf")) {
         printf("Error loading font (Arial.ttf)!\n");
-        return -1;
+        return;
     }
     
     // '3' text
