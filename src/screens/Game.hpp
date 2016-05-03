@@ -9,6 +9,7 @@
 #define Game_hpp
 
 #include <SFML/Graphics.hpp>
+#include <sstream>
 
 #include "../Definitions.hpp"
 #include "../core/Player.hpp"

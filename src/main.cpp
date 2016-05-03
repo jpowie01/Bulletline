@@ -17,6 +17,7 @@
 #include "levels/LevelOne.hpp"
 #include "screens/Game.hpp"
 #include "screens/MainMenu.hpp"
+#include "screens/AuthorsMenu.hpp"
 
 int main(int, char const**)
 {
@@ -35,10 +36,12 @@ int main(int, char const**)
     // Create screens
     MainMenu* mainMenu = new MainMenu();
     Game* game = new Game();
+    AuthorsMenu* authorsMenu = new AuthorsMenu();
 
     // Add screens to table
     screens[MAIN_MENU] = mainMenu;
     screens[GAME] = game;
+    screens[AUTHORS_MENU] = authorsMenu;
 
     //  Main loop
     while (screenNumber >= 0) {
