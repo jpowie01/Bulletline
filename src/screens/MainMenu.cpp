@@ -5,12 +5,7 @@
  *
  */
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
-
 #include "MainMenu.hpp"
-#include "../Definitions.hpp"
-#include "../helpers/ResourcePath.hpp"
 
 using namespace std;
 
@@ -29,9 +24,6 @@ MainMenu::~MainMenu() {}
 void MainMenu::before(sf::RenderWindow &window) {}
 
 int MainMenu::run(sf::RenderWindow& window) {
-
-    // Set mouse position
-    sf::Mouse::setPosition(sf::Vector2i(SCREEN_WIDTH/2, SCREEN_HEIGHT/2), window);
    
     // Load font
     sf::Font font;
@@ -72,7 +64,7 @@ int MainMenu::run(sf::RenderWindow& window) {
     
     while (window.isOpen()) {
 
-        // Back to normal font size when menu option is not choosed
+        // Normal font size when menu option is not choosed
         playButton.setCharacterSize(70);
         authorsButton.setCharacterSize(70);
         exitButton.setCharacterSize(70);
@@ -103,6 +95,7 @@ int MainMenu::run(sf::RenderWindow& window) {
             }
             if (position.x >= 100 && position.x < 360 && position.y >= 300 && position.x < 380) {
                 // Authors 
+                return AUTHORS_MENU;
             }
             if (position.x >= 100 && position.x < 250 && position.y >= 400 && position.x < 480) {
                 // Exit

@@ -13,6 +13,8 @@
 
 // Core definitions
 #define GAME_TITLE          "Counter Strike 2D"
+#define AUTHOR_1            "Jakub Powierza"
+#define AUTHOR_2            "Karolina Olszewska"
 #define SCREEN_WIDTH        1200
 #define SCREEN_HEIGHT       680
 
@@ -26,10 +28,11 @@
 #define BULLET_SPEED        300
 
 // Screens
-#define NUMBER_OF_SCREENS   2
+#define NUMBER_OF_SCREENS   3
 #define EXIT                -1
 #define MAIN_MENU           0
 #define GAME                1
+#define AUTHORS_MENU        2
 
 #define STARTING_SCREEN     MAIN_MENU
 

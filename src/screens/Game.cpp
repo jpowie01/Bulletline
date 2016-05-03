@@ -5,9 +5,6 @@
  *
  */
 
-#include <sstream>
-#include <SFML/Graphics.hpp>
-
 #include "Game.hpp"
 
 //================================================================================
@@ -25,7 +22,7 @@ Game::~Game() {}
 void Game::before(sf::RenderWindow &window) {
     // Load font
     sf::Font arial;
-    if (!arial.loadFromFile(resourcePath() + "/assets/fonts/Arial.ttf")) {
+    if (!arial.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
         printf("Error loading font (Arial.ttf)!\n");
         return;
     }
@@ -106,14 +103,14 @@ int Game::run(sf::RenderWindow& window) {
     
     // Load font
     sf::Font arial;
-    if (!arial.loadFromFile(resourcePath() + "/assets/fonts/Arial.ttf")) {
+    if (!arial.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
         printf("Error loading font (Arial.ttf)!\n");
         return -1;
     }
     
     // Heart sprite
     sf::Texture heartTexture;
-    if (!heartTexture.loadFromFile(resourcePath() + "/assets/images/heart.png")) {
+    if (!heartTexture.loadFromFile(resourcePath() + "assets/images/heart.png")) {
         printf("Error loading heart texture (heart.png)!\n");
         return -1;
     }

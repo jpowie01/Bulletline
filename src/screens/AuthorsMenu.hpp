@@ -1,12 +1,12 @@
 /*
- * Counter Strike 2D
- *
- * (c) 2016 Jakub Powierza & Karolina Olszewska
- *
- */
+* Counter Strike 2D
+*
+* (c) 2016 Jakub Powierza & Karolina Olszewska
+*
+*/
 
-#ifndef MainMenu_hpp
-#define MainMenu_hpp
+#ifndef AuthorsMenu_hpp
+#define AuthorsMenu_hpp
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -15,12 +15,12 @@
 #include "../helpers/ResourcePath.hpp"
 #include "../core/Screen.hpp"
 
-class MainMenu: public Screen {
+class AuthorsMenu : public Screen {
 public:
     // Constructors
-    MainMenu();
-    ~MainMenu();
-    
+    AuthorsMenu();
+    ~AuthorsMenu();
+
     // Core
     void before(sf::RenderWindow &window);
     int run(sf::RenderWindow &window);
