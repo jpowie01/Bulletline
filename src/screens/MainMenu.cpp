@@ -33,12 +33,7 @@ int MainMenu::run(sf::RenderWindow& window) {
     }
 
     // Create Game Title
-    sf::Text gameTitle;
-    gameTitle.setColor(sf::Color::White);
-    gameTitle.setCharacterSize(100);
-    gameTitle.setString(GAME_TITLE);
-    gameTitle.setPosition(100,50);
-    gameTitle.setFont(font);
+    Label* gameTitle = new Label(GAME_TITLE, 100, 100, 50, sf::Color::White);
 
     // Create Menu Options
     Button* playButton = new Button("Play", 70, 90, 100, 200, sf::Color::White);
@@ -85,7 +80,7 @@ int MainMenu::run(sf::RenderWindow& window) {
         window.clear(sf::Color::Black);
 
         // Draw 
-        window.draw(gameTitle);
+        gameTitle->draw(window);
         playButton->draw(window);
         authorsButton->draw(window);
         exitButton->draw(window);
