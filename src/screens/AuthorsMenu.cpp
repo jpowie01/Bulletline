@@ -24,6 +24,15 @@ AuthorsMenu::~AuthorsMenu() {}
 void AuthorsMenu::before(sf::RenderWindow &window) {}
 
 int AuthorsMenu::run(sf::RenderWindow &window) {
+    // Load background
+    sf::Texture texture;
+    if (!texture.loadFromFile("assets/images/defaultbackground.jpg")) {
+        return (-1);
+    }
+
+    // Creating background
+    sf::Sprite background(texture);
+    background.setPosition(0, 0);
 
     // Load font
     sf::Font font;
@@ -33,11 +42,11 @@ int AuthorsMenu::run(sf::RenderWindow &window) {
     }
 
     // Create Menu Title
-    Label* authorsMenuTitle = new Label("Authors", 100, 100, 50, sf::Color::White);
+    Label* authorsMenuTitle = new Label("Authors", 100, 450, 50, sf::Color::White);
 
     // Authors names
-    Label* author1 = new Label(AUTHOR_1, 80, 100, 200, sf::Color::White);
-    Label* author2 = new Label(AUTHOR_2, 80, 100, 300, sf::Color::White);
+    Label* author1 = new Label(AUTHOR_1, 80, 400, 200, sf::Color::White);
+    Label* author2 = new Label(AUTHOR_2, 80, 340, 300, sf::Color::White);
 
     // Back button
     Button* backButton = new Button("Back", 70, 80, 50, 580, sf::Color::White);
@@ -74,6 +83,7 @@ int AuthorsMenu::run(sf::RenderWindow &window) {
         window.clear(sf::Color::Black);
 
         // Draw
+        window.draw(background);
         authorsMenuTitle->draw(window);
         author1->draw(window);
         author2->draw(window);
