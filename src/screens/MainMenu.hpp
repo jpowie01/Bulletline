@@ -15,6 +15,7 @@
 #include "../helpers/ResourcePath.hpp"
 #include "../core/Screen.hpp"
 #include "../utils/Button.hpp"
+#include "../utils/Label.hpp"
 
 class MainMenu: public Screen {
 public:

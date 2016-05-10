@@ -33,27 +33,11 @@ int AuthorsMenu::run(sf::RenderWindow &window) {
     }
 
     // Create Menu Title
-    sf::Text authorsTitle;
-    authorsTitle.setColor(sf::Color::White);
-    authorsTitle.setCharacterSize(100);
-    authorsTitle.setString("Authors");
-    authorsTitle.setPosition(100, 50);
-    authorsTitle.setFont(font);
+    Label* authorsMenuTitle = new Label("Authors", 100, 100, 50, sf::Color::White);
 
     // Authors names
-    sf::Text author1;
-    author1.setColor(sf::Color::White);
-    author1.setCharacterSize(80);
-    author1.setString(AUTHOR_1);
-    author1.setPosition(100, 200);
-    author1.setFont(font);
-
-    sf::Text author2;
-    author2.setColor(sf::Color::White);
-    author2.setCharacterSize(80);
-    author2.setString(AUTHOR_2);
-    author2.setPosition(100, 300);
-    author2.setFont(font);
+    Label* author1 = new Label(AUTHOR_1, 80, 100, 200, sf::Color::White);
+    Label* author2 = new Label(AUTHOR_2, 80, 100, 300, sf::Color::White);
 
     // Back button
     Button* backButton = new Button("Back", 70, 80, 50, 580, sf::Color::White);
@@ -90,9 +74,9 @@ int AuthorsMenu::run(sf::RenderWindow &window) {
         window.clear(sf::Color::Black);
 
         // Draw
-        window.draw(authorsTitle);
-        window.draw(author1);
-        window.draw(author2);
+        authorsMenuTitle->draw(window);
+        author1->draw(window);
+        author2->draw(window);
         backButton->draw(window);
 
         // Update the window
