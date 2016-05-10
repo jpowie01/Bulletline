@@ -20,8 +20,8 @@ Label::Label() {
     this->m_color = sf::Color::White;
 
     // Load font
-    if (!m_font.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
-        printf("Failed to load font file (Arial.ttf)");
+    if (!m_font.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
+        printf("Failed to load font file (BebasNeue.otf)");
         return;
     }
 
@@ -41,8 +41,8 @@ Label::Label(string text, int fontSize, int positionX, int positionY, sf::Color 
     this->m_color = color;
 
     // Load font
-    if (!m_font.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
-        printf("Failed to load font file (Arial.ttf)");
+    if (!m_font.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
+        printf("Failed to load font file (BebasNeue.otf)");
         return;
     }
 

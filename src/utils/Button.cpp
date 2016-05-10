@@ -43,8 +43,8 @@ Button::Button(string text, int normalfontSize, int largerFontSize, int position
     this->m_color = color;
 
     // Load font
-    if (!m_font.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
-        printf("Failed to load font file (Arial.ttf)");
+    if (!m_font.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
+        printf("Failed to load font file (BebasNeue.otf)");
         return;
     }
 
@@ -63,12 +63,12 @@ Button::Button(string text, int normalfontSize, int largerFontSize, int position
 bool Button::cursorInRange(sf::Vector2i position, int coordinateX1, int coordinateX2, int coordinateY1, int coordinateY2) {
     if (position.x >= coordinateX1 && position.x < coordinateX2 &&
         position.y >= coordinateY1 && position.y < coordinateY2) {
-        // Changing the size of button font if cursor is in range
-        m_button.setCharacterSize(m_largerFontSize);
+        // Changing the color of button font if cursor is in range
+        m_button.setColor(sf::Color::Red);
         return true;
     }
-    // Setting size back to normal
-    m_button.setCharacterSize(m_normalFontSize);
+    // Setting color back to normal
+    m_button.setColor(sf::Color::White);
     return false;
 }
 
