@@ -41,34 +41,11 @@ int MainMenu::run(sf::RenderWindow& window) {
     gameTitle.setFont(font);
 
     // Create Menu Options
-    sf::Text playButton;
-    playButton.setColor(sf::Color::White);
-    playButton.setCharacterSize(70);
-    playButton.setString("Play");
-    playButton.setPosition(100, 200);
-    playButton.setFont(font);
-
-    sf::Text authorsButton;
-    authorsButton.setColor(sf::Color::White);
-    authorsButton.setCharacterSize(70);
-    authorsButton.setString("Authors");
-    authorsButton.setPosition(100, 300);
-    authorsButton.setFont(font);
-
-    sf::Text exitButton;
-    exitButton.setColor(sf::Color::White);
-    exitButton.setCharacterSize(70);
-    exitButton.setString("Exit");
-    exitButton.setPosition(100, 400);
-    exitButton.setFont(font);
+    Button* playButton = new Button("Play", 70, 90, 100, 200, sf::Color::White);
+    Button* authorsButton = new Button("Authors", 70, 90, 100, 300, sf::Color::White);
+    Button* exitButton = new Button("Exit", 70, 90, 100, 400, sf::Color::White);
     
     while (window.isOpen()) {
-
-        // Normal font size when menu option is not choosed
-        playButton.setCharacterSize(70);
-        authorsButton.setCharacterSize(70);
-        exitButton.setCharacterSize(70);
-
         // Position of mouse
         sf::Vector2i position = sf::Mouse::getPosition(window);
 
@@ -86,45 +63,32 @@ int MainMenu::run(sf::RenderWindow& window) {
             }
         }
 
-        // Mouse Button pressed
+        // Mouse Button pressed and cursor was in range of the button
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            // Play button clicked
-            if (position.x >= 100 && position.x < 250 && position.y >= 200 && position.y < 280) {
-                // Play
+            if (playButton->cursorInRange(position, 100, 250, 200, 280) == true) {
                 return GAME;
             }
-            if (position.x >= 100 && position.x < 360 && position.y >= 300 && position.x < 380) {
-                // Authors 
+            if (authorsButton->cursorInRange(position, 100, 360, 300, 380) == true) {
                 return AUTHORS_MENU;
             }
-            if (position.x >= 100 && position.x < 250 && position.y >= 400 && position.x < 480) {
-                // Exit
+            if (exitButton->cursorInRange(position, 100, 250, 400, 480) == true) {
                 return EXIT;
             }
+        } else {
+            // Changing the size of the button if cursor is in range
+            playButton->cursorInRange(position, 100, 250, 200, 280);
+            authorsButton->cursorInRange(position, 100, 360, 300, 380);
+            exitButton->cursorInRange(position, 100, 250, 400, 480);
         }
-
+   
         // Clear screen
         window.clear(sf::Color::Black);
 
-        // Changing the size of the choosed menu option
-        if (position.x >= 100 && position.x < 250 &&
-            position.y >= 200 && position.y < 280) {
-            playButton.setCharacterSize(90);
-        }
-        if (position.x >= 100 && position.x < 360 &&
-            position.y >= 300 && position.y < 380) {
-            authorsButton.setCharacterSize(90);
-        }
-        if (position.x >= 100 && position.x < 250 &&
-            position.y >= 400 && position.y < 480) {
-            exitButton.setCharacterSize(90);
-        }
-
         // Draw 
         window.draw(gameTitle);
-        window.draw(playButton);
-        window.draw(authorsButton);
-        window.draw(exitButton);
+        playButton->draw(window);
+        authorsButton->draw(window);
+        exitButton->draw(window);
         
         // Update the window
         window.display();       

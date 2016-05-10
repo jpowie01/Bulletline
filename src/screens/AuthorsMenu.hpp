@@ -14,6 +14,7 @@
 #include "../Definitions.hpp"
 #include "../helpers/ResourcePath.hpp"
 #include "../core/Screen.hpp"
+#include "../utils/Button.hpp"
 
 class AuthorsMenu : public Screen {
 public:
