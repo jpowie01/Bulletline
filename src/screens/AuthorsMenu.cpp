@@ -56,18 +56,9 @@ int AuthorsMenu::run(sf::RenderWindow &window) {
     author2.setFont(font);
 
     // Back button
-    sf::Text backButton;
-    backButton.setColor(sf::Color::White);
-    backButton.setCharacterSize(70);
-    backButton.setString("Back");
-    backButton.setPosition(50, 580);
-    backButton.setFont(font);
+    Button* backButton = new Button("Back", 70, 80, 50, 580, sf::Color::White);
 
     while (window.isOpen()) {
-
-        // Normal font size when menu option is not choosed
-        backButton.setCharacterSize(70);
-
         // Position of mouse
         sf::Vector2i position = sf::Mouse::getPosition(window);
 
@@ -85,28 +76,24 @@ int AuthorsMenu::run(sf::RenderWindow &window) {
             }
         }
 
-        // Mouse button pressed
+        // Mouse Button pressed and cursor was in range of the button
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            // Back button clicked
-            if (position.x >= 50 && position.x <= 210 && position.y >= 580 && position.y < 660) {
-                // Back to main menu
+            if (backButton->cursorInRange(position, 50, 210, 580, 660) == true) {
                 return MAIN_MENU;
             }
+        } else {
+            // Changing the size of the button if cursor is in range
+            backButton->cursorInRange(position, 50, 210, 580, 660);
         }
 
         // Clear screen
         window.clear(sf::Color::Black);
 
-        // Changing the size of the back button
-        if (position.x >= 50 && position.x <= 210 && position.y >= 580 & position.y < 660) {
-            backButton.setCharacterSize(90);
-        }
-
         // Draw
         window.draw(authorsTitle);
         window.draw(author1);
         window.draw(author2);
-        window.draw(backButton);
+        backButton->draw(window);
 
         // Update the window
         window.display();
