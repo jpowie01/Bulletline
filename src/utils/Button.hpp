@@ -9,7 +9,8 @@
 #define Button_hpp
 
 #include <iostream>
-#include <SFML/Graphics.hpp>\
+#include <SFML/Graphics.hpp>
+#include "../Definitions.hpp"
 
 using namespace std;
 
@@ -18,8 +19,8 @@ private:
     string m_text;
     int m_normalFontSize;
     int m_largerFontSize;
-    int m_positionX;
-    int m_positionY;
+    float m_positionX;
+    float m_positionY;
     sf::Color m_color;
     sf::Font m_font;
     sf::Text m_button;
@@ -27,11 +28,13 @@ private:
 public:
     // Constructors
     Button();
-    Button(string text, int normalfontSize, int largerFontSize, int positionX, int positionY, sf::Color color);
+    Button(string text, int normalfontSize, int largerFontSize, float positionX, float positionY);
 
     // Core
-    bool cursorInRange(sf::Vector2i position, int coordinateX1, int coordinateX2, int coordinateY1, int coordinateY2);
+    bool cursorInRange(sf::Vector2i position);
     void draw(sf::RenderWindow& window);
+    void changeColor(sf::Color color);
+    void setDefaultColor();
 };
 
 #endif

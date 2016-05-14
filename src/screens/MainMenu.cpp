@@ -42,12 +42,12 @@ int MainMenu::run(sf::RenderWindow& window) {
     }
 
     // Create Game Title
-    Label* gameTitle = new Label(GAME_TITLE, 100, 300, 50, sf::Color::White);
+    Label* gameTitle = new Label(GAME_TITLE, 100, 300, 50);
 
     // Create Menu Options
-    Button* playButton = new Button("Play", 70, 90, 535, 200, sf::Color::White);
-    Button* authorsButton = new Button("Authors", 70, 90, 485, 300, sf::Color::White);
-    Button* exitButton = new Button("Exit", 70, 90, 535, 400, sf::Color::White);
+    Button* playButton = new Button("Play", 70, 90, 535, 200);
+    Button* authorsButton = new Button("Authors", 70, 90, 485, 300);
+    Button* exitButton = new Button("Exit", 70, 90, 535, 400);
     
     while (window.isOpen()) {
         // Position of mouse
@@ -69,20 +69,36 @@ int MainMenu::run(sf::RenderWindow& window) {
 
         // Mouse Button pressed and cursor was in range of the button
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if (playButton->cursorInRange(position, 535, 685, 200, 280) == true) {
+            if (playButton->cursorInRange(position) == true) {
                 return GAME;
             }
-            if (authorsButton->cursorInRange(position, 485, 645, 300, 380) == true) {
+            if (authorsButton->cursorInRange(position) == true) {
                 return AUTHORS_MENU;
             }
-            if (exitButton->cursorInRange(position, 535, 685, 400, 480) == true) {
+            if (exitButton->cursorInRange(position) == true) {
                 return EXIT;
             }
-        } else {
+        }
+        else {
             // Changing the color of the button if cursor is in range
-            playButton->cursorInRange(position, 535, 685, 200, 280);
-            authorsButton->cursorInRange(position, 485, 645, 300, 380);
-            exitButton->cursorInRange(position, 535, 685, 400, 480);
+            if (playButton->cursorInRange(position) == true) {
+                playButton->changeColor(sf::Color::Red);
+            }
+            else {
+                playButton->setDefaultColor();
+            }
+            if (authorsButton->cursorInRange(position) == true) {
+                authorsButton->changeColor(sf::Color::Red);
+            }
+            else {
+                authorsButton->setDefaultColor();
+            }
+            if (exitButton->cursorInRange(position) == true) {
+                exitButton->changeColor(sf::Color::Red);
+            }
+            else {
+                exitButton->setDefaultColor();
+            }
         }
    
         // Clear screen
@@ -104,3 +120,4 @@ int MainMenu::run(sf::RenderWindow& window) {
 }
 
 void MainMenu::after(sf::RenderWindow &window) {}
+

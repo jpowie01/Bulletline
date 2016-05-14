@@ -17,6 +17,7 @@
 #include "../utils/Converter.hpp"
 #include "../helpers/ResourcePath.hpp"
 #include "../core/Screen.hpp"
+#include "../utils/Label.hpp"
 
 class Game : public Screen {
 

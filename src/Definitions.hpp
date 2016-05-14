@@ -27,6 +27,12 @@
 // Bullet settings
 #define BULLET_SPEED        300
 
+// Button settings
+#define DEFAULT_BUTTON_COLOR  sf::Color::White
+
+// Label settings
+#define DEFAULT_LABEL_COLOR  sf::Color::White
+
 // Screens
 #define NUMBER_OF_SCREENS   3
 #define EXIT                -1
