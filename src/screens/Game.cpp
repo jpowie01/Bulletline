@@ -126,11 +126,6 @@ int Game::run(sf::RenderWindow& window) {
     
     // Health text
     Label* healthText = new Label(Converter::int2string(player->getHealth()), 36, 80, 618);
-    /*sf::Text healthText;
-    healthText.setString(Converter::int2string(player->getHealth()));
-    healthText.setFont(arial);
-    healthText.setPosition(80, 618);
-    healthText.setCharacterSize(36);*/
 
     // Start the game loop
     while (window.isOpen())

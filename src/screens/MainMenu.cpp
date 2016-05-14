@@ -32,7 +32,6 @@ int MainMenu::run(sf::RenderWindow& window) {
 
     // Creating background
     sf::Sprite background(texture);
-    background.setPosition(0, 0);
 
     // Load font
     sf::Font font;
