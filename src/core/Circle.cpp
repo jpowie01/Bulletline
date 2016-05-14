@@ -17,7 +17,7 @@ Circle::Circle() {
     this->m_radius = 0.0f;
 }
 
-Circle::Circle(float x, float y, float radius, sf::Color outlineColor, int outlineThickness, sf::Color fillColor) {
+Circle::Circle(float x, float y, float radius, sf::Color outlineColor, float outlineThickness, sf::Color fillColor) {
     this->m_x = x - radius;
     this->m_y = y - radius;
     this->m_radius = radius;

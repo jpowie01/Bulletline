@@ -20,7 +20,7 @@ protected:
 public:
     // Constructors
     Circle();
-    Circle(float x, float y, float radius, sf::Color outlineColor, int outlineThickness, sf::Color fillColor);
+    Circle(float x, float y, float radius, sf::Color outlineColor, float outlineThickness, sf::Color fillColor);
 
     // Getters
     float getX();

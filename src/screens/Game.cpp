@@ -20,48 +20,55 @@ Game::~Game() {}
 //================================================================================
 
 void Game::before(sf::RenderWindow &window) {
+    // Load background
+    sf::Texture texture;
+    if (!texture.loadFromFile("assets/images/defaultbackground.jpg")) {
+        printf("Error loading image (defaultbackground.jpg)!\n");
+        return;
+    }
+
+    // Creating background
+    sf::Sprite background(texture);
+    background.setPosition(0, 0);
+
     // Load font
     sf::Font arial;
-    if (!arial.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
-        printf("Error loading font (Arial.ttf)!\n");
+    if (!arial.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
+        printf("Error loading font (BebasNeue.otf)!\n");
         return;
     }
     
     // '3' text
-    sf::Text threeText;
-    threeText.setString("3");
-    threeText.setFont(arial);
-    threeText.setCharacterSize(64);
-    threeText.setPosition((SCREEN_WIDTH - threeText.getLocalBounds().width)/2, (SCREEN_HEIGHT - threeText.getLocalBounds().height)/2);
+    Label* threeText = new Label("3", 64, 0, 0);
+    float threeWidth = threeText->getWidth();
+    float threeHeight = threeText->getHeight();
+    threeText->setPosition(((SCREEN_WIDTH - threeWidth) / 2), (SCREEN_HEIGHT - threeHeight) / 2);
     
     // '2' text
-    sf::Text twoText;
-    twoText.setString("2");
-    twoText.setFont(arial);
-    twoText.setCharacterSize(84);
-    twoText.setPosition((SCREEN_WIDTH - twoText.getLocalBounds().width)/2, (SCREEN_HEIGHT - twoText.getLocalBounds().height)/2);
+    Label* twoText = new Label("2", 84, 0, 0);
+    float twoWidth = twoText->getWidth();
+    float twoHeight = twoText->getHeight();
+    twoText->setPosition(((SCREEN_WIDTH - twoWidth) / 2), (SCREEN_HEIGHT - twoHeight) / 2);
     
     // '1' text
-    sf::Text oneText;
-    oneText.setString("1");
-    oneText.setFont(arial);
-    oneText.setCharacterSize(104);
-    oneText.setPosition((SCREEN_WIDTH - oneText.getLocalBounds().width)/2, (SCREEN_HEIGHT - oneText.getLocalBounds().height)/2);
+    Label* oneText = new Label("1", 104, 0, 0);
+    float oneWidth = oneText->getWidth();
+    float oneHeight = oneText->getHeight();
+    oneText->setPosition(((SCREEN_WIDTH - oneWidth) / 2), (SCREEN_HEIGHT - oneHeight) / 2);
     
     // 'START' text
-    sf::Text startText;
-    startText.setString("START!");
-    startText.setFont(arial);
-    startText.setCharacterSize(124);
-    startText.setPosition((SCREEN_WIDTH - startText.getLocalBounds().width)/2, (SCREEN_HEIGHT - startText.getLocalBounds().height)/2);
-    
+    Label* startText = new Label("START!", 124, 0, 0);
+    float startWidth = startText->getWidth();
+    float startHeight = startText->getHeight();
+    startText->setPosition(((SCREEN_WIDTH - startWidth) / 2), (SCREEN_HEIGHT - startHeight) / 2);
+
     // Prepare clock
     sf::Clock clock;
     
     // Print '3'
     while (clock.getElapsedTime().asSeconds() < 1.0f) {
         window.clear(sf::Color::Black);
-        window.draw(threeText);
+        threeText->draw(window);
         window.display();
     }
     clock.restart();
@@ -69,7 +76,7 @@ void Game::before(sf::RenderWindow &window) {
     // Print '2'
     while (clock.getElapsedTime().asSeconds() < 1.0f) {
         window.clear(sf::Color::Black);
-        window.draw(twoText);
+        twoText->draw(window);
         window.display();
     }
     clock.restart();
@@ -77,7 +84,7 @@ void Game::before(sf::RenderWindow &window) {
     // Print '1'
     while (clock.getElapsedTime().asSeconds() < 1.0f) {
         window.clear(sf::Color::Black);
-        window.draw(oneText);
+        oneText->draw(window);
         window.display();
     }
     clock.restart();
@@ -85,7 +92,7 @@ void Game::before(sf::RenderWindow &window) {
     // Print 'START'
     while (clock.getElapsedTime().asSeconds() < 1.0f) {
         window.clear(sf::Color::Black);
-        window.draw(startText);
+        startText->draw(window);
         window.display();
     }
     clock.restart();
@@ -118,11 +125,7 @@ int Game::run(sf::RenderWindow& window) {
     heartSprite.setPosition(30, 620);
     
     // Health text
-    sf::Text healthText;
-    healthText.setString(Converter::int2string(player->getHealth()));
-    healthText.setFont(arial);
-    healthText.setPosition(80, 618);
-    healthText.setCharacterSize(36);
+    Label* healthText = new Label(Converter::int2string(player->getHealth()), 36, 80, 618);
 
     // Start the game loop
     while (window.isOpen())
@@ -144,14 +147,14 @@ int Game::run(sf::RenderWindow& window) {
 
         // Player shooting
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            player->shot(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+            player->shot((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y);
         }
 
         // Update the whole map
         levelOne->update();
         
         // Update GUI
-        healthText.setString(Converter::int2string(player->getHealth()));
+        healthText->setString(Converter::int2string(player->getHealth()));
 
         // Clear screen
         window.clear(sf::Color::White);
@@ -161,7 +164,7 @@ int Game::run(sf::RenderWindow& window) {
         
         // Draw GUI
         window.draw(heartSprite);
-        window.draw(healthText);
+        healthText->draw(window);
 
         // Update the window
         window.display();

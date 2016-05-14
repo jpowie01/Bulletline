@@ -41,7 +41,7 @@ Obstacle::Obstacle(float x, float y, float width, float height) {
 bool Obstacle::checkCollision(Circle* circle) {
     float x = circle->getX();
     float y = circle->getY();
-    int r = circle->getRadius();
+    float r = circle->getRadius();
 
     float distanceX = fabs(x - this->m_width/2 - this->m_x + r);
     float distanceY = fabs(y - this->m_height/2 - this->m_y + r);

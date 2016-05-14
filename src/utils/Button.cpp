@@ -18,7 +18,7 @@ Button::Button() {
     this->m_largerFontSize = 0;
     this->m_positionX = 0;
     this->m_positionY = 0;
-    this->m_color = sf::Color::White;
+    this->m_color = DEFAULT_BUTTON_COLOR;
 
     // Load font
     if (!m_font.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
@@ -34,13 +34,13 @@ Button::Button() {
     m_button.setColor(this->m_color);
 }
 
-Button::Button(string text, int normalfontSize, int largerFontSize, int positionX, int positionY, sf::Color color) {
+Button::Button(string text, int normalfontSize, int largerFontSize, float positionX, float positionY) {
     this->m_text = text;
     this->m_normalFontSize = normalfontSize;
     this->m_largerFontSize = largerFontSize;
     this->m_positionX = positionX;
     this->m_positionY = positionY;
-    this->m_color = color;
+    this->m_color = DEFAULT_BUTTON_COLOR;
 
     // Load font
     if (!m_font.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
@@ -60,18 +60,25 @@ Button::Button(string text, int normalfontSize, int largerFontSize, int position
 // Core
 //================================================================================
 
-bool Button::cursorInRange(sf::Vector2i position, int coordinateX1, int coordinateX2, int coordinateY1, int coordinateY2) {
-    if (position.x >= coordinateX1 && position.x < coordinateX2 &&
-        position.y >= coordinateY1 && position.y < coordinateY2) {
-        // Changing the color of button font if cursor is in range
-        m_button.setColor(sf::Color::Red);
+bool Button::cursorInRange(sf::Vector2i position) {
+    float width = this->m_button.getGlobalBounds().width;
+    float height = this->m_button.getGlobalBounds().height;
+
+    if (position.x >= this->m_positionX && position.x < width + this->m_positionX &&
+        position.y >= this->m_positionY && position.y < height + this->m_positionY) {
         return true;
     }
-    // Setting color back to normal
-    m_button.setColor(sf::Color::White);
     return false;
 }
 
 void Button::draw(sf::RenderWindow& window) {
     window.draw(m_button);
+}
+
+void Button::changeColor(sf::Color color) {
+    this->m_button.setColor(color);
+}
+
+void Button::setDefaultColor() {
+    this->m_button.setColor(DEFAULT_BUTTON_COLOR);
 }

@@ -36,20 +36,20 @@ int AuthorsMenu::run(sf::RenderWindow &window) {
 
     // Load font
     sf::Font font;
-    if (!font.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
-        printf("Failed to load font file (Arial.ttf)");
+    if (!font.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
+        printf("Failed to load font file (BebasNeue.ttf)");
         return (-1);
     }
 
     // Create Menu Title
-    Label* authorsMenuTitle = new Label("Authors", 100, 450, 50, sf::Color::White);
+    Label* authorsMenuTitle = new Label("Authors", 100, 450, 50);
 
     // Authors names
-    Label* author1 = new Label(AUTHOR_1, 80, 400, 200, sf::Color::White);
-    Label* author2 = new Label(AUTHOR_2, 80, 340, 300, sf::Color::White);
+    Label* author1 = new Label(AUTHOR_1, 80, 400, 200);
+    Label* author2 = new Label(AUTHOR_2, 80, 340, 300);
 
     // Back button
-    Button* backButton = new Button("Back", 70, 80, 50, 580, sf::Color::White);
+    Button* backButton = new Button("Back", 70, 80, 50, 580);
 
     while (window.isOpen()) {
         // Position of mouse
@@ -71,12 +71,16 @@ int AuthorsMenu::run(sf::RenderWindow &window) {
 
         // Mouse Button pressed and cursor was in range of the button
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if (backButton->cursorInRange(position, 50, 210, 580, 660) == true) {
+            if (backButton->cursorInRange(position) == true) {
                 return MAIN_MENU;
             }
         } else {
             // Changing the size of the button if cursor is in range
-            backButton->cursorInRange(position, 50, 210, 580, 660);
+            if (backButton->cursorInRange(position) == true) {
+                backButton->changeColor(sf::Color::Red);
+            } else {
+                backButton->setDefaultColor();
+            }
         }
 
         // Clear screen
