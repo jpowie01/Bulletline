@@ -34,7 +34,7 @@
 #define DEFAULT_LABEL_COLOR  sf::Color::White
 
 // Network connection (temporary until there won't be menu for that)
-#define SERVER_HOST         "192.168.0.12"
+#define SERVER_HOST         "127.0.0.1"
 #define SERVER_PORT         54000
 
 // Network headers
