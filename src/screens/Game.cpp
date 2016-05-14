@@ -19,10 +19,17 @@ Game::~Game() {}
 // Core
 //================================================================================
 
-void Game::before(sf::RenderWindow &window) {
+void Game::before(sf::RenderWindow &window, CommonData* commonData) {
+    // Create server connection
+    commonData->server = new Connection(SERVER_HOST, SERVER_PORT, commonData);
+
+    // Prepare server connection thread
+    commonData->serverThread = new sf::Thread(&Connection::run, commonData->server);
+    commonData->serverThread->launch();
+
     // Load background
     sf::Texture texture;
-    if (!texture.loadFromFile("assets/images/defaultbackground.jpg")) {
+    if (!texture.loadFromFile(resourcePath() + "assets/images/defaultbackground.jpg")) {
         printf("Error loading image (defaultbackground.jpg)!\n");
         return;
     }
@@ -39,28 +46,28 @@ void Game::before(sf::RenderWindow &window) {
     }
     
     // '3' text
-    Label* threeText = new Label("3", 64, 0, 0);
+    Label* threeText = new Label("3", 64, 0, 0, commonData);
     float threeWidth = threeText->getWidth();
     float threeHeight = threeText->getHeight();
-    threeText->setPosition(((SCREEN_WIDTH - threeWidth) / 2), (SCREEN_HEIGHT - threeHeight) / 2);
+    threeText->setPosition((int)((SCREEN_WIDTH - threeWidth) / 2), (int)(SCREEN_HEIGHT - threeHeight) / 2);
     
     // '2' text
-    Label* twoText = new Label("2", 84, 0, 0);
+    Label* twoText = new Label("2", 84, 0, 0, commonData);
     float twoWidth = twoText->getWidth();
     float twoHeight = twoText->getHeight();
-    twoText->setPosition(((SCREEN_WIDTH - twoWidth) / 2), (SCREEN_HEIGHT - twoHeight) / 2);
+    twoText->setPosition((int)((SCREEN_WIDTH - twoWidth) / 2), (int)(SCREEN_HEIGHT - twoHeight) / 2);
     
     // '1' text
-    Label* oneText = new Label("1", 104, 0, 0);
+    Label* oneText = new Label("1", 104, 0, 0, commonData);
     float oneWidth = oneText->getWidth();
     float oneHeight = oneText->getHeight();
-    oneText->setPosition(((SCREEN_WIDTH - oneWidth) / 2), (SCREEN_HEIGHT - oneHeight) / 2);
+    oneText->setPosition((int)((SCREEN_WIDTH - oneWidth) / 2), (int)(SCREEN_HEIGHT - oneHeight) / 2);
     
     // 'START' text
-    Label* startText = new Label("START!", 124, 0, 0);
+    Label* startText = new Label("START!", 124, 0, 0, commonData);
     float startWidth = startText->getWidth();
     float startHeight = startText->getHeight();
-    startText->setPosition(((SCREEN_WIDTH - startWidth) / 2), (SCREEN_HEIGHT - startHeight) / 2);
+    startText->setPosition((int)((SCREEN_WIDTH - startWidth) / 2), (int)(SCREEN_HEIGHT - startHeight) / 2);
 
     // Prepare clock
     sf::Clock clock;
@@ -98,15 +105,15 @@ void Game::before(sf::RenderWindow &window) {
     clock.restart();
 }
 
-int Game::run(sf::RenderWindow& window) {
+int Game::run(sf::RenderWindow& window, CommonData* commonData) {
     // Create first map - level one
-    LevelOne* levelOne = new LevelOne();
+    commonData->map = new LevelOne();
     
     // Create player
-    Player* player = new Player(true, PLAYER_STARTING_POSITION_X, PLAYER_STARTING_POSITION_Y, levelOne);
+    commonData->mainPlayer = new Player(true, PLAYER_STARTING_POSITION_X, PLAYER_STARTING_POSITION_Y, commonData->map);
     
     // Add player into map
-    levelOne->addPlayer(player);
+    commonData->map->addPlayer(commonData->mainPlayer);
     
     // Load font
     sf::Font arial;
@@ -114,7 +121,7 @@ int Game::run(sf::RenderWindow& window) {
         printf("Error loading font (Arial.ttf)!\n");
         return -1;
     }
-    
+
     // Heart sprite
     sf::Texture heartTexture;
     if (!heartTexture.loadFromFile(resourcePath() + "assets/images/heart.png")) {
@@ -123,9 +130,9 @@ int Game::run(sf::RenderWindow& window) {
     }
     sf::Sprite heartSprite(heartTexture);
     heartSprite.setPosition(30, 620);
-    
+
     // Health text
-    Label* healthText = new Label(Converter::int2string(player->getHealth()), 36, 80, 618);
+    Label* healthText = new Label(Converter::int2string(commonData->mainPlayer->getHealth()), 36, 80, 618, commonData);
 
     // Start the game loop
     while (window.isOpen())
@@ -147,20 +154,23 @@ int Game::run(sf::RenderWindow& window) {
 
         // Player shooting
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            player->shot((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y);
+            commonData->mainPlayer->shot((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y);
         }
 
         // Update the whole map
-        levelOne->update();
+        commonData->map->update();
+
+        // Send player update
+        commonData->server->sendPlayerUpdate(commonData->mainPlayer);
         
         // Update GUI
-        healthText->setString(Converter::int2string(player->getHealth()));
+        healthText->setString(Converter::int2string(commonData->mainPlayer->getHealth()));
 
         // Clear screen
         window.clear(sf::Color::White);
 
         // Draw map (level one)
-        levelOne->draw(window);
+        commonData->map->draw(window);
         
         // Draw GUI
         window.draw(heartSprite);
@@ -170,11 +180,8 @@ int Game::run(sf::RenderWindow& window) {
         window.display();
     }
 
-    // Release memory
-    delete levelOne;
-
     // Change screen
     return EXIT;
 }
 
-void Game::after(sf::RenderWindow &window) {}
+void Game::after(sf::RenderWindow &window, CommonData* commonData) {}

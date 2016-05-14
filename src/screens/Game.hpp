@@ -8,6 +8,7 @@
 #ifndef Game_hpp
 #define Game_hpp
 
+#include <sstream>
 #include <SFML/Graphics.hpp>
 #include <sstream>
 
@@ -18,6 +19,9 @@
 #include "../helpers/ResourcePath.hpp"
 #include "../core/Screen.hpp"
 #include "../utils/Label.hpp"
+#include "../network/Connection.hpp"
+
+using namespace std;
 
 class Game : public Screen {
 
@@ -27,9 +31,9 @@ public:
     ~Game();
     
     // Core
-    void before(sf::RenderWindow &window);
-    int run(sf::RenderWindow &window);
-    void after(sf::RenderWindow &window);
+    void before(sf::RenderWindow &window, CommonData* commonData);
+    int run(sf::RenderWindow &window, CommonData* commonData);
+    void after(sf::RenderWindow &window, CommonData* commonData);
 };
 
 #endif

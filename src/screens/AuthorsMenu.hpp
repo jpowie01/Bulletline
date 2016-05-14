@@ -24,9 +24,9 @@ public:
     ~AuthorsMenu();
 
     // Core
-    void before(sf::RenderWindow &window);
-    int run(sf::RenderWindow &window);
-    void after(sf::RenderWindow &window);
+    void before(sf::RenderWindow &window, CommonData* commonData);
+    int run(sf::RenderWindow &window, CommonData* commonData);
+    void after(sf::RenderWindow &window, CommonData* commonData);
 };
 
 #endif

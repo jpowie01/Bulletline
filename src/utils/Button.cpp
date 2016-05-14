@@ -19,22 +19,9 @@ Button::Button() {
     this->m_positionX = 0;
     this->m_positionY = 0;
     this->m_color = DEFAULT_BUTTON_COLOR;
-
-    // Load font
-    if (!m_font.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
-        printf("Failed to load font file (Arial.ttf)");
-        return;
-    }
-
-    // Set button
-    m_button.setFont(m_font);
-    m_button.setString(this->m_text);
-    m_button.setCharacterSize(this->m_normalFontSize);
-    m_button.setPosition(this->m_positionX, this->m_positionY);
-    m_button.setColor(this->m_color);
 }
 
-Button::Button(string text, int normalfontSize, int largerFontSize, float positionX, float positionY) {
+Button::Button(string text, int normalfontSize, int largerFontSize, float positionX, float positionY, CommonData* commonData) {
     this->m_text = text;
     this->m_normalFontSize = normalfontSize;
     this->m_largerFontSize = largerFontSize;
@@ -42,14 +29,8 @@ Button::Button(string text, int normalfontSize, int largerFontSize, float positi
     this->m_positionY = positionY;
     this->m_color = DEFAULT_BUTTON_COLOR;
 
-    // Load font
-    if (!m_font.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
-        printf("Failed to load font file (BebasNeue.otf)");
-        return;
-    }
-
     // Set button
-    m_button.setFont(m_font);
+    m_button.setFont(commonData->bebasNeueFont);
     m_button.setString(this->m_text);
     m_button.setCharacterSize(this->m_normalFontSize);
     m_button.setPosition(this->m_positionX, this->m_positionY);
@@ -61,11 +42,7 @@ Button::Button(string text, int normalfontSize, int largerFontSize, float positi
 //================================================================================
 
 bool Button::cursorInRange(sf::Vector2i position) {
-    float width = this->m_button.getGlobalBounds().width;
-    float height = this->m_button.getGlobalBounds().height;
-
-    if (position.x >= this->m_positionX && position.x < width + this->m_positionX &&
-        position.y >= this->m_positionY && position.y < height + this->m_positionY) {
+    if (this->m_button.getGlobalBounds().contains(position.x, position.y)) {
         return true;
     }
     return false;

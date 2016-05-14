@@ -21,33 +21,21 @@ MainMenu::~MainMenu() {}
 // Core
 //================================================================================
 
-void MainMenu::before(sf::RenderWindow &window) {}
+void MainMenu::before(sf::RenderWindow &window, CommonData* commonData) {}
 
-int MainMenu::run(sf::RenderWindow& window) {
-    // Load background
-    sf::Texture texture;
-    if (!texture.loadFromFile("assets/images/background.jpg")) {
-        return (-1);
-    }
-
+int MainMenu::run(sf::RenderWindow& window, CommonData* commonData) {
     // Creating background
-    sf::Sprite background(texture);
-
-    // Load font
-    sf::Font font;
-    if (!font.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
-        printf("Failed to load font file (BebasNeue.otf)");
-        return (-1);
-    }
+    sf::Sprite background(commonData->mainMenuBackgroundTexture);
 
     // Create Game Title
-    Label* gameTitle = new Label(GAME_TITLE, 100, 300, 50);
+    Label* gameTitle = new Label(GAME_TITLE, 100, 300, 50, commonData);
 
     // Create Menu Options
-    Button* playButton = new Button("Play", 70, 90, 535, 200);
-    Button* authorsButton = new Button("Authors", 70, 90, 485, 300);
-    Button* exitButton = new Button("Exit", 70, 90, 535, 400);
+    Button* playButton = new Button("Play", 70, 90, 535, 200, commonData);
+    Button* authorsButton = new Button("Authors", 70, 90, 485, 300, commonData);
+    Button* exitButton = new Button("Exit", 70, 90, 535, 400, commonData);
     
+    // Main loop
     while (window.isOpen()) {
         // Position of mouse
         sf::Vector2i position = sf::Mouse::getPosition(window);
@@ -118,5 +106,4 @@ int MainMenu::run(sf::RenderWindow& window) {
     return EXIT;
 }
 
-void MainMenu::after(sf::RenderWindow &window) {}
-
+void MainMenu::after(sf::RenderWindow &window, CommonData* commonData) {}

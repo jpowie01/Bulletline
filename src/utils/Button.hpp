@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
+#include "../core/CommonData.hpp"
 #include "../Definitions.hpp"
 
 using namespace std;
@@ -22,13 +24,12 @@ private:
     float m_positionX;
     float m_positionY;
     sf::Color m_color;
-    sf::Font m_font;
     sf::Text m_button;
 
 public:
     // Constructors
     Button();
-    Button(string text, int normalfontSize, int largerFontSize, float positionX, float positionY);
+    Button(string text, int normalfontSize, int largerFontSize, float positionX, float positionY, CommonData* commonData);
 
     // Core
     bool cursorInRange(sf::Vector2i position);
