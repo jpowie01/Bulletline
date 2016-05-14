@@ -18,6 +18,7 @@
 #include "screens/Game.hpp"
 #include "screens/MainMenu.hpp"
 #include "screens/AuthorsMenu.hpp"
+#include "core/CommonData.hpp"
 
 int main(int, char const**)
 {
@@ -43,20 +44,28 @@ int main(int, char const**)
     screens[GAME] = game;
     screens[AUTHORS_MENU] = authorsMenu;
 
+    // Create common data
+    CommonData* commonData = new CommonData();
+    commonData->loadFonts();
+    commonData->loadTextures();
+
     //  Main loop
     while (screenNumber >= 0) {
         // Do everything before
-        screens[screenNumber]->before(window);
+        screens[screenNumber]->before(window, commonData);
         
         // Run screen
-        int newScreenNumber = screens[screenNumber]->run(window);
+        int newScreenNumber = screens[screenNumber]->run(window, commonData);
         
         // Do everything after
-        screens[screenNumber]->after(window);
+        screens[screenNumber]->after(window, commonData);
         
         // Change screen
         screenNumber = newScreenNumber;
     }
+
+    // Release memory
+    delete commonData;
 
     // Exit game
     return EXIT_SUCCESS;

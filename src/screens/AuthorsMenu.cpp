@@ -21,35 +21,22 @@ AuthorsMenu::~AuthorsMenu() {}
 // Core
 //================================================================================
 
-void AuthorsMenu::before(sf::RenderWindow &window) {}
+void AuthorsMenu::before(sf::RenderWindow &window, CommonData* commonData) {}
 
-int AuthorsMenu::run(sf::RenderWindow &window) {
-    // Load background
-    sf::Texture texture;
-    if (!texture.loadFromFile("assets/images/defaultbackground.jpg")) {
-        return (-1);
-    }
-
+int AuthorsMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     // Creating background
-    sf::Sprite background(texture);
+    sf::Sprite background(commonData->defaultBackgroundTexture);
     background.setPosition(0, 0);
 
-    // Load font
-    sf::Font font;
-    if (!font.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
-        printf("Failed to load font file (BebasNeue.ttf)");
-        return (-1);
-    }
-
     // Create Menu Title
-    Label* authorsMenuTitle = new Label("Authors", 100, 450, 50);
+    Label* authorsMenuTitle = new Label("Authors", 100, 450, 50, commonData);
 
     // Authors names
-    Label* author1 = new Label(AUTHOR_1, 80, 400, 200);
-    Label* author2 = new Label(AUTHOR_2, 80, 340, 300);
+    Label* author1 = new Label(AUTHOR_1, 80, 400, 200, commonData);
+    Label* author2 = new Label(AUTHOR_2, 80, 340, 300, commonData);
 
     // Back button
-    Button* backButton = new Button("Back", 70, 80, 50, 580);
+    Button* backButton = new Button("Back", 70, 80, 50, 580, commonData);
 
     while (window.isOpen()) {
         // Position of mouse
@@ -101,4 +88,4 @@ int AuthorsMenu::run(sf::RenderWindow &window) {
     return EXIT;
 }
 
-void AuthorsMenu::after(sf::RenderWindow &window) {}
+void AuthorsMenu::after(sf::RenderWindow &window, CommonData* commonData) {}

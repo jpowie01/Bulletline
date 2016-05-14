@@ -33,6 +33,13 @@
 // Label settings
 #define DEFAULT_LABEL_COLOR  sf::Color::White
 
+// Network connection (temporary until there won't be menu for that)
+#define SERVER_HOST         "192.168.0.12"
+#define SERVER_PORT         54000
+
+// Network headers
+#define PLAYER_HEADER       1
+
 // Screens
 #define NUMBER_OF_SCREENS   3
 #define EXIT                -1
