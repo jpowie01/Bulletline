@@ -75,6 +75,7 @@ void Game::before(sf::RenderWindow &window, CommonData* commonData) {
     // Print '3'
     while (clock.getElapsedTime().asSeconds() < 1.0f) {
         window.clear(sf::Color::Black);
+        window.draw(background);
         threeText->draw(window);
         window.display();
     }
@@ -83,6 +84,7 @@ void Game::before(sf::RenderWindow &window, CommonData* commonData) {
     // Print '2'
     while (clock.getElapsedTime().asSeconds() < 1.0f) {
         window.clear(sf::Color::Black);
+        window.draw(background);
         twoText->draw(window);
         window.display();
     }
@@ -91,6 +93,7 @@ void Game::before(sf::RenderWindow &window, CommonData* commonData) {
     // Print '1'
     while (clock.getElapsedTime().asSeconds() < 1.0f) {
         window.clear(sf::Color::Black);
+        window.draw(background);
         oneText->draw(window);
         window.display();
     }
@@ -99,6 +102,7 @@ void Game::before(sf::RenderWindow &window, CommonData* commonData) {
     // Print 'START'
     while (clock.getElapsedTime().asSeconds() < 1.0f) {
         window.clear(sf::Color::Black);
+        window.draw(background);
         startText->draw(window);
         window.display();
     }

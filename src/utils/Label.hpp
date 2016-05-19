@@ -36,10 +36,12 @@ public:
     // Getters
     float getWidth();
     float getHeight();
+    string getString();
 
     // Setters
     void setPosition(float posX, float posY);
     void setString(string string);
+    void setColor(sf::Color color);
 };
 
 #endif

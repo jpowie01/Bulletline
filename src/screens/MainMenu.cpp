@@ -31,9 +31,9 @@ int MainMenu::run(sf::RenderWindow& window, CommonData* commonData) {
     Label* gameTitle = new Label(GAME_TITLE, 100, 300, 50, commonData);
 
     // Create Menu Options
-    Button* playButton = new Button("Play", 70, 90, 535, 200, commonData);
-    Button* authorsButton = new Button("Authors", 70, 90, 485, 300, commonData);
-    Button* exitButton = new Button("Exit", 70, 90, 535, 400, commonData);
+    Button* playButton = new Button("Play", 70, 535, 200, commonData);
+    Button* authorsButton = new Button("Authors", 70, 485, 300, commonData);
+    Button* exitButton = new Button("Exit", 70, 535, 400, commonData);
     
     // Main loop
     while (window.isOpen()) {
@@ -57,7 +57,7 @@ int MainMenu::run(sf::RenderWindow& window, CommonData* commonData) {
         // Mouse Button pressed and cursor was in range of the button
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (playButton->cursorInRange(position) == true) {
-                return GAME;
+                return PLAYER_MENU;
             }
             if (authorsButton->cursorInRange(position) == true) {
                 return AUTHORS_MENU;

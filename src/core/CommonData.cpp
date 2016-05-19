@@ -26,7 +26,7 @@ CommonData::~CommonData() {
 
 void CommonData::loadFonts() {
     // Load Arial font
-    if (!this->arialFont.loadFromFile(resourcePath() + "/assets/fonts/Arial.ttf")) {
+    if (!this->arialFont.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
         printf("Error loading font (Arial.ttf)!\n");
         return;
     }
@@ -34,25 +34,25 @@ void CommonData::loadFonts() {
     // Load Bebas Neue font
     if (!this->bebasNeueFont.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
         printf("Failed to load font file (BebasNeue.otf)");
-        return -1;
+        return;
     }
 }
 
 void CommonData::loadTextures() {
     // Load main menu background
     if (!this->mainMenuBackgroundTexture.loadFromFile(resourcePath() + "assets/images/background.jpg")) {
-        return -1;
+        return;
     }
 
     // Load default background
     if (!this->defaultBackgroundTexture.loadFromFile(resourcePath() + "assets/images/defaultbackground.jpg")) {
         printf("Error loading heart texture (defaultbackground.png)!\n");
-        return -1;
+        return;
     }
 
     // Heart texture
-    if (!this->heartTexture.loadFromFile(resourcePath() + "/assets/images/heart.png")) {
+    if (!this->heartTexture.loadFromFile(resourcePath() + "assets/images/heart.png")) {
         printf("Error loading heart texture (heart.png)!\n");
-        return -1;
+        return;
     }
 }

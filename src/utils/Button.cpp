@@ -15,16 +15,14 @@
 Button::Button() {
     this->m_text = "";
     this->m_normalFontSize = 0;
-    this->m_largerFontSize = 0;
     this->m_positionX = 0;
     this->m_positionY = 0;
     this->m_color = DEFAULT_BUTTON_COLOR;
 }
 
-Button::Button(string text, int normalfontSize, int largerFontSize, float positionX, float positionY, CommonData* commonData) {
+Button::Button(string text, int normalfontSize, float positionX, float positionY, CommonData* commonData) {
     this->m_text = text;
     this->m_normalFontSize = normalfontSize;
-    this->m_largerFontSize = largerFontSize;
     this->m_positionX = positionX;
     this->m_positionY = positionY;
     this->m_color = DEFAULT_BUTTON_COLOR;

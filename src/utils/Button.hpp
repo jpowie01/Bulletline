@@ -20,7 +20,6 @@ class Button {
 private:
     string m_text;
     int m_normalFontSize;
-    int m_largerFontSize;
     float m_positionX;
     float m_positionY;
     sf::Color m_color;
@@ -29,7 +28,7 @@ private:
 public:
     // Constructors
     Button();
-    Button(string text, int normalfontSize, int largerFontSize, float positionX, float positionY, CommonData* commonData);
+    Button(string text, int normalfontSize, float positionX, float positionY, CommonData* commonData);
 
     // Core
     bool cursorInRange(sf::Vector2i position);
