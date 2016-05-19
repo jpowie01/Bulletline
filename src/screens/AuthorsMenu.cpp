@@ -26,7 +26,6 @@ void AuthorsMenu::before(sf::RenderWindow &window, CommonData* commonData) {}
 int AuthorsMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     // Creating background
     sf::Sprite background(commonData->defaultBackgroundTexture);
-    background.setPosition(0, 0);
 
     // Create Menu Title
     Label* authorsMenuTitle = new Label("Authors", 100, 450, 50, commonData);
@@ -36,7 +35,7 @@ int AuthorsMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     Label* author2 = new Label(AUTHOR_2, 80, 340, 300, commonData);
 
     // Back button
-    Button* backButton = new Button("Back", 70, 80, 50, 580, commonData);
+    Button* backButton = new Button("Back", 70, 50, 580, commonData);
 
     while (window.isOpen()) {
         // Position of mouse
@@ -62,7 +61,7 @@ int AuthorsMenu::run(sf::RenderWindow &window, CommonData* commonData) {
                 return MAIN_MENU;
             }
         } else {
-            // Changing the size of the button if cursor is in range
+            // Changing the color of the button if cursor is in range
             if (backButton->cursorInRange(position) == true) {
                 backButton->changeColor(sf::Color::Red);
             } else {

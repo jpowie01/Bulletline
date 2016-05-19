@@ -41,11 +41,12 @@
 #define PLAYER_HEADER       1
 
 // Screens
-#define NUMBER_OF_SCREENS   3
+#define NUMBER_OF_SCREENS   4
 #define EXIT                -1
 #define MAIN_MENU           0
-#define GAME                1
-#define AUTHORS_MENU        2
+#define PLAYER_MENU         1
+#define GAME                2
+#define AUTHORS_MENU        3
 
 #define STARTING_SCREEN     MAIN_MENU
 

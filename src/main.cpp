@@ -18,6 +18,7 @@
 #include "screens/Game.hpp"
 #include "screens/MainMenu.hpp"
 #include "screens/AuthorsMenu.hpp"
+#include "screens/PlayerMenu.hpp"
 #include "core/CommonData.hpp"
 
 int main(int, char const**)
@@ -38,11 +39,13 @@ int main(int, char const**)
     MainMenu* mainMenu = new MainMenu();
     Game* game = new Game();
     AuthorsMenu* authorsMenu = new AuthorsMenu();
+    PlayerMenu* playerMenu = new PlayerMenu();
 
     // Add screens to table
     screens[MAIN_MENU] = mainMenu;
     screens[GAME] = game;
     screens[AUTHORS_MENU] = authorsMenu;
+    screens[PLAYER_MENU] = playerMenu;
 
     // Create common data
     CommonData* commonData = new CommonData();

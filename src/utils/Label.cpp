@@ -51,6 +51,10 @@ float Label::getHeight() {
     return this->m_label.getLocalBounds().height;
 }
 
+string Label::getString() {
+    return this->m_text;
+}
+
 void Label::setPosition(float posX, float posY) {
     this->m_positionX = posX;
     this->m_positionY = posY;
@@ -60,4 +64,9 @@ void Label::setPosition(float posX, float posY) {
 void Label::setString(string string) {
     this->m_text = string;
     m_label.setString(m_text);
+}
+
+void Label::setColor(sf::Color color) {
+    this->m_color = color;
+    m_label.setColor(m_color);
 }
