@@ -43,7 +43,7 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
 
     // Creating next and back button
     Button* backButton = new Button("Back", 70, 50, 580, commonData);
-    Button *nextButton = new Button("Next", 70, SCREEN_WIDTH - 150, 580, commonData);
+    Button* nextButton = new Button("Next", 70, SCREEN_WIDTH - 150, 580, commonData);
 
     while (window.isOpen()) {
         // Position of mouse
@@ -66,10 +66,11 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
             if (addressTextField->m_inputFlag == true && event.type == sf::Event::TextEntered) {
                 if (event.text.unicode < 128) {
                     if (event.text.unicode == 8) {
-                        if (strcmp(addressString.c_str(), "") != 0){
+                        if (strcmp(addressString.c_str(), "") != 0) {
                             addressString.pop_back();
                         }
-                    } else {
+                    }
+                    else {
                         addressString += static_cast<char>(event.text.unicode);
                     }
                     addressTextField->setText(addressString);
@@ -77,45 +78,59 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
             }
             if (portTextField->m_inputFlag == true && event.type == sf::Event::TextEntered) {
                 if (event.text.unicode < 128) {
-                    portString += static_cast<char>(event.text.unicode);
+                    if (event.text.unicode == 8) {
+                        if (strcmp(portString.c_str(), "") != 0) {
+                            portString.pop_back();
+                        }
+                    }
+                    else {
+                        portString += static_cast<char>(event.text.unicode);
+                    }
                     portTextField->setText(portString);
                 }
             }
             if (nameTextField->m_inputFlag == true && event.type == sf::Event::TextEntered) {
                 if (event.text.unicode < 128) {
-                    nameString += static_cast<char>(event.text.unicode);
+                    if (event.text.unicode == 8) {
+                        if (strcmp(nameString.c_str(), "") != 0) {
+                            nameString.pop_back();
+                        }
+                    }
+                    else {
+                        nameString += static_cast<char>(event.text.unicode);
+                    }
                     nameTextField->setText(nameString);
                 }
             }
-        }
 
-        // Mouse Button pressed and cursor was in range of the text field
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if (addressTextField->cursorInRange(position) == true) {
-                // Changing outline of text field indicating text field is ready for input
-                addressTextField->setOutline(sf::Color::Red);
-                addressTextField->m_inputFlag = true;
-            }
-            else {
-                // Clicking anywhere but text field will disable it
-                addressTextField->m_inputFlag = false;
-                addressTextField->setOutline(sf::Color::Black);
-            }
-            if (portTextField->cursorInRange(position) == true) {
-                portTextField->setOutline(sf::Color::Red);
-                portTextField->m_inputFlag = true;
-            }
-            else {
-                portTextField->m_inputFlag = false;
-                portTextField->setOutline(sf::Color::Black);
-            }
-            if (nameTextField->cursorInRange(position) == true) {
-                nameTextField->setOutline(sf::Color::Red);
-                nameTextField->m_inputFlag = true;
-            }
-            else {
-                nameTextField->m_inputFlag = false;
-                nameTextField->setOutline(sf::Color::Black);
+            // Mouse Button pressed and cursor was in range of the text field
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                if (addressTextField->cursorInRange(position) == true) {
+                    // Changing outline of text field indicating text field is ready for input
+                    addressTextField->setOutline(sf::Color::Red);
+                    addressTextField->m_inputFlag = true;
+                }
+                else {
+                    // Clicking anywhere but text field will disable it
+                    addressTextField->m_inputFlag = false;
+                    addressTextField->setOutline(sf::Color::Black);
+                }
+                if (portTextField->cursorInRange(position) == true) {
+                    portTextField->setOutline(sf::Color::Red);
+                    portTextField->m_inputFlag = true;
+                }
+                else {
+                    portTextField->m_inputFlag = false;
+                    portTextField->setOutline(sf::Color::Black);
+                }
+                if (nameTextField->cursorInRange(position) == true) {
+                    nameTextField->setOutline(sf::Color::Red);
+                    nameTextField->m_inputFlag = true;
+                }
+                else {
+                    nameTextField->m_inputFlag = false;
+                    nameTextField->setOutline(sf::Color::Black);
+                }
             }
         }
 
