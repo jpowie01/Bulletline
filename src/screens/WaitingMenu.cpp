@@ -27,20 +27,24 @@ int WaitingMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     // Create background
     sf::Sprite background(commonData->defaultBackgroundTexture);
 
-    // Create Menu Title
-    Label* lobbyTitle = new Label("Lobby", 100, 500, 50, commonData);
+    // Create menu title
+    Label* lobbyTitle = new Label("Lobby", 100, commonData);
+    lobbyTitle->setPosition((SCREEN_WIDTH - lobbyTitle->getWidth()) / 2, 50);
 
     // Teams labels
-    Label* blueTeamLabel = new Label("Blue team", 70, 120, 200, commonData);
+    Label* blueTeamLabel = new Label("Blue team", 70, 150, 200, commonData);
     blueTeamLabel->setColor(sf::Color::Blue);
-    Label* redTeamLabel = new Label("Red team", 70, 870, 200, commonData);
+    Label* redTeamLabel = new Label("Red team", 70, commonData);
+    redTeamLabel->setPosition(SCREEN_WIDTH - redTeamLabel->getWidth() - 150, 200);
     redTeamLabel->setColor(sf::Color::Red);
 
     // Players labels
-    Label* playerOneLabel = new Label("Player 1", 60, 150, 300, commonData);
-    Label* playerTwoLabel = new Label("A", 60, 900, 300, commonData);
-    Label* playerThreeLabel = new Label("Player 3", 60, 150, 400, commonData);
-    Label* playerFourLabel = new Label("Player 43210", 60, 900, 400, commonData);
+    Label* playerOneLabel = new Label("Player 1", 60, 180, 300, commonData);
+    Label* playerTwoLabel = new Label("Player 2", 60, commonData);
+    Label* playerThreeLabel = new Label("Player 3", 60, 180, 400, commonData);
+    Label* playerFourLabel = new Label("Player 4", 60, commonData);
+    playerTwoLabel->setPosition(SCREEN_WIDTH - playerTwoLabel->getWidth() - 180, 300);
+    playerFourLabel->setPosition(SCREEN_WIDTH - playerFourLabel->getWidth() - 180, 400);
 
     // Information label
     Label* infoLabel = new Label("The game will start in x seconds!", 40, 700, 600, commonData);

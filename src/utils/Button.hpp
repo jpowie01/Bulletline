@@ -8,18 +8,15 @@
 #ifndef Button_hpp
 #define Button_hpp
 
-#include <iostream>
 #include <SFML/Graphics.hpp>
 
 #include "../core/CommonData.hpp"
 #include "../Definitions.hpp"
 
-using namespace std;
-
 class Button {
 private:
     string m_text;
-    int m_normalFontSize;
+    int m_fontSize;
     float m_positionX;
     float m_positionY;
     sf::Color m_color;
@@ -28,13 +25,20 @@ private:
 public:
     // Constructors
     Button();
-    Button(string text, int normalfontSize, float positionX, float positionY, CommonData* commonData);
+    Button(string text, int fontSize, CommonData* commonData);
+    Button(string text, int fontSize, float positionX, float positionY, CommonData* commonData);
 
     // Core
     bool cursorInRange(sf::Vector2i position);
     void draw(sf::RenderWindow& window);
     void changeColor(sf::Color color);
+
+    // Geters
+    float getWidth();
+
+    // Setters
     void setDefaultColor();
+    void setPosition(float posX, float posY);
 };
 
 #endif

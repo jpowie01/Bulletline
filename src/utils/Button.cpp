@@ -14,15 +14,17 @@
 
 Button::Button() {
     this->m_text = "";
-    this->m_normalFontSize = 0;
+    this->m_fontSize = 0;
     this->m_positionX = 0;
     this->m_positionY = 0;
     this->m_color = DEFAULT_BUTTON_COLOR;
 }
 
-Button::Button(string text, int normalfontSize, float positionX, float positionY, CommonData* commonData) {
+Button::Button(string text, int fontSize, CommonData* commonData) : Button(text, fontSize, NULL, NULL, commonData) {}
+
+Button::Button(string text, int fontSize, float positionX, float positionY, CommonData* commonData) {
     this->m_text = text;
-    this->m_normalFontSize = normalfontSize;
+    this->m_fontSize = fontSize;
     this->m_positionX = positionX;
     this->m_positionY = positionY;
     this->m_color = DEFAULT_BUTTON_COLOR;
@@ -30,7 +32,7 @@ Button::Button(string text, int normalfontSize, float positionX, float positionY
     // Set button
     m_button.setFont(commonData->bebasNeueFont);
     m_button.setString(this->m_text);
-    m_button.setCharacterSize(this->m_normalFontSize);
+    m_button.setCharacterSize(this->m_fontSize);
     m_button.setPosition(this->m_positionX, this->m_positionY);
     m_button.setColor(this->m_color);
 }
@@ -53,7 +55,24 @@ void Button::draw(sf::RenderWindow& window) {
 void Button::changeColor(sf::Color color) {
     this->m_button.setColor(color);
 }
+//================================================================================
+// Getters
+//================================================================================
+
+float Button::getWidth() {
+    return this->m_button.getGlobalBounds().width;
+}
+
+//================================================================================
+// Setters
+//================================================================================
 
 void Button::setDefaultColor() {
     this->m_button.setColor(DEFAULT_BUTTON_COLOR);
+}
+
+void Button::setPosition(float posX, float posY) {
+    this->m_positionX = posX;
+    this->m_positionY = posY;
+    this->m_button.setPosition(m_positionX, m_positionY);
 }

@@ -8,13 +8,10 @@
 #ifndef Label_hpp
 #define Label_hpp
 
-#include <iostream>
 #include <SFML/Graphics.hpp>
 
 #include "../core/CommonData.hpp"
 #include "../Definitions.hpp"
-
-using namespace std;
 
 class Label {
 private:
@@ -28,6 +25,7 @@ private:
 public:
     // Constructors
     Label();
+    Label(string text, int fontSize, CommonData* commonData);
     Label(string text, int fontSize, float positionX, float positionY, CommonData* commonData);
 
     // Core
