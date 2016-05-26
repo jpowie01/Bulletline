@@ -20,6 +20,8 @@ Label::Label() {
     this->m_color = DEFAULT_LABEL_COLOR;
 }
 
+Label::Label(string text, int fontSize, CommonData* commonData) : Label(text, fontSize, NULL, NULL, commonData) {}
+
 Label::Label(string text, int fontSize, float positionX, float positionY, CommonData* commonData) {
     this->m_text = text;
     this->m_fontSize = fontSize;
@@ -27,7 +29,6 @@ Label::Label(string text, int fontSize, float positionX, float positionY, Common
     this->m_positionY = positionY;
     this->m_color = DEFAULT_LABEL_COLOR;
 
-    // Set label
     m_label.setFont(commonData->bebasNeueFont);
     m_label.setString(this->m_text);
     m_label.setCharacterSize(this->m_fontSize);
@@ -43,6 +44,10 @@ void Label::draw(sf::RenderWindow& window) {
     window.draw(m_label);
 }
 
+//================================================================================
+// Getters
+//================================================================================
+
 float Label::getWidth() {
     return this->m_label.getLocalBounds().width;
 }
@@ -54,6 +59,10 @@ float Label::getHeight() {
 string Label::getString() {
     return this->m_text;
 }
+
+//================================================================================
+// Setters
+//================================================================================
 
 void Label::setPosition(float posX, float posY) {
     this->m_positionX = posX;

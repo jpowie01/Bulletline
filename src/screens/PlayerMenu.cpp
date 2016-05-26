@@ -22,18 +22,19 @@ PlayerMenu::~PlayerMenu() {}
 void PlayerMenu::before(sf::RenderWindow &window, CommonData* commonData) {}
 
 int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
-    // Creating background
+    // Create background
     sf::Sprite background(commonData->defaultBackgroundTexture);
 
-    // Creating Menu Title
-    Label* playerMenuTitle = new Label("Player menu", 100, 370, 50, commonData);
+    // Create menu title
+    Label* playerMenuTitle = new Label("Player menu", 100, commonData);
+    playerMenuTitle->setPosition((SCREEN_WIDTH - playerMenuTitle->getWidth()) / 2, 50);
 
-    // Creating labels
+    // Create labels
     Label* address = new Label("IP address: ", 50, 150, 250, commonData);
     Label* port = new Label("Port: ", 50, 150, 330, commonData);
     Label* name = new Label("Name: ", 50, 150, 410, commonData);
     
-    // Creating textField
+    // Create text fields
     TextField* addressTextField = new TextField(400, 250,commonData);
     TextField* portTextField = new TextField(400, 330, commonData);
     TextField* nameTextField = new TextField(400, 410, commonData);
@@ -41,9 +42,9 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     string portString = "";
     string nameString = "";
 
-    // Creating next and back button
-    Button* backButton = new Button("Back", 70, 50, 580, commonData);
-    Button* nextButton = new Button("Next", 70, SCREEN_WIDTH - 150, 580, commonData);
+    // Create buttons
+    Button* backButton = new Button("Back", 70, BUTTON_POSITION_X, BUTTON_POSITION_Y, commonData);
+    Button* nextButton = new Button("Next", 70, NEXT_BUTTON_POSITION_X, BUTTON_POSITION_Y, commonData);
 
     while (window.isOpen()) {
         // Position of mouse
@@ -69,8 +70,7 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
                         if (strcmp(addressString.c_str(), "") != 0) {
                             addressString.pop_back();
                         }
-                    }
-                    else {
+                    } else {
                         addressString += static_cast<char>(event.text.unicode);
                     }
                     addressTextField->setText(addressString);
@@ -82,8 +82,7 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
                         if (strcmp(portString.c_str(), "") != 0) {
                             portString.pop_back();
                         }
-                    }
-                    else {
+                    } else {
                         portString += static_cast<char>(event.text.unicode);
                     }
                     portTextField->setText(portString);
@@ -95,22 +94,20 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
                         if (strcmp(nameString.c_str(), "") != 0) {
                             nameString.pop_back();
                         }
-                    }
-                    else {
+                    } else {
                         nameString += static_cast<char>(event.text.unicode);
                     }
                     nameTextField->setText(nameString);
                 }
             }
 
-            // Mouse Button pressed and cursor was in range of the text field
+            // Mouse Button pressed and cursor  in range of the text field
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 if (addressTextField->cursorInRange(position) == true) {
                     // Changing outline of text field indicating text field is ready for input
                     addressTextField->setOutline(sf::Color::Red);
                     addressTextField->m_inputFlag = true;
-                }
-                else {
+                } else {
                     // Clicking anywhere but text field will disable it
                     addressTextField->m_inputFlag = false;
                     addressTextField->setOutline(sf::Color::Black);
@@ -118,23 +115,21 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
                 if (portTextField->cursorInRange(position) == true) {
                     portTextField->setOutline(sf::Color::Red);
                     portTextField->m_inputFlag = true;
-                }
-                else {
+                } else {
                     portTextField->m_inputFlag = false;
                     portTextField->setOutline(sf::Color::Black);
                 }
                 if (nameTextField->cursorInRange(position) == true) {
                     nameTextField->setOutline(sf::Color::Red);
                     nameTextField->m_inputFlag = true;
-                }
-                else {
+                } else {
                     nameTextField->m_inputFlag = false;
                     nameTextField->setOutline(sf::Color::Black);
                 }
             }
         }
 
-        // Mouse Button pressed and cursor was in range of the button
+        // Mouse Button pressed and cursor in range of the button
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (backButton->cursorInRange(position) == true) {
                 return MAIN_MENU;
@@ -142,19 +137,16 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
             if (nextButton->cursorInRange(position) == true) {
                 return WAITING_MENU;
             }
-        }
-        else {
+        } else {
             // Changing the color of the button if cursor is in range
             if (backButton->cursorInRange(position) == true) {
                 backButton->changeColor(sf::Color::Red);
-            }
-            else {
+            } else {
                 backButton->setDefaultColor();
             }
             if (nextButton->cursorInRange(position) == true) {
                 nextButton->changeColor(sf::Color::Red);
-            }
-            else {
+            } else {
                 nextButton->setDefaultColor();
             }
         }

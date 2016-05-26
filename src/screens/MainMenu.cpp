@@ -7,8 +7,6 @@
 
 #include "MainMenu.hpp"
 
-using namespace std;
-
 //================================================================================
 // Contructors
 //================================================================================
@@ -24,16 +22,22 @@ MainMenu::~MainMenu() {}
 void MainMenu::before(sf::RenderWindow &window, CommonData* commonData) {}
 
 int MainMenu::run(sf::RenderWindow& window, CommonData* commonData) {
-    // Creating background
+    // Create background
     sf::Sprite background(commonData->mainMenuBackgroundTexture);
 
-    // Create Game Title
-    Label* gameTitle = new Label(GAME_TITLE, 100, 300, 50, commonData);
+    // Create game title  
+    Label* gameTitle = new Label(GAME_TITLE, 100, commonData);
+    gameTitle->setPosition((SCREEN_WIDTH - gameTitle->getWidth()) / 2, 50);
 
-    // Create Menu Options
-    Button* playButton = new Button("Play", 70, 535, 200, commonData);
-    Button* authorsButton = new Button("Authors", 70, 485, 300, commonData);
-    Button* exitButton = new Button("Exit", 70, 535, 400, commonData);
+    // Create menu buttons
+    Button* playButton = new Button("Play", 70, commonData);
+    Button* authorsButton = new Button("Authors", 70, commonData);
+    Button* exitButton = new Button("Exit", 70, commonData);
+    
+    // Set buttons postions
+    playButton->setPosition((SCREEN_WIDTH - playButton->getWidth()) / 2, 200);
+    authorsButton->setPosition((SCREEN_WIDTH - authorsButton->getWidth()) / 2, 300);
+    exitButton->setPosition((SCREEN_WIDTH - exitButton->getWidth()) / 2, 400);
     
     // Main loop
     while (window.isOpen()) {
@@ -54,7 +58,7 @@ int MainMenu::run(sf::RenderWindow& window, CommonData* commonData) {
             }
         }
 
-        // Mouse Button pressed and cursor was in range of the button
+        // Mouse Button pressed and cursor in range of the button
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (playButton->cursorInRange(position) == true) {
                 return PLAYER_MENU;
@@ -65,25 +69,21 @@ int MainMenu::run(sf::RenderWindow& window, CommonData* commonData) {
             if (exitButton->cursorInRange(position) == true) {
                 return EXIT;
             }
-        }
-        else {
+        } else {
             // Changing the color of the button if cursor is in range
             if (playButton->cursorInRange(position) == true) {
                 playButton->changeColor(sf::Color::Red);
-            }
-            else {
+            } else {
                 playButton->setDefaultColor();
             }
             if (authorsButton->cursorInRange(position) == true) {
                 authorsButton->changeColor(sf::Color::Red);
-            }
-            else {
+            } else {
                 authorsButton->setDefaultColor();
             }
             if (exitButton->cursorInRange(position) == true) {
                 exitButton->changeColor(sf::Color::Red);
-            }
-            else {
+            } else {
                 exitButton->setDefaultColor();
             }
         }

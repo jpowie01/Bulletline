@@ -29,6 +29,9 @@
 
 // Button settings
 #define DEFAULT_BUTTON_COLOR  sf::Color::White
+#define BUTTON_POSITION_X  50
+#define BUTTON_POSITION_Y  SCREEN_HEIGHT - 100
+#define NEXT_BUTTON_POSITION_X  SCREEN_WIDTH - 150
 
 // Label settings
 #define DEFAULT_LABEL_COLOR  sf::Color::White

@@ -7,8 +7,6 @@
 
 #include "AuthorsMenu.hpp"
 
-using namespace std;
-
 //================================================================================
 // Contructors
 //================================================================================
@@ -24,18 +22,21 @@ AuthorsMenu::~AuthorsMenu() {}
 void AuthorsMenu::before(sf::RenderWindow &window, CommonData* commonData) {}
 
 int AuthorsMenu::run(sf::RenderWindow &window, CommonData* commonData) {
-    // Creating background
+    // Create background
     sf::Sprite background(commonData->defaultBackgroundTexture);
 
-    // Create Menu Title
-    Label* authorsMenuTitle = new Label("Authors", 100, 450, 50, commonData);
+    // Create menu title
+    Label* authorsMenuTitle = new Label("Authors", 100, commonData);
+    authorsMenuTitle->setPosition((SCREEN_WIDTH - authorsMenuTitle->getWidth()) / 2, 50);
 
     // Authors names
-    Label* author1 = new Label(AUTHOR_1, 80, 400, 200, commonData);
-    Label* author2 = new Label(AUTHOR_2, 80, 340, 300, commonData);
+    Label* author1 = new Label(AUTHOR_1, 80, commonData);
+    Label* author2 = new Label(AUTHOR_2, 80, commonData);
+    author1->setPosition((SCREEN_WIDTH - author1->getWidth()) / 2, 200);
+    author2->setPosition((SCREEN_WIDTH - author2->getWidth()) / 2, 300);
 
     // Back button
-    Button* backButton = new Button("Back", 70, 50, 580, commonData);
+    Button* backButton = new Button("Back", 70, BUTTON_POSITION_X, BUTTON_POSITION_Y, commonData);
 
     while (window.isOpen()) {
         // Position of mouse
@@ -55,7 +56,7 @@ int AuthorsMenu::run(sf::RenderWindow &window, CommonData* commonData) {
             }
         }
 
-        // Mouse Button pressed and cursor was in range of the button
+        // Mouse Button pressed and cursor in range of the button
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (backButton->cursorInRange(position) == true) {
                 return MAIN_MENU;

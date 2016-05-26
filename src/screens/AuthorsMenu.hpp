@@ -9,7 +9,6 @@
 #define AuthorsMenu_hpp
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "../Definitions.hpp"
 #include "../helpers/ResourcePath.hpp"
