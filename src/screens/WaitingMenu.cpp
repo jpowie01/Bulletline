@@ -39,16 +39,24 @@ int WaitingMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     redTeamLabel->setColor(sf::Color::Red);
 
     // Players labels
-    Label* playerOneLabel = new Label("Player 1", 60, 180, 300, commonData);
-    Label* playerTwoLabel = new Label("Player 2", 60, commonData);
-    Label* playerThreeLabel = new Label("Player 3", 60, 180, 400, commonData);
-    Label* playerFourLabel = new Label("Player 4", 60, commonData);
-    playerTwoLabel->setPosition(SCREEN_WIDTH - playerTwoLabel->getWidth() - 180, 300);
-    playerFourLabel->setPosition(SCREEN_WIDTH - playerFourLabel->getWidth() - 180, 400);
+    Label** playerLabel = new Label*[4];
+    for (int i = 0; i < 4; i++) {
+        playerLabel[i] = new Label("", 60, 180, 300 + (i/2)*100, commonData);
+        if (i % 2 == 1) {
+            playerLabel[i]->setPosition(SCREEN_WIDTH - playerLabel[i]->getWidth() - 180, 300 + (i/2)*100);
+        }
+    }
 
-    // Information label
-    Label* infoLabel = new Label("The game will start in x seconds!", 40, 700, 600, commonData);
+    // Countdown label
+    Label* countdownLabel = new Label("The game will start in 15 seconds...", 40, commonData);
+    countdownLabel->setPosition(SCREEN_WIDTH - countdownLabel->getWidth() - 30, 600);
 
+    // Countdown
+    sf::Clock clock;
+    sf::Time fiveteenSeconds = sf::seconds(15.0f);
+    int amountOfPlayers = 0;
+
+    // Main loop
     while (window.isOpen()) {
         // Position of mouse
         sf::Vector2i position = sf::Mouse::getPosition(window);
@@ -67,6 +75,18 @@ int WaitingMenu::run(sf::RenderWindow &window, CommonData* commonData) {
             }
         }
 
+        // Show players name on labels
+        for (int i = 0; i < commonData->map->playersSize(); i++) {
+            Player* player = commonData->map->getPlayerAtIndex(i);
+            playerLabel[player->getID()]->setString(player->getName());
+        }
+
+        // Prepare countdown information
+        if ((amountOfPlayers != commonData->map->playersSize()) && (commonData->map->playersSize() == 2 || commonData->map->playersSize() == 4)) {
+            clock.restart();
+            amountOfPlayers = commonData->map->playersSize();
+        }
+
         // Clear screen
         window.clear(sf::Color::Black);
 
@@ -75,14 +95,28 @@ int WaitingMenu::run(sf::RenderWindow &window, CommonData* commonData) {
         lobbyTitle->draw(window);
         blueTeamLabel->draw(window);
         redTeamLabel->draw(window);
-        playerOneLabel->draw(window);
-        playerTwoLabel->draw(window);
-        playerThreeLabel->draw(window);
-        playerFourLabel->draw(window);
-        infoLabel->draw(window);
+        for (int i = 0; i < 4; i++) {
+            if (i % 2 == 1) {
+                playerLabel[i]->setPosition(SCREEN_WIDTH - playerLabel[i]->getWidth() - 180, 300 + (i/2)*100);
+            }
+            playerLabel[i]->draw(window);
+        }
+
+        // Show information about starting game only when there are 2 or 4 players
+        if (commonData->map->playersSize() == 2 || commonData->map->playersSize() == 4) {
+            int timeToStart = (int)ceil(fiveteenSeconds.asSeconds() - clock.getElapsedTime().asSeconds());
+            countdownLabel->setString("The game will start in " + Converter::int2string(timeToStart) + " seconds...");
+            countdownLabel->setPosition(SCREEN_WIDTH - countdownLabel->getWidth() - 30, 600);
+            countdownLabel->draw(window);
+        }
 
         // Update the window
         window.display();
+
+        // Go to the game if countdown will finish
+        if ((amountOfPlayers == 2 || amountOfPlayers == 4) && clock.getElapsedTime().asSeconds() > fiveteenSeconds.asSeconds() - 3.0f) {
+            return GAME;
+        }
     }
 
     // Change screen

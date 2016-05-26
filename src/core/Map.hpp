@@ -34,7 +34,11 @@ public:
     void addPlayer(Player* player);
     void addObstacle(Obstacle* obstacle);
     void addBullet(Bullet* obstacle);
-    
+
+    // Getters
+    int playersSize();
+    Player* getPlayerAtIndex(int index);
+
     // Core
     bool checkCollision(Circle* player);
     void update();

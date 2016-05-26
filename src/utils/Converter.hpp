@@ -16,6 +16,7 @@ using namespace std;
 class Converter {
 public:
     static string int2string(int value);
+    static int string2int(string str);
 };
 
 #endif

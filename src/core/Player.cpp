@@ -31,6 +31,14 @@ Player::Player(bool mainPlayer, float x, float y, Map* map) : Circle(x, y, 15.0f
 // Getters
 //================================================================================
 
+int Player::getID() {
+    return this->m_ID;
+}
+
+int Player::getTeamID() {
+    return this->m_teamID;
+}
+
 int Player::getSpeed() {
     return this->m_speed;
 }
@@ -39,12 +47,32 @@ int Player::getHealth() {
     return this->m_health;
 }
 
+string Player::getName() {
+    return this->m_name;
+}
+
 Map* Player::getMap() {
     return this->m_map;
 }
 
 bool Player::isMainPlayer() {
     return this->m_mainPlayer;
+}
+
+//================================================================================
+// Getters
+//================================================================================
+
+void Player::setID(int ID) {
+    this->m_ID = ID;
+}
+
+void Player::setTeamID(int teamID) {
+    this->m_teamID = teamID;
+}
+
+void Player::setName(string name) {
+    this->m_name = name;
 }
 
 //================================================================================

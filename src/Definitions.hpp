@@ -24,6 +24,10 @@
 #define PLAYER_STARTING_POSITION_X  400.0f
 #define PLAYER_STARTING_POSITION_Y  200.0f
 
+// Team settings
+#define BLUE_TEAM           0
+#define RED_TEAM            1
+
 // Bullet settings
 #define BULLET_SPEED        300
 
@@ -41,7 +45,9 @@
 #define SERVER_PORT         54000
 
 // Network headers
-#define PLAYER_HEADER       1
+#define NETWORK_PLAYER_INTRODUCTION_HEADER      1
+#define NETWORK_PLAYER_JOINED_GAME_HEADER       2
+#define NETWORK_PLAYER_JOINED_HEADER            3
 
 // Screens
 #define NUMBER_OF_SCREENS   5

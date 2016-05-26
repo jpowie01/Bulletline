@@ -16,6 +16,7 @@
 #include "../core/Screen.hpp"
 #include "../utils/Button.hpp"
 #include "../utils/Label.hpp"
+#include "../utils/Converter.hpp"
 
 class WaitingMenu : public Screen {
 public:

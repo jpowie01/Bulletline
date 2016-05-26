@@ -20,13 +20,6 @@ Game::~Game() {}
 //================================================================================
 
 void Game::before(sf::RenderWindow &window, CommonData* commonData) {
-    // Create server connection
-    commonData->server = new Connection(SERVER_HOST, SERVER_PORT, commonData);
-
-    // Prepare server connection thread
-    commonData->serverThread = new sf::Thread(&Connection::run, commonData->server);
-    commonData->serverThread->launch();
-
     // Load background
     sf::Texture texture;
     if (!texture.loadFromFile(resourcePath() + "assets/images/defaultbackground.jpg")) {
@@ -110,29 +103,8 @@ void Game::before(sf::RenderWindow &window, CommonData* commonData) {
 }
 
 int Game::run(sf::RenderWindow& window, CommonData* commonData) {
-    // Create first map - level one
-    commonData->map = new LevelOne();
-    
-    // Create player
-    commonData->mainPlayer = new Player(true, PLAYER_STARTING_POSITION_X, PLAYER_STARTING_POSITION_Y, commonData->map);
-    
-    // Add player into map
-    commonData->map->addPlayer(commonData->mainPlayer);
-    
-    // Load font
-    sf::Font arial;
-    if (!arial.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
-        printf("Error loading font (Arial.ttf)!\n");
-        return -1;
-    }
-
-    // Heart sprite
-    sf::Texture heartTexture;
-    if (!heartTexture.loadFromFile(resourcePath() + "assets/images/heart.png")) {
-        printf("Error loading heart texture (heart.png)!\n");
-        return -1;
-    }
-    sf::Sprite heartSprite(heartTexture);
+    // Prepare heart sprite
+    sf::Sprite heartSprite(commonData->heartTexture);
     heartSprite.setPosition(30, 620);
 
     // Health text
@@ -165,7 +137,7 @@ int Game::run(sf::RenderWindow& window, CommonData* commonData) {
         commonData->map->update();
 
         // Send player update
-        commonData->server->sendPlayerUpdate(commonData->mainPlayer);
+        //commonData->server->sendPlayerUpdate(commonData->mainPlayer);
         
         // Update GUI
         healthText->setString(Converter::int2string(commonData->mainPlayer->getHealth()));
