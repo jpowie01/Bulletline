@@ -5,8 +5,8 @@
 *
 */
 
-#ifndef AuthorsMenu_hpp
-#define AuthorsMenu_hpp
+#ifndef WaitingMenu_hpp
+#define WaitingMenu_hpp
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -17,11 +17,11 @@
 #include "../utils/Button.hpp"
 #include "../utils/Label.hpp"
 
-class AuthorsMenu : public Screen {
+class WaitingMenu : public Screen {
 public:
     // Constructors
-    AuthorsMenu();
-    ~AuthorsMenu();
+    WaitingMenu();
+    ~WaitingMenu();
 
     // Core
     void before(sf::RenderWindow &window, CommonData* commonData);

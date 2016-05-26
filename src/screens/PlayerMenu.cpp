@@ -140,7 +140,7 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
                 return MAIN_MENU;
             }
             if (nextButton->cursorInRange(position) == true) {
-                return GAME;
+                return WAITING_MENU;
             }
         }
         else {
