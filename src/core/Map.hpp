@@ -38,6 +38,7 @@ public:
     // Getters
     int playersSize();
     Player* getPlayerAtIndex(int index);
+    Player* getPlayerWithID(int id);
 
     // Core
     bool checkCollision(Circle* player);

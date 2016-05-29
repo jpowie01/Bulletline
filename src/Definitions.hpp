@@ -46,8 +46,9 @@
 
 // Network headers
 #define NETWORK_PLAYER_INTRODUCTION_HEADER      1
-#define NETWORK_PLAYER_JOINED_GAME_HEADER       2
+#define NETWORK_JOINED_GAME_HEADER              2
 #define NETWORK_PLAYER_JOINED_HEADER            3
+#define NETWORK_START_GAME_HEADER               4
 
 // Screens
 #define NUMBER_OF_SCREENS   5

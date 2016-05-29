@@ -52,8 +52,6 @@ int main(int, char const**)
 
     // Create common data
     CommonData* commonData = new CommonData();
-    commonData->loadFonts();
-    commonData->loadTextures();
 
     //  Main loop
     while (screenNumber >= 0) {

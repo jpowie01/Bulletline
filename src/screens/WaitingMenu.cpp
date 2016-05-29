@@ -1,9 +1,9 @@
 /*
-* Counter Strike 2D
-*
-* (c) 2016 Jakub Powierza & Karolina Olszewska
-*
-*/
+ * Counter Strike 2D
+ *
+ * (c) 2016 Jakub Powierza & Karolina Olszewska
+ *
+ */
 
 #include "WaitingMenu.hpp"
 
@@ -105,6 +105,9 @@ int WaitingMenu::run(sf::RenderWindow &window, CommonData* commonData) {
         // Show information about starting game only when there are 2 or 4 players
         if (commonData->map->playersSize() == 2 || commonData->map->playersSize() == 4) {
             int timeToStart = (int)ceil(fiveteenSeconds.asSeconds() - clock.getElapsedTime().asSeconds());
+            if (timeToStart <= 3) {
+                timeToStart = 3;
+            }
             countdownLabel->setString("The game will start in " + Converter::int2string(timeToStart) + " seconds...");
             countdownLabel->setPosition(SCREEN_WIDTH - countdownLabel->getWidth() - 30, 600);
             countdownLabel->draw(window);
@@ -114,7 +117,7 @@ int WaitingMenu::run(sf::RenderWindow &window, CommonData* commonData) {
         window.display();
 
         // Go to the game if countdown will finish
-        if ((amountOfPlayers == 2 || amountOfPlayers == 4) && clock.getElapsedTime().asSeconds() > fiveteenSeconds.asSeconds() - 3.0f) {
+        if ((amountOfPlayers == 2 || amountOfPlayers == 4) && clock.getElapsedTime().asSeconds() > fiveteenSeconds.asSeconds() - 3.0f && commonData->gameStarted == true) {
             return GAME;
         }
     }

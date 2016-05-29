@@ -1,9 +1,9 @@
 /*
-* Counter Strike 2D
-*
-* (c) 2016 Jakub Powierza & Karolina Olszewska
-*
-*/
+ * Counter Strike 2D
+ *
+ * (c) 2016 Jakub Powierza & Karolina Olszewska
+ *
+ */
 
 #include "PlayerMenu.hpp"
 
@@ -195,4 +195,40 @@ void PlayerMenu::after(sf::RenderWindow &window, CommonData *commonData) {
 
     // Send introduction to the server
     commonData->server->sendPlayerIntroduction(commonData->mainPlayer);
+
+    // Create background
+    sf::Sprite background(commonData->defaultBackgroundTexture);
+
+    // Create menu title
+    Label* waitingForServerResponseLabel = new Label("Waiting for server response...", 50, commonData);
+    int x = (SCREEN_WIDTH - waitingForServerResponseLabel->getWidth()) / 2;
+    int y = (SCREEN_HEIGHT - waitingForServerResponseLabel->getHeight()) / 2;
+    waitingForServerResponseLabel->setPosition(x, y);
+
+    // Wait for response with confirmation
+    while (!commonData->joinedGame) {
+        // Process events
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            // Close window: exit
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+
+            // Escape pressed: exit
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                window.close();
+            }
+        }
+
+        // Clear screen
+        window.clear(sf::Color::Black);
+
+        // Draw
+        window.draw(background);
+        waitingForServerResponseLabel->draw(window);
+
+        // Update the window
+        window.display();
+    }
 }
