@@ -50,12 +50,18 @@ float Circle::getRadius() {
 
 void Circle::setX(float x) {
     this->m_x = x;
+    this->m_shape.setPosition(this->m_x, this->m_y);
 }
 
 void Circle::setY(float y) {
     this->m_y = y;
+    this->m_shape.setPosition(this->m_x, this->m_y);
 }
 
 void Circle::setRadius(float radius) {
     this->m_radius = radius;
+}
+
+void Circle::setColor(sf::Color color) {
+    this->m_shape.setFillColor(color);
 }

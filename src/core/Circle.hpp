@@ -31,6 +31,7 @@ public:
     void setX(float x);
     void setY(float y);
     void setRadius(float radius);
+    void setColor(sf::Color color);
 };
 
 #endif

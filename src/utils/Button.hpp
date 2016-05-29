@@ -1,9 +1,9 @@
 /*
-* Counter Strike 2D
-*
-* (c) 2016 Jakub Powierza & Karolina Olszewska
-*
-*/
+ * Counter Strike 2D
+ *
+ * (c) 2016 Jakub Powierza & Karolina Olszewska
+ *
+ */
 
 #ifndef Button_hpp
 #define Button_hpp

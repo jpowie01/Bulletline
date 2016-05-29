@@ -20,23 +20,19 @@ Game::~Game() {}
 //================================================================================
 
 void Game::before(sf::RenderWindow &window, CommonData* commonData) {
-    // Load background
-    sf::Texture texture;
-    if (!texture.loadFromFile(resourcePath() + "assets/images/defaultbackground.jpg")) {
-        printf("Error loading image (defaultbackground.jpg)!\n");
-        return;
+    // Prepare players and set their colors
+    for (int i = 0; i < commonData->map->playersSize(); i++) {
+        Player* player = commonData->map->getPlayerAtIndex(i);
+        if (player->getTeamID() == BLUE_TEAM) {
+            player->setColor(sf::Color::Blue);
+        } else {
+            player->setColor(sf::Color::Red);
+        }
     }
 
-    // Creating background
-    sf::Sprite background(texture);
+    // Create background
+    sf::Sprite background(commonData->defaultBackgroundTexture);
     background.setPosition(0, 0);
-
-    // Load font
-    sf::Font arial;
-    if (!arial.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
-        printf("Error loading font (BebasNeue.otf)!\n");
-        return;
-    }
     
     // '3' text
     Label* threeText = new Label("3", 64, 0, 0, commonData);
@@ -65,41 +61,52 @@ void Game::before(sf::RenderWindow &window, CommonData* commonData) {
     // Prepare clock
     sf::Clock clock;
     
-    // Print '3'
-    while (clock.getElapsedTime().asSeconds() < 1.0f) {
-        window.clear(sf::Color::Black);
-        window.draw(background);
-        threeText->draw(window);
-        window.display();
+    // Print series of labels
+    for (int textNumber = 3; textNumber >= 0; textNumber--) {
+        // Display each label for one second
+        while (clock.getElapsedTime().asSeconds() < 1.0f) {
+            // Process events
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                // Close window: exit
+                if (event.type == sf::Event::Closed) {
+                    window.close();
+                }
+
+                // Escape pressed: exit
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                    window.close();
+                }
+            }
+
+            // Clear window
+            window.clear(sf::Color::Black);
+
+            // Draw
+            switch (textNumber) {
+                case 3:
+                    threeText->draw(window);
+                    break;
+                case 2:
+                    twoText->draw(window);
+                    break;
+                case 1:
+                    oneText->draw(window);
+                    break;
+                case 0:
+                    startText->draw(window);
+                    break;
+                default:
+                    break;
+            }
+
+            // Display on screen
+            window.display();
+        }
+
+        // Restart one second clock
+        clock.restart();
     }
-    clock.restart();
-    
-    // Print '2'
-    while (clock.getElapsedTime().asSeconds() < 1.0f) {
-        window.clear(sf::Color::Black);
-        window.draw(background);
-        twoText->draw(window);
-        window.display();
-    }
-    clock.restart();
-    
-    // Print '1'
-    while (clock.getElapsedTime().asSeconds() < 1.0f) {
-        window.clear(sf::Color::Black);
-        window.draw(background);
-        oneText->draw(window);
-        window.display();
-    }
-    clock.restart();
-    
-    // Print 'START'
-    while (clock.getElapsedTime().asSeconds() < 1.0f) {
-        window.clear(sf::Color::Black);
-        window.draw(background);
-        startText->draw(window);
-        window.display();
-    }
-    clock.restart();
 }
 
 int Game::run(sf::RenderWindow& window, CommonData* commonData) {

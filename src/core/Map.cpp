@@ -78,6 +78,15 @@ Player* Map::getPlayerAtIndex(int index) {
     return this->m_players[index];
 }
 
+Player* Map::getPlayerWithID(int id) {
+    for (int i = 0; i < this->m_players.size(); i++) {
+        if (this->m_players[i]->getID() == id) {
+            return this->m_players[i];
+        }
+    }
+    return NULL;
+}
+
 //================================================================================
 // Core
 //================================================================================

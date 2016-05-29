@@ -65,13 +65,16 @@ void Connection::run() {
         // Process data
         sf::Uint8 header;
         data >> header;
-        if (header == NETWORK_PLAYER_JOINED_GAME_HEADER) {
+        if (header == NETWORK_JOINED_GAME_HEADER) {
             // Unpack data
             sf::Uint8 ID, teamID, amountOfPlayers;
             string name;
             data >> ID;
             data >> teamID;
             data >> amountOfPlayers;
+
+            // Set flag in common data
+            this->m_commonData->joinedGame = true;
 
             // Log
             cout << "Joined game (ID: " << (int)ID << " TeamID: " << (int)teamID << " InGame: " << (int)amountOfPlayers << ")\n";
@@ -112,6 +115,19 @@ void Connection::run() {
 
             // Log
             cout << "New player came (Name: " << player->getName() << " ID: " << player->getID() << " TeamID: " << player->getTeamID() << ")\n";
+        } else if (header == NETWORK_START_GAME_HEADER) {
+            // Get information about players position
+            for (int i = 0; i < m_commonData->map->playersSize(); i++) {
+                sf::Uint8 id;
+                sf::Uint32 x, y;
+                data >> id >> x >> y;
+                Player* player = m_commonData->map->getPlayerWithID((int)id);
+                player->setX((int)x);
+                player->setY((int)y);
+            }
+
+            // Start game
+            this->m_commonData->gameStarted = true;
         } else {
             cout << "Unknown header!\n";
         }

@@ -1,19 +1,24 @@
-//
-//  CommonData.cpp
-//  Przetwarzanie Rozproszone - Klient
-//
-//  Created by Jakub Powierza on 03/05/16.
-//  Copyright © 2016 Jakub Powierza. All rights reserved.
-//
+/*
+ * Counter Strike 2D
+ *
+ * (c) 2016 Jakub Powierza & Karolina Olszewska
+ *
+ */
 
 #include "CommonData.hpp"
 #include "../network/Connection.hpp"
+
+//================================================================================
+// Constructors
+//================================================================================
 
 CommonData::CommonData() {
     serverThread = NULL;
     server = NULL;
     map = NULL;
     mainPlayer = NULL;
+    this->loadFonts();
+    this->loadTextures();
 }
 
 CommonData::~CommonData() {
@@ -23,6 +28,10 @@ CommonData::~CommonData() {
     delete map;
     delete mainPlayer;
 }
+
+//================================================================================
+// Methods
+//================================================================================
 
 void CommonData::loadFonts() {
     // Load Arial font
