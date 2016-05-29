@@ -27,7 +27,7 @@ TextField::TextField() {
 }
 
 TextField::TextField(float positionX, float positionY, CommonData* commonData) {
-    this->m_label = new Label("", 50, positionX, positionY - 5, commonData);
+    this->m_label = new Label("", 50, positionX + 5, positionY - 7, commonData);
     this->m_label->setColor(sf::Color::Black);
     this->m_positionX = positionX;
     this->m_positionY = positionY;

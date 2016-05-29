@@ -35,12 +35,13 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     Label* name = new Label("Name: ", 50, 150, 410, commonData);
     
     // Create text fields
-    TextField* addressTextField = new TextField(400, 250,commonData);
+    TextField* addressTextField = new TextField(400, 250, commonData);
     TextField* portTextField = new TextField(400, 330, commonData);
     TextField* nameTextField = new TextField(400, 410, commonData);
-    string addressString = "";
-    string portString = "";
-    string nameString = "";
+
+    // Default values
+    addressTextField->setText(addressString);
+    portTextField->setText(portString);
 
     // Create buttons
     Button* backButton = new Button("Back", 70, BUTTON_POSITION_X, BUTTON_POSITION_Y, commonData);
@@ -174,4 +175,24 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     return EXIT;
 }
 
-void PlayerMenu::after(sf::RenderWindow &window, CommonData *commonData) {}
+void PlayerMenu::after(sf::RenderWindow &window, CommonData *commonData) {
+    // Create first map - level one
+    commonData->map = new LevelOne();
+
+    // Create player
+    commonData->mainPlayer = new Player(true, PLAYER_STARTING_POSITION_X, PLAYER_STARTING_POSITION_Y, commonData->map);
+    commonData->mainPlayer->setName(nameString);
+
+    // Add player into map
+    commonData->map->addPlayer(commonData->mainPlayer);
+
+    // Create server connection
+    commonData->server = new Connection(this->addressString, Converter::string2int(this->portString), commonData);
+
+    // Prepare server connection thread
+    commonData->serverThread = new sf::Thread(&Connection::run, commonData->server);
+    commonData->serverThread->launch();
+
+    // Send introduction to the server
+    commonData->server->sendPlayerIntroduction(commonData->mainPlayer);
+}

@@ -38,7 +38,7 @@ int MainMenu::run(sf::RenderWindow& window, CommonData* commonData) {
     playButton->setPosition((SCREEN_WIDTH - playButton->getWidth()) / 2, 200);
     authorsButton->setPosition((SCREEN_WIDTH - authorsButton->getWidth()) / 2, 300);
     exitButton->setPosition((SCREEN_WIDTH - exitButton->getWidth()) / 2, 400);
-    
+
     // Main loop
     while (window.isOpen()) {
         // Position of mouse

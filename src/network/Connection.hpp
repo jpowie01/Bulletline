@@ -8,11 +8,13 @@
 #ifndef Connection_hpp
 #define Connection_hpp
 
-#include <stdio.h>
+#include <iostream>
 #include <SFML/Network.hpp>
 
 #include "../core/Player.hpp"
 #include "../core/CommonData.hpp"
+
+using namespace std;
 
 class Connection {
 private:
@@ -23,7 +25,8 @@ private:
     
 public:
     Connection(sf::IpAddress serverIP, unsigned short serverPort, CommonData* commonData);
-    void sendPlayerUpdate(Player* player);
+    //void sendPlayerUpdate(Player* player);
+    void sendPlayerIntroduction(Player* player);
     void run();
 };
 

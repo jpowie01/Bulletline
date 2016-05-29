@@ -14,3 +14,11 @@ string Converter::int2string(int value) {
     ss >> out;
     return out;
 }
+
+int Converter::string2int(string str) {
+    int out;
+    stringstream ss;
+    ss << str;
+    ss >> out;
+    return out;
+}
