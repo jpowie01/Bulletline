@@ -20,19 +20,19 @@ Connection::Connection(sf::IpAddress serverIP, unsigned short serverPort, Common
     }
 }
 
-//void Connection::sendPlayerUpdate(Player* player) {
-//    // Prepare data to send
-//    sf::Packet data;
-//    data << sf::Uint8(PLAYER_HEADER);
-//    data << player->getX();
-//    data << player->getY();
-//
-//    // Send data
-//    if (this->m_server.send(data, this->m_serverIP, this->m_serverPort) != sf::Socket::Done) {
-//        printf("Error sending data to server!");
-//        return;
-//    }
-//}
+void Connection::sendPlayerPositionUpdate(Player* player) {
+    // Prepare data to send
+    sf::Packet data;
+    sf::Uint8 header = NETWORK_PLAYER_POSITION_UPDATE_HEADER;
+    sf::Uint8 id = player->getID();
+    data << header << id << player->getX() << player->getY();
+
+    // Send data
+    if (this->m_server.send(data, this->m_serverIP, this->m_serverPort) != sf::Socket::Done) {
+        printf("Error sending data to server!");
+        return;
+    }
+}
 
 void Connection::sendPlayerIntroduction(Player* player) {
     // Prepare data
@@ -128,6 +128,15 @@ void Connection::run() {
 
             // Start game
             this->m_commonData->gameStarted = true;
+        } else if (header == NETWORK_ALL_PLAYERS_POSITIONS_UPDATE_HEADER) {
+            // Update information
+            sf::Uint8 id;
+            float x, y;
+            for (int i = 0; i < m_commonData->map->playersSize(); i++) {
+                data >> id >> x >> y;
+                Player* player = m_commonData->map->getPlayerWithID((int)id);
+                player->setPosition(x, y);
+            }
         } else {
             cout << "Unknown header!\n";
         }

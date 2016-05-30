@@ -25,6 +25,7 @@ private:
     int m_teamID;
     bool m_mainPlayer;
     int m_speed, m_health;
+    int m_directionX, m_directionY;
     string m_name;
     Map* m_map;
     sf::Clock m_lastShot;
@@ -39,6 +40,8 @@ public:
     int getTeamID();
     int getSpeed();
     int getHealth();
+    int getDirectionX();
+    int getDirectionY();
     string getName();
     Map* getMap();
     bool isMainPlayer();
@@ -47,9 +50,9 @@ public:
     void setID(int ID);
     void setTeamID(int teamID);
     void setName(string name);
+    void setDirection(int directionX, int directionY);
     
     // Core
-    void update(int directionX, int directionY, sf::Time lastFrame);
     void update(sf::Time lastFrame);
     void move(float x, float y);
     void shot(float mouseX, float mouseY);

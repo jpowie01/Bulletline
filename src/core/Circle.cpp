@@ -58,6 +58,12 @@ void Circle::setY(float y) {
     this->m_shape.setPosition(this->m_x, this->m_y);
 }
 
+void Circle::setPosition(float x, float y) {
+    this->m_x = x;
+    this->m_y = y;
+    this->m_shape.setPosition(this->m_x, this->m_y);
+}
+
 void Circle::setRadius(float radius) {
     this->m_radius = radius;
 }

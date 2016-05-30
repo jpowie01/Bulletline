@@ -47,6 +47,14 @@ int Player::getHealth() {
     return this->m_health;
 }
 
+int Player::getDirectionX() {
+    return this->m_directionX;
+}
+
+int Player::getDirectionY() {
+    return this->m_directionY;
+}
+
 string Player::getName() {
     return this->m_name;
 }
@@ -75,32 +83,33 @@ void Player::setName(string name) {
     this->m_name = name;
 }
 
+void Player::setDirection(int directionX, int directionY) {
+    this->m_directionX = directionX;
+    this->m_directionY = directionY;
+}
+
 //================================================================================
 // Core
 //================================================================================
 
-void Player::update(int directionX, int directionY, sf::Time lastFrame) {
+void Player::update(sf::Time lastFrame) {
     // Calculate player movement
     float movement = this->m_speed * lastFrame.asSeconds();
 
     // Resolve walking in both directions
-    if (directionX && directionY) {
+    if (this->m_directionX && this->m_directionY) {
         movement = sqrt(movement);
     }
 
     // Check collisions in both directions
-    this->move(directionX * movement, 0.0f);
+    this->move(this->m_directionX * movement, 0.0f);
     if (this->m_map->checkCollision(this)) {
-        this->move(-directionX * movement, 0.0f);
+        this->move(-this->m_directionX * movement, 0.0f);
     }
-    this->move(0.0f, directionY * movement);
+    this->move(0.0f, this->m_directionY * movement);
     if (this->m_map->checkCollision(this)) {
-        this->move(0.0f, -directionY * movement);
+        this->move(0.0f, -this->m_directionY * movement);
     }
-}
-
-void Player::update(sf::Time lastFrame) {
-    // Make player predictions about direction
 }
 
 void Player::move(float x, float y) {
