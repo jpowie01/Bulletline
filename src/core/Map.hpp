@@ -37,6 +37,7 @@ public:
 
     // Getters
     int playersSize();
+    Player* mainPlayer;
     Player* getPlayerAtIndex(int index);
     Player* getPlayerWithID(int id);
 

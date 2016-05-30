@@ -28,6 +28,9 @@ Map::Map() {
     addObstacle(right);
     addObstacle(lower);
 
+    // Main player
+    mainPlayer = NULL;
+
     // Reset the clock
     this->m_clock.restart();
     this->m_lastFrame = this->m_clock.getElapsedTime();
@@ -109,13 +112,15 @@ void Map::update() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) directionY += 1;
 
     // Update players positions
-    for (int i = 0; i < m_players.size(); i++) {
-        if (m_players[i]->isMainPlayer()) {
-            m_players[i]->update(directionX, directionY, this->m_lastFrame);
-        } else {
-            m_players[i]->update(this->m_lastFrame);
+    if (mainPlayer == NULL) {
+        for (int i = 0; i < m_players.size(); i++) {
+            if (m_players[i]->isMainPlayer()) {
+                mainPlayer = m_players[i];
+            }
         }
     }
+    mainPlayer->setDirection(directionX, directionY);
+    mainPlayer->update(this->m_lastFrame);
 
     // Update bullet positions
     for (int i = 0; i < m_bullets.size(); i++) {

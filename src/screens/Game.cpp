@@ -143,8 +143,8 @@ int Game::run(sf::RenderWindow& window, CommonData* commonData) {
         // Update the whole map
         commonData->map->update();
 
-        // Send player update
-        //commonData->server->sendPlayerUpdate(commonData->mainPlayer);
+        // Send player position update
+        commonData->server->sendPlayerPositionUpdate(commonData->mainPlayer);
         
         // Update GUI
         healthText->setString(Converter::int2string(commonData->mainPlayer->getHealth()));
