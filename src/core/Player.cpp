@@ -120,7 +120,7 @@ void Player::move(float x, float y) {
 }
 
 Bullet* Player::shot(float mouseX, float mouseY) {
-    if (this->m_lastShot.getElapsedTime().asSeconds() < sf::seconds(0.08f).asSeconds()) return NULL;
+    if (this->m_lastShot.getElapsedTime().asSeconds() < sf::seconds(0.08f).asSeconds()) return;
     float x = mouseX - this->m_x - this->m_radius;
     float y = mouseY - this->m_y - this->m_radius;
     float length = sqrt(x*x + y*y);

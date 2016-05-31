@@ -141,13 +141,6 @@ void Map::update() {
     for (int i = 0; i < m_bullets.size(); i++) {
         bool deleteBullet = m_bullets[i]->update(this->m_lastFrame);
         if (deleteBullet) {
-            m_bullets[i]->setDeleted();
-        }
-    }
-
-    // Delete bullets
-    for (int i = 0; i < m_bullets.size(); i++) {
-        if (m_bullets[i]->isDeleted()) {
             sf::Lock lock(this->bulletOperationsMutex);
             delete m_bullets[i];
             m_bullets.erase(m_bullets.begin() + i);
@@ -162,8 +155,11 @@ void Map::update() {
 
 void Map::draw(sf::RenderWindow& window) {
     // Draw bullets
-    for (int i = 0; i < m_bullets.size(); i++) {
-        m_bullets[i]->draw(window);
+    {
+        sf::Lock lock(this->bulletOperationsMutex);
+        for (int i = 0; i < m_bullets.size(); i++) {
+            m_bullets[i]->draw(window);
+        }
     }
 
     // Draw obstacles

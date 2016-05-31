@@ -18,7 +18,6 @@ class Player;
 
 class Bullet : public Circle {
 private:
-    bool m_deleted;
     float m_directionX, m_directionY;
     float m_speed;
     Player* m_player;
@@ -29,14 +28,10 @@ public:
     Bullet(float x, float y, float directionX, float directionY, Player* player);
     
     // Getters
-    bool isDeleted();
     float getDirectionX();
     float getDirectionY();
     float getSpeed();
     Player* getPlayer();
-
-    // Setters
-    void setDeleted();
     
     // Core
     bool update(sf::Time lastFrame);
