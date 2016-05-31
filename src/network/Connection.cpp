@@ -78,7 +78,6 @@ void Connection::run() {
 
         // Process data
         sf::Uint8 header;
-        sf::Uint64 time;
         data >> header;
         if (header == NETWORK_JOINED_GAME_HEADER) {
             // Unpack data
