@@ -14,6 +14,7 @@
 //================================================================================
 
 Player::Player() : Circle() {
+    this->m_dead = false;
     this->m_mainPlayer = false;
     this->m_health = PLAYER_HEALTH;
     this->m_speed = PLAYER_SPEED;
@@ -21,6 +22,7 @@ Player::Player() : Circle() {
 }
 
 Player::Player(bool mainPlayer, float x, float y, Map* map) : Circle(x, y, 15.0f, sf::Color::Black, 2, sf::Color::Blue) {
+    this->m_dead = false;
     this->m_mainPlayer = mainPlayer;
     this->m_health = PLAYER_HEALTH;
     this->m_speed = PLAYER_SPEED;
@@ -68,6 +70,10 @@ bool Player::isMainPlayer() {
     return this->m_mainPlayer;
 }
 
+bool Player::isDead() {
+    return this->m_dead;
+}
+
 //================================================================================
 // Getters
 //================================================================================
@@ -80,6 +86,14 @@ void Player::setTeamID(int teamID) {
     this->m_teamID = teamID;
 }
 
+void Player::setHealth(int health) {
+    this->m_health = health;
+    if (this->m_health <= 0) {
+        this->m_health = 0;
+        this->setDead();
+    }
+}
+
 void Player::setName(string name) {
     this->m_name = name;
 }
@@ -87,6 +101,10 @@ void Player::setName(string name) {
 void Player::setDirection(int directionX, int directionY) {
     this->m_directionX = directionX;
     this->m_directionY = directionY;
+}
+
+void Player::setDead() {
+    this->m_dead = true;
 }
 
 //================================================================================
@@ -120,7 +138,8 @@ void Player::move(float x, float y) {
 }
 
 Bullet* Player::shot(float mouseX, float mouseY) {
-    if (this->m_lastShot.getElapsedTime().asSeconds() < sf::seconds(0.08f).asSeconds()) return;
+    if (this->isDead()) return NULL;
+    if (this->m_lastShot.getElapsedTime().asSeconds() < sf::seconds(0.08f).asSeconds()) return NULL;
     float x = mouseX - this->m_x - this->m_radius;
     float y = mouseY - this->m_y - this->m_radius;
     float length = sqrt(x*x + y*y);
@@ -133,5 +152,7 @@ Bullet* Player::shot(float mouseX, float mouseY) {
 }
 
 void Player::draw(sf::RenderWindow& window) {
-    window.draw(this->m_shape);
+    if (!this->isDead()) {
+        window.draw(this->m_shape);
+    }
 }

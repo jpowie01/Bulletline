@@ -26,7 +26,7 @@ private:
     
 public:
     Connection(sf::IpAddress serverIP, unsigned short serverPort, CommonData* commonData);
-    void sendPlayerPositionUpdate(Player* player);
+    void sendPlayerUpdate(Player* player);
     void sendPlayerIntroduction(Player* player);
     void sendPlayerShot(Bullet* bullet);
     void run();

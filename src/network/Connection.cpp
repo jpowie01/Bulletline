@@ -20,10 +20,10 @@ Connection::Connection(sf::IpAddress serverIP, unsigned short serverPort, Common
     }
 }
 
-void Connection::sendPlayerPositionUpdate(Player* player) {
+void Connection::sendPlayerUpdate(Player* player) {
     // Prepare data to send
     sf::Packet data;
-    sf::Uint8 header = NETWORK_PLAYER_POSITION_UPDATE_HEADER;
+    sf::Uint8 header = NETWORK_PLAYER_UPDATE_HEADER;
     sf::Uint8 id = player->getID();
     data << header << id << player->getX() << player->getY();
 
@@ -142,14 +142,17 @@ void Connection::run() {
 
             // Start game
             this->m_commonData->gameStarted = true;
-        } else if (header == NETWORK_ALL_PLAYERS_POSITIONS_UPDATE_HEADER) {
+        } else if (header == NETWORK_ALL_PLAYERS_UPDATE_HEADER) {
             // Update information
-            sf::Uint8 id;
+            sf::Uint8 id, health;
             float x, y;
             for (int i = 0; i < m_commonData->map->playersSize(); i++) {
-                data >> id >> x >> y;
+                data >> id >> x >> y >> health;
                 Player* player = m_commonData->map->getPlayerWithID((int)id);
-                player->setPosition(x, y);
+                if (player != m_commonData->mainPlayer) {
+                    player->setPosition(x, y);
+                }
+                player->setHealth((int)health);
             }
         } else if (header == NETWORK_NEW_BULLET_HEADER) {
             // Unpack data
@@ -165,6 +168,21 @@ void Connection::run() {
             // Create bullet
             Bullet* bullet = new Bullet(x, y, directionX, directionY, player);
             m_commonData->map->addBullet(bullet);
+        } else if (header == NETWORK_PLAYER_IS_DEAD_HEADER) {
+            // Unpack data
+            sf::Uint8 id;
+            data >> id;
+
+            // Get player
+            Player* player = m_commonData->map->getPlayerWithID((int)id);
+
+            // Set dead
+            player->setDead();
+
+            // Main player is dead
+            if (player == m_commonData->mainPlayer) {
+                // DEAD SCREEN SOMEHOW
+            }
         } else {
             cout << "Unknown header!\n";
         }

@@ -22,6 +22,7 @@ using namespace std;
 
 class Player : public Circle {
 private:
+    bool m_dead;
     int m_ID;
     int m_teamID;
     bool m_mainPlayer;
@@ -46,12 +47,15 @@ public:
     string getName();
     Map* getMap();
     bool isMainPlayer();
+    bool isDead();
 
     // Setters
     void setID(int ID);
     void setTeamID(int teamID);
+    void setHealth(int health);
     void setName(string name);
     void setDirection(int directionX, int directionY);
+    void setDead();
     
     // Core
     void update(sf::Time lastFrame);
