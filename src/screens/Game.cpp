@@ -138,7 +138,9 @@ int Game::run(sf::RenderWindow& window, CommonData* commonData) {
         // Player shooting
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             Bullet* bullet = commonData->mainPlayer->shot((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y);
-            commonData->server->sendPlayerShot(bullet);
+            if (bullet != NULL) {
+                commonData->server->sendPlayerShot(bullet);
+            }
         }
 
         // Update the whole map
