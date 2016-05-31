@@ -27,6 +27,12 @@ public:
     Bullet();
     Bullet(float x, float y, float directionX, float directionY, Player* player);
     
+    // Getters
+    float getDirectionX();
+    float getDirectionY();
+    float getSpeed();
+    Player* getPlayer();
+    
     // Core
     bool update(sf::Time lastFrame);
     void move(float x, float y);

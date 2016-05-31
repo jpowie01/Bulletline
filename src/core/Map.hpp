@@ -19,6 +19,7 @@ using namespace std;
 
 class Map {
 private:
+    sf::Mutex bulletOperationsMutex;
     vector <Player*> m_players;
     vector <Obstacle*> m_obstacles;
     vector <Bullet*> m_bullets;
@@ -42,7 +43,8 @@ public:
     Player* getPlayerWithID(int id);
 
     // Core
-    bool checkCollision(Circle* player);
+    bool checkCollision(Player* player);
+    bool checkCollision(Bullet* bullet);
     void update();
     void draw(sf::RenderWindow& window);
 };

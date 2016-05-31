@@ -66,6 +66,7 @@ void Map::addObstacle(Obstacle* obstacle) {
 }
 
 void Map::addBullet(Bullet* obstacle) {
+    sf::Lock lock(this->bulletOperationsMutex);
     m_bullets.push_back(obstacle);
 }
 
@@ -94,9 +95,23 @@ Player* Map::getPlayerWithID(int id) {
 // Core
 //================================================================================
 
-bool Map::checkCollision(Circle* circle) {
+bool Map::checkCollision(Player* player) {
     for (int i = 0; i < m_obstacles.size(); i++) {
-        if (m_obstacles[i]->checkCollision(circle)) {
+        if (m_obstacles[i]->checkCollision(player)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Map::checkCollision(Bullet* bullet) {
+    for (int i = 0; i < m_obstacles.size(); i++) {
+        if (m_obstacles[i]->checkCollision(bullet)) {
+            return true;
+        }
+    }
+    for (int i = 0; i < m_players.size(); i++) {
+        if (m_players[i] != bullet->getPlayer() && m_players[i]->checkCollision(bullet)) {
             return true;
         }
     }
@@ -126,6 +141,7 @@ void Map::update() {
     for (int i = 0; i < m_bullets.size(); i++) {
         bool deleteBullet = m_bullets[i]->update(this->m_lastFrame);
         if (deleteBullet) {
+            sf::Lock lock(this->bulletOperationsMutex);
             delete m_bullets[i];
             m_bullets.erase(m_bullets.begin() + i);
             i--;
@@ -139,8 +155,11 @@ void Map::update() {
 
 void Map::draw(sf::RenderWindow& window) {
     // Draw bullets
-    for (int i = 0; i < m_bullets.size(); i++) {
-        m_bullets[i]->draw(window);
+    {
+        sf::Lock lock(this->bulletOperationsMutex);
+        for (int i = 0; i < m_bullets.size(); i++) {
+            m_bullets[i]->draw(window);
+        }
     }
 
     // Draw obstacles

@@ -11,6 +11,7 @@
 #include <iostream>
 #include <SFML/Network.hpp>
 
+#include "../core/Bullet.hpp"
 #include "../core/Player.hpp"
 #include "../core/CommonData.hpp"
 
@@ -27,6 +28,7 @@ public:
     Connection(sf::IpAddress serverIP, unsigned short serverPort, CommonData* commonData);
     void sendPlayerPositionUpdate(Player* player);
     void sendPlayerIntroduction(Player* player);
+    void sendPlayerShot(Bullet* bullet);
     void run();
 };
 

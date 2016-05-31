@@ -16,6 +16,7 @@
 #include "../Definitions.hpp"
 
 class Map;
+class Bullet;
 
 using namespace std;
 
@@ -55,7 +56,7 @@ public:
     // Core
     void update(sf::Time lastFrame);
     void move(float x, float y);
-    void shot(float mouseX, float mouseY);
+    Bullet* shot(float mouseX, float mouseY);
     void draw(sf::RenderWindow& window);
 };
 

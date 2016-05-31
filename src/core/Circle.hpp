@@ -9,6 +9,7 @@
 #define Circle_hpp
 
 #include <stdio.h>
+#include <math.h>
 #include <SFML/Graphics.hpp>
 
 class Circle {
@@ -33,6 +34,9 @@ public:
     void setPosition(float x, float y);
     void setRadius(float radius);
     void setColor(sf::Color color);
+
+    // Collisions
+    bool checkCollision(Circle* circle);
 };
 
 #endif

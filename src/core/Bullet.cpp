@@ -28,6 +28,26 @@ Bullet::Bullet(float x, float y, float directionX, float directionY, Player* pla
 }
 
 //================================================================================
+// Getters
+//================================================================================
+
+float Bullet::getDirectionX() {
+    return this->m_directionX;
+}
+
+float Bullet::getDirectionY() {
+    return this->m_directionY;
+}
+
+float Bullet::getSpeed() {
+    return this->m_speed;
+}
+
+Player* Bullet::getPlayer() {
+    return this->m_player;
+}
+
+//================================================================================
 // Core
 //================================================================================
 

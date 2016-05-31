@@ -71,3 +71,18 @@ void Circle::setRadius(float radius) {
 void Circle::setColor(sf::Color color) {
     this->m_shape.setFillColor(color);
 }
+
+//================================================================================
+// Collisions
+//================================================================================
+
+bool Circle::checkCollision(Circle* circle) {
+    float differenceX = circle->getX() + circle->getRadius() - this->getX() - this->getRadius();
+    float differenceY = circle->getY() + circle->getRadius() - this->getY() - this->getRadius();
+    float distance = sqrt(differenceX * differenceX + differenceY * differenceY);
+    if (distance <= circle->getRadius() + this->getRadius()) {
+        return true;
+    } else {
+        return false;
+    }
+}
