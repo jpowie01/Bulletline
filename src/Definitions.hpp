@@ -49,10 +49,11 @@
 #define NETWORK_JOINED_GAME_HEADER                      2
 #define NETWORK_PLAYER_JOINED_HEADER                    3
 #define NETWORK_START_GAME_HEADER                       4
-#define NETWORK_PLAYER_POSITION_UPDATE_HEADER           5
-#define NETWORK_ALL_PLAYERS_POSITIONS_UPDATE_HEADER     6
+#define NETWORK_PLAYER_UPDATE_HEADER                    5
+#define NETWORK_ALL_PLAYERS_UPDATE_HEADER               6
 #define NETWORK_PLAYER_SHOT_HEADER                      7
 #define NETWORK_NEW_BULLET_HEADER                       8
+#define NETWORK_PLAYER_IS_DEAD_HEADER                   9
 
 // Screens
 #define NUMBER_OF_SCREENS   5

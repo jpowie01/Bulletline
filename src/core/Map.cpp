@@ -111,7 +111,7 @@ bool Map::checkCollision(Bullet* bullet) {
         }
     }
     for (int i = 0; i < m_players.size(); i++) {
-        if (m_players[i] != bullet->getPlayer() && m_players[i]->checkCollision(bullet)) {
+        if (m_players[i] != bullet->getPlayer() && m_players[i]->checkCollision(bullet) && !m_players[i]->isDead()) {
             return true;
         }
     }
