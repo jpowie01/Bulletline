@@ -7,6 +7,7 @@
 
 #include "Player.hpp"
 #include "Map.hpp"
+#include "Bullet.hpp"
 
 //================================================================================
 // Contructors
@@ -118,7 +119,7 @@ void Player::move(float x, float y) {
     this->m_shape.setPosition(this->m_x, this->m_y);
 }
 
-void Player::shot(float mouseX, float mouseY) {
+Bullet* Player::shot(float mouseX, float mouseY) {
     if (this->m_lastShot.getElapsedTime().asSeconds() < sf::seconds(0.08f).asSeconds()) return;
     float x = mouseX - this->m_x - this->m_radius;
     float y = mouseY - this->m_y - this->m_radius;
@@ -128,6 +129,7 @@ void Player::shot(float mouseX, float mouseY) {
     Bullet* bullet = new Bullet(this->m_x + this->m_radius, this->m_y + this->m_radius, x, y, this);
     this->m_map->addBullet(bullet);
     this->m_lastShot.restart();
+    return bullet;
 }
 
 void Player::draw(sf::RenderWindow& window) {

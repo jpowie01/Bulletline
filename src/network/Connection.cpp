@@ -48,6 +48,20 @@ void Connection::sendPlayerIntroduction(Player* player) {
     }
 }
 
+void Connection::sendPlayerShot(Bullet* bullet) {
+    // Prepare data to send
+    sf::Packet data;
+    sf::Uint8 header = NETWORK_PLAYER_SHOT_HEADER;
+    sf::Uint8 id = bullet->getPlayer()->getID();
+    data << header << id << bullet->getX() << bullet->getY() << bullet->getDirectionX() << bullet->getDirectionY() << bullet->getSpeed();
+    
+    // Send data
+    if (this->m_server.send(data, this->m_serverIP, this->m_serverPort) != sf::Socket::Done) {
+        printf("Error sending data to server!");
+        return;
+    }
+}
+
 void Connection::run() {
     // Containers for data
     sf::Packet data;
@@ -137,6 +151,20 @@ void Connection::run() {
                 Player* player = m_commonData->map->getPlayerWithID((int)id);
                 player->setPosition(x, y);
             }
+        } else if (header == NETWORK_NEW_BULLET_HEADER) {
+            // Unpack data
+            sf::Uint8 id;
+            float x, y;
+            float directionX, directionY;
+            float speed;
+            data >> id >> x >> y >> directionX >> directionY >> speed;
+            
+            // Get player
+            Player* player = m_commonData->map->getPlayerWithID((int)id);
+            
+            // Create bullet
+            Bullet* bullet = new Bullet(x, y, directionX, directionY, player);
+            m_commonData->map->addBullet(bullet);
         } else {
             cout << "Unknown header!\n";
         }

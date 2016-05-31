@@ -51,6 +51,8 @@
 #define NETWORK_START_GAME_HEADER                       4
 #define NETWORK_PLAYER_POSITION_UPDATE_HEADER           5
 #define NETWORK_ALL_PLAYERS_POSITIONS_UPDATE_HEADER     6
+#define NETWORK_PLAYER_SHOT_HEADER                      7
+#define NETWORK_NEW_BULLET_HEADER                       8
 
 // Screens
 #define NUMBER_OF_SCREENS   5
