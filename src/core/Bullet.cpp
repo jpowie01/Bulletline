@@ -14,6 +14,7 @@
 //================================================================================
 
 Bullet::Bullet() {
+    this->m_deleted = false;
     this->m_directionX = 0;
     this->m_directionY = 0;
     this->m_speed = BULLET_SPEED;
@@ -21,6 +22,7 @@ Bullet::Bullet() {
 }
 
 Bullet::Bullet(float x, float y, float directionX, float directionY, Player* player) : Circle(x, y, 2.0f, sf::Color::Black, 1, sf::Color(255, 140, 0)) {
+    this->m_deleted = false;
     this->m_directionX = directionX;
     this->m_directionY = directionY;
     this->m_speed = BULLET_SPEED;
@@ -30,6 +32,10 @@ Bullet::Bullet(float x, float y, float directionX, float directionY, Player* pla
 //================================================================================
 // Getters
 //================================================================================
+
+bool Bullet::isDeleted() {
+    return this->m_deleted;
+}
 
 float Bullet::getDirectionX() {
     return this->m_directionX;
@@ -45,6 +51,14 @@ float Bullet::getSpeed() {
 
 Player* Bullet::getPlayer() {
     return this->m_player;
+}
+
+//================================================================================
+// Setters
+//================================================================================
+
+void Bullet::setDeleted() {
+    this->m_deleted = true;
 }
 
 //================================================================================
