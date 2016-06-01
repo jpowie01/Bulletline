@@ -142,6 +142,9 @@ void Connection::run() {
 
             // Start game
             this->m_commonData->gameStarted = true;
+
+            // Log
+            cout << "Game started!\n";
         } else if (header == NETWORK_ALL_PLAYERS_UPDATE_HEADER) {
             // Update information
             sf::Uint8 id, health;
@@ -179,10 +182,19 @@ void Connection::run() {
             // Set dead
             player->setDead();
 
-            // Main player is dead
-            if (player == m_commonData->mainPlayer) {
-                // DEAD SCREEN SOMEHOW
-            }
+            // Log
+            cout << "Player is dead (Name: " << player->getName() << " ID: " << player->getID() << " TeamID: " << player->getTeamID() << ")\n";
+        } else if (header == NETWORK_END_OF_THE_GAME_HEADER) {
+            // Unpack data
+            sf::Uint8 winningTeam;
+            data >> winningTeam;
+
+            // Set winning team
+            m_commonData->gameEnded = true;
+            m_commonData->winningTeam = winningTeam;
+
+            // Log
+            cout << "End of the game! Winning team ID: " << winningTeam << "\n";
         } else {
             cout << "Unknown header!\n";
         }

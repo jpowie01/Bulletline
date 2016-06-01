@@ -54,6 +54,7 @@
 #define NETWORK_PLAYER_SHOT_HEADER                      7
 #define NETWORK_NEW_BULLET_HEADER                       8
 #define NETWORK_PLAYER_IS_DEAD_HEADER                   9
+#define NETWORK_END_OF_THE_GAME_HEADER                  10
 
 // Screens
 #define NUMBER_OF_SCREENS   5
