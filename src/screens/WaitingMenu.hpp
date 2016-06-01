@@ -17,8 +17,6 @@
 #include "../utils/Button.hpp"
 #include "../utils/Label.hpp"
 #include "../utils/Converter.hpp"
-#include "../levels/LevelOne.hpp"
-#include "../network/Connection.hpp"
 
 class WaitingMenu : public Screen {
 public:

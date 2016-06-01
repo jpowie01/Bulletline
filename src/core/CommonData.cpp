@@ -65,3 +65,28 @@ void CommonData::loadTextures() {
         return;
     }
 }
+
+void CommonData::prepareGameToStart() {
+    // Default flags
+    joinedGame = false;
+    gameStarted = false;
+    gameEnded = false;
+    
+    // Create first map - level one
+    this->map = new LevelOne();
+    
+    // Create player
+    this->mainPlayer = new Player(true, PLAYER_STARTING_POSITION_X, PLAYER_STARTING_POSITION_Y, this->map);
+    this->mainPlayer->setName(this->playerName);
+    
+    // Add player into map
+    this->map->addPlayer(this->mainPlayer);
+}
+
+void CommonData::prepareGameToRestart() {
+    // Remove data
+    delete this->map;
+    
+    // Prepare game to start
+    this->prepareGameToStart();
+}
