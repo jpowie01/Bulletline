@@ -30,10 +30,12 @@ public:
     sf::Thread* serverThread;
     Map* map;
     Player* mainPlayer;
+    int winningTeam;
 
     // Game flags
     bool joinedGame = false;
     bool gameStarted = false;
+    bool gameEnded = false;
 
     // Fonts
     sf::Font arialFont;

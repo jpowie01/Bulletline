@@ -116,6 +116,25 @@ int Game::run(sf::RenderWindow& window, CommonData* commonData) {
 
     // Health text
     Label* healthText = new Label(Converter::int2string(commonData->mainPlayer->getHealth()), 36, 80, 618, commonData);
+    
+    // Overlay
+    sf::RectangleShape overlay;
+    overlay.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
+    overlay.setFillColor(sf::Color(0, 0, 0, 70));
+
+    // Dead label
+    Label* deadLabel = new Label("You're DEAD!", 64, commonData);
+    deadLabel->setPosition((int)(SCREEN_WIDTH - deadLabel->getWidth())/2, (int)(SCREEN_HEIGHT - deadLabel->getHeight())/2 - 30);
+    Label* deadInformationLabel = new Label("Wait until the game has ended...", 30, commonData);
+    deadInformationLabel->setPosition((int)(SCREEN_WIDTH - deadInformationLabel->getWidth())/2, SCREEN_HEIGHT - 70);
+
+    // Team win label
+    Label* redTeamWinLabel = new Label("RED TEAM WIN", 80, commonData);
+    redTeamWinLabel->setColor(sf::Color::Red);
+    redTeamWinLabel->setPosition((int)(SCREEN_WIDTH - redTeamWinLabel->getWidth())/2, (int)(SCREEN_HEIGHT - redTeamWinLabel->getHeight())/2 - 30);
+    Label* blueTeamWinLabel = new Label("BLUE TEAM WIN", 80, commonData);
+    blueTeamWinLabel->setColor(sf::Color::Blue);
+    blueTeamWinLabel->setPosition((int)(SCREEN_WIDTH - blueTeamWinLabel->getWidth())/2, (int)(SCREEN_HEIGHT - blueTeamWinLabel->getHeight())/2 - 30);
 
     // Start the game loop
     while (window.isOpen())
@@ -143,11 +162,14 @@ int Game::run(sf::RenderWindow& window, CommonData* commonData) {
             }
         }
 
-        // Update the whole map
-        commonData->map->update();
+        // Refresh game only when game is on
+        if (!commonData->gameEnded) {
+            // Update the whole map
+            commonData->map->update();
 
-        // Send player update
-        commonData->server->sendPlayerUpdate(commonData->mainPlayer);
+            // Send player update
+            commonData->server->sendPlayerUpdate(commonData->mainPlayer);
+        }
         
         // Update GUI
         healthText->setString(Converter::int2string(commonData->mainPlayer->getHealth()));
@@ -161,6 +183,20 @@ int Game::run(sf::RenderWindow& window, CommonData* commonData) {
         // Draw GUI
         window.draw(heartSprite);
         healthText->draw(window);
+
+        // Overlay screens
+        if (commonData->gameEnded) {
+            window.draw(overlay);
+            if (commonData->winningTeam == RED_TEAM) {
+                redTeamWinLabel->draw(window);
+            } else {
+                blueTeamWinLabel->draw(window);
+            }
+        } else if (commonData->mainPlayer->isDead()) {
+            window.draw(overlay);
+            deadLabel->draw(window);
+            deadInformationLabel->draw(window);
+        }
 
         // Update the window
         window.display();
