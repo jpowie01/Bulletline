@@ -32,7 +32,6 @@ void Game::before(sf::RenderWindow &window, CommonData* commonData) {
 
     // Create background
     sf::Sprite background(commonData->defaultBackgroundTexture);
-    background.setPosition(0, 0);
     
     // '3' text
     Label* threeText = new Label("3", 64, 0, 0, commonData);
@@ -246,7 +245,7 @@ int Game::run(sf::RenderWindow& window, CommonData* commonData) {
         }
 
         // Clear screen
-        window.clear(sf::Color::White);
+        window.clear();
 
         // Draw map (level one)
         commonData->map->draw(window);

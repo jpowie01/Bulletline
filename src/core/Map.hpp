@@ -17,6 +17,8 @@
 
 using namespace std;
 
+class CommonData;
+
 class Map {
 private:
     sf::Mutex bulletOperationsMutex;
@@ -25,10 +27,12 @@ private:
     vector <Bullet*> m_bullets;
     sf::Time m_lastFrame;
     sf::Clock m_clock;
+    CommonData* commonData;
+    sf::Sprite background;
 
 public:
     // Constructors
-    Map();
+    Map(CommonData* commonData);
     ~Map();
     
     // Adding
