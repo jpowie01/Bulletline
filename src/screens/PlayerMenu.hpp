@@ -16,16 +16,9 @@
 #include "../utils/Button.hpp"
 #include "../utils/TextField.hpp"
 #include "../utils/Label.hpp"
-#include "../network/Connection.hpp"
-#include "../levels/LevelOne.hpp"
 #include "../utils/Converter.hpp"
 
 class PlayerMenu : public Screen {
-private:
-    string addressString = SERVER_HOST;
-    string portString = Converter::int2string(SERVER_PORT);
-    string nameString = "";
-
 public:
     // Constructors
     PlayerMenu();
