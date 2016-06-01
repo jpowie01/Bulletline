@@ -79,7 +79,7 @@ void CommonData::prepareGameToStart() {
     gameEnded = false;
     
     // Create first map - level one
-    this->map = new LevelOne();
+    this->map = new LevelOne(this);
     
     // Create player
     this->mainPlayer = new Player(true, PLAYER_STARTING_POSITION_X, PLAYER_STARTING_POSITION_Y, this->map);
