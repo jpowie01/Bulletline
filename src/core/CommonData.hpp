@@ -49,6 +49,7 @@ public:
     sf::Font bebasNeueFont;
     sf::Texture mainMenuBackgroundTexture;
     sf::Texture defaultBackgroundTexture;
+    sf::Texture lvl1background;
     sf::Texture heartTexture;
 
     // Methods

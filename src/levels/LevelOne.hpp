@@ -9,12 +9,13 @@
 #define LevelOne_hpp
 
 #include "../core/Map.hpp"
+#include "../core/CommonData.hpp"
 
 class LevelOne: public Map  {
 
 public:
     // Constructors
-    LevelOne();
+    LevelOne(CommonData* commonData);
 };
 
 #endif

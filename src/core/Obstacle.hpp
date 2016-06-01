@@ -14,11 +14,14 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
 
+class CommonData;
+
 class Obstacle {
 private:
     sf::RectangleShape m_obstacle;
     float m_x, m_y;
     float m_width, m_height;
+    CommonData* commonData;
 
 public:
     // Constructors

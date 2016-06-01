@@ -237,5 +237,4 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     return EXIT;
 }
 
-void PlayerMenu::after(sf::RenderWindow &window, CommonData *commonData) {
-}
+void PlayerMenu::after(sf::RenderWindow &window, CommonData *commonData) {}

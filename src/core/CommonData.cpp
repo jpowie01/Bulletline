@@ -59,6 +59,12 @@ void CommonData::loadTextures() {
         return;
     }
 
+    // Load in game backround
+    if (!this->lvl1background.loadFromFile(resourcePath() + "assets/images/lvl1background-001.jpg")) {
+        printf("Error loading heart texture (lvl1background.png)!\n");
+        return;
+    }
+
     // Heart texture
     if (!this->heartTexture.loadFromFile(resourcePath() + "assets/images/heart.png")) {
         printf("Error loading heart texture (heart.png)!\n");

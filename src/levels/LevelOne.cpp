@@ -12,7 +12,7 @@
 // Constructors
 //================================================================================
 
-LevelOne::LevelOne() {
+LevelOne::LevelOne(CommonData* commonData) : Map(commonData) {
     // Create all obstacles on map - level one
     Obstacle* obstacle1 = new Obstacle(100, 120, 40, 100);
     Obstacle* obstacle2 = new Obstacle(20, 300, 100, 40); 

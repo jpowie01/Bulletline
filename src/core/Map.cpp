@@ -7,6 +7,7 @@
 
 #include "Map.hpp"
 #include "Obstacle.hpp"
+#include "CommonData.hpp"
 #include <vector>
 
 using namespace std;
@@ -15,7 +16,10 @@ using namespace std;
 // Contructors
 //================================================================================
 
-Map::Map() {
+Map::Map(CommonData* commonData) {
+    // Create background
+    background = sf::Sprite(commonData->lvl1background);
+
     // Creating borders for map
     Obstacle* upper = new Obstacle(0, 0, SCREEN_WIDTH, 20);
     Obstacle* left = new Obstacle(0, 0, 20, SCREEN_HEIGHT);
@@ -154,6 +158,9 @@ void Map::update() {
 }
 
 void Map::draw(sf::RenderWindow& window) {
+    // Draw background
+    window.draw(background);
+
     // Draw bullets
     {
         sf::Lock lock(this->bulletOperationsMutex);
