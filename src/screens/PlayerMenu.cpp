@@ -24,6 +24,11 @@ void PlayerMenu::before(sf::RenderWindow &window, CommonData* commonData) {}
 int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     // Create background
     sf::Sprite background(commonData->defaultBackgroundTexture);
+    
+    // Prepare temporary UI data
+    string addressString = SERVER_HOST;
+    string portString = Converter::int2string(SERVER_PORT);
+    string nameString = "";
 
     // Create menu title
     Label* playerMenuTitle = new Label("Player menu", 100, commonData);
@@ -42,6 +47,7 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
     // Default values
     addressTextField->setText(addressString);
     portTextField->setText(portString);
+    nameTextField->setText(nameString);
 
     // Create buttons
     Button* backButton = new Button("Back", 70, BUTTON_POSITION_X, BUTTON_POSITION_Y, commonData);
@@ -136,6 +142,9 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
                 return MAIN_MENU;
             }
             if (nextButton->cursorInRange(position) == true) {
+                commonData->serverAddress = sf::IpAddress(addressTextField->getText());
+                commonData->serverPort = Converter::string2int(portTextField->getText());
+                commonData->playerName = nameTextField->getText();
                 return WAITING_MENU;
             }
         } else {
@@ -176,59 +185,4 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
 }
 
 void PlayerMenu::after(sf::RenderWindow &window, CommonData *commonData) {
-    // Create first map - level one
-    commonData->map = new LevelOne();
-
-    // Create player
-    commonData->mainPlayer = new Player(true, PLAYER_STARTING_POSITION_X, PLAYER_STARTING_POSITION_Y, commonData->map);
-    commonData->mainPlayer->setName(nameString);
-
-    // Add player into map
-    commonData->map->addPlayer(commonData->mainPlayer);
-
-    // Create server connection
-    commonData->server = new Connection(this->addressString, Converter::string2int(this->portString), commonData);
-
-    // Prepare server connection thread
-    commonData->serverThread = new sf::Thread(&Connection::run, commonData->server);
-    commonData->serverThread->launch();
-
-    // Send introduction to the server
-    commonData->server->sendPlayerIntroduction(commonData->mainPlayer);
-
-    // Create background
-    sf::Sprite background(commonData->defaultBackgroundTexture);
-
-    // Create menu title
-    Label* waitingForServerResponseLabel = new Label("Waiting for server response...", 50, commonData);
-    int x = (SCREEN_WIDTH - waitingForServerResponseLabel->getWidth()) / 2;
-    int y = (SCREEN_HEIGHT - waitingForServerResponseLabel->getHeight()) / 2;
-    waitingForServerResponseLabel->setPosition(x, y);
-
-    // Wait for response with confirmation
-    while (!commonData->joinedGame) {
-        // Process events
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            // Close window: exit
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-
-            // Escape pressed: exit
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-                window.close();
-            }
-        }
-
-        // Clear screen
-        window.clear(sf::Color::Black);
-
-        // Draw
-        window.draw(background);
-        waitingForServerResponseLabel->draw(window);
-
-        // Update the window
-        window.display();
-    }
 }

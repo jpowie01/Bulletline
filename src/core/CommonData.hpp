@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 
 #include "Map.hpp"
 #include "Player.hpp"
@@ -26,11 +27,16 @@ public:
     ~CommonData();
 
     // Main data
-    Connection* server;
-    sf::Thread* serverThread;
     Map* map;
     Player* mainPlayer;
     int winningTeam;
+    string playerName;
+    
+    // Server data
+    Connection* server;
+    sf::Thread* serverThread;
+    sf::IpAddress serverAddress;
+    short serverPort;
 
     // Game flags
     bool joinedGame = false;
