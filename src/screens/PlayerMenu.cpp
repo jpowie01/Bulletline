@@ -142,9 +142,62 @@ int PlayerMenu::run(sf::RenderWindow &window, CommonData* commonData) {
                 return MAIN_MENU;
             }
             if (nextButton->cursorInRange(position) == true) {
+                // Save data
                 commonData->serverAddress = sf::IpAddress(addressTextField->getText());
                 commonData->serverPort = Converter::string2int(portTextField->getText());
                 commonData->playerName = nameTextField->getText();
+                
+                // Create server connection
+                commonData->server = new Connection(commonData->serverAddress, commonData->serverPort, commonData);
+                
+                // Prepare server connection thread
+                commonData->serverThread = new sf::Thread(&Connection::run, commonData->server);
+                commonData->serverThread->launch();
+                
+                // Prepare game to start
+                commonData->prepareGameToStart();
+                
+                // Save data
+                commonData->mainPlayer->setName(commonData->playerName);
+                
+                // Send introduction to the server
+                commonData->server->sendPlayerIntroduction(commonData->mainPlayer);
+                
+                // Create background
+                sf::Sprite background(commonData->defaultBackgroundTexture);
+                
+                // Create menu title
+                Label* waitingForServerResponseLabel = new Label("Waiting for server response...", 50, commonData);
+                int x = (SCREEN_WIDTH - waitingForServerResponseLabel->getWidth()) / 2;
+                int y = (SCREEN_HEIGHT - waitingForServerResponseLabel->getHeight()) / 2;
+                waitingForServerResponseLabel->setPosition(x, y);
+                
+                // Wait for response with confirmation
+                while (!commonData->joinedGame) {
+                    // Process events
+                    sf::Event event;
+                    while (window.pollEvent(event)) {
+                        // Close window: exit
+                        if (event.type == sf::Event::Closed) {
+                            window.close();
+                        }
+                        
+                        // Escape pressed: exit
+                        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                            window.close();
+                        }
+                    }
+                    
+                    // Clear screen
+                    window.clear(sf::Color::Black);
+                    
+                    // Draw
+                    window.draw(background);
+                    waitingForServerResponseLabel->draw(window);
+                    
+                    // Update the window
+                    window.display();
+                }
                 return WAITING_MENU;
             }
         } else {

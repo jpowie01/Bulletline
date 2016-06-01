@@ -135,10 +135,17 @@ int Game::run(sf::RenderWindow& window, CommonData* commonData) {
     Label* blueTeamWinLabel = new Label("BLUE TEAM WIN", 80, commonData);
     blueTeamWinLabel->setColor(sf::Color::Blue);
     blueTeamWinLabel->setPosition((int)(SCREEN_WIDTH - blueTeamWinLabel->getWidth())/2, (int)(SCREEN_HEIGHT - blueTeamWinLabel->getHeight())/2 - 30);
+    
+    // Restart button
+    Button* restartButton = new Button("Play again!", 48, commonData);
+    restartButton->setPosition((int)(SCREEN_WIDTH - restartButton->getWidth())/2, SCREEN_HEIGHT - 200);
 
     // Start the game loop
     while (window.isOpen())
     {
+        // Position of mouse
+        sf::Vector2i position = sf::Mouse::getPosition(window);
+        
         // Process events
         sf::Event event;
         while (window.pollEvent(event))
@@ -172,7 +179,71 @@ int Game::run(sf::RenderWindow& window, CommonData* commonData) {
         }
         
         // Update GUI
-        healthText->setString(Converter::int2string(commonData->mainPlayer->getHealth()));
+        if (commonData->gameEnded && commonData->mainPlayer->getTeamID() != commonData->winningTeam) {
+            // Just to be sure that there won't be race between updating player data and end of the game
+            healthText->setString("0");
+        } else {
+            healthText->setString(Converter::int2string(commonData->mainPlayer->getHealth()));
+        }
+        
+        // Check restart button state
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            if (commonData->gameEnded && restartButton->cursorInRange(position)) {
+                // Prepare to restart
+                commonData->prepareGameToRestart();
+                
+                // Send introduction to the server
+                commonData->server->sendPlayerIntroduction(commonData->mainPlayer);
+                
+                // Create background
+                sf::Sprite background(commonData->defaultBackgroundTexture);
+                
+                // Create menu title
+                Label* waitingForServerResponseLabel = new Label("Waiting for server response...", 50, commonData);
+                int x = (SCREEN_WIDTH - waitingForServerResponseLabel->getWidth()) / 2;
+                int y = (SCREEN_HEIGHT - waitingForServerResponseLabel->getHeight()) / 2;
+                waitingForServerResponseLabel->setPosition(x, y);
+                
+                // Wait for response with confirmation
+                while (!commonData->joinedGame) {
+                    // Process events
+                    sf::Event event;
+                    while (window.pollEvent(event)) {
+                        // Close window: exit
+                        if (event.type == sf::Event::Closed) {
+                            window.close();
+                        }
+                        
+                        // Escape pressed: exit
+                        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                            window.close();
+                        }
+                    }
+                    
+                    // Clear screen
+                    window.clear(sf::Color::Black);
+                    
+                    // Draw
+                    window.draw(background);
+                    waitingForServerResponseLabel->draw(window);
+                    
+                    // Update the window
+                    window.display();
+                }
+                
+                // Go to lobby
+                return WAITING_MENU;
+            }
+        }
+        
+        // Changing the color of the button if cursor is in range
+        if (commonData->gameEnded) {
+            if (restartButton->cursorInRange(position)) {
+                restartButton->changeColor(sf::Color::Red);
+            } else {
+                restartButton->setDefaultColor();
+            }
+        }
 
         // Clear screen
         window.clear(sf::Color::White);
@@ -192,6 +263,7 @@ int Game::run(sf::RenderWindow& window, CommonData* commonData) {
             } else {
                 blueTeamWinLabel->draw(window);
             }
+            restartButton->draw(window);
         } else if (commonData->mainPlayer->isDead()) {
             window.draw(overlay);
             deadLabel->draw(window);

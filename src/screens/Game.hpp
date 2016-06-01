@@ -19,6 +19,7 @@
 #include "../helpers/ResourcePath.hpp"
 #include "../core/Screen.hpp"
 #include "../utils/Label.hpp"
+#include "../utils/Button.hpp"
 #include "../network/Connection.hpp"
 
 using namespace std;

@@ -17,6 +17,7 @@
 #include "../utils/TextField.hpp"
 #include "../utils/Label.hpp"
 #include "../utils/Converter.hpp"
+#include "../network/Connection.hpp"
 
 class PlayerMenu : public Screen {
 public:

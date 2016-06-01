@@ -14,6 +14,7 @@
 
 #include "Map.hpp"
 #include "Player.hpp"
+#include "../levels/LevelOne.hpp"
 #include "../helpers/ResourcePath.hpp"
 
 class Connection;
@@ -53,6 +54,8 @@ public:
     // Methods
     void loadFonts();
     void loadTextures();
+    void prepareGameToStart();
+    void prepareGameToRestart();
 };
 
 #endif

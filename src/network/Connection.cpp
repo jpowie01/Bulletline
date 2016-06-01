@@ -191,10 +191,10 @@ void Connection::run() {
 
             // Set winning team
             m_commonData->gameEnded = true;
-            m_commonData->winningTeam = winningTeam;
+            m_commonData->winningTeam = (int)winningTeam;
 
             // Log
-            cout << "End of the game! Winning team ID: " << winningTeam << "\n";
+            cout << "End of the game! Winning team ID: " << (int)winningTeam << "\n";
         } else {
             cout << "Unknown header!\n";
         }
