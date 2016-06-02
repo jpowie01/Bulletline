@@ -15,15 +15,33 @@
 #include "../core/Player.hpp"
 #include "../core/CommonData.hpp"
 
+#include "JoinedGameProcessor.hpp"
+#include "PlayerJoinedProcessor.hpp"
+#include "StartGameProcessor.hpp"
+#include "AllPlayersUpdateProcessor.hpp"
+#include "NewBulletProcessor.hpp"
+#include "PlayerIsDeadProcessor.hpp"
+#include "EndOfTheGameProcessor.hpp"
+
 using namespace std;
 
 class Connection {
 private:
+    // Data
     CommonData* m_commonData;
     sf::UdpSocket m_server;
     sf::IpAddress m_serverIP;
     unsigned short m_serverPort;
     
+    // Processors
+    JoinedGameProcessor* joinedGameProcessor;
+    PlayerJoinedProcessor* playerJoinedProcessor;
+    StartGameProcessor* startGameProcessor;
+    AllPlayersUpdateProcessor* allPlayersUpdateProcessor;
+    NewBulletProcessor* newBulletProcessor;
+    PlayerIsDeadProcessor* playerIsDeadProcessor;
+    EndOfTheGameProcessor* endOfTheGameProcessor;
+
 public:
     Connection(sf::IpAddress serverIP, unsigned short serverPort, CommonData* commonData);
     void sendPlayerUpdate(Player* player);
