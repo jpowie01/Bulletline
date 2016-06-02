@@ -18,7 +18,7 @@ using namespace std;
 
 Map::Map(CommonData* commonData) {
     // Create background
-    background = sf::Sprite(commonData->lvl1background);
+    background = sf::Sprite(commonData->gameBackground);
 
     // Creating borders for map
     Obstacle* upper = new Obstacle(0, 0, SCREEN_WIDTH, 20);

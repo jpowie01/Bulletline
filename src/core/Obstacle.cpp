@@ -17,8 +17,7 @@
 Obstacle::Obstacle() {
     this->m_obstacle.setSize(sf::Vector2f(0.0f, 0.0f));
     this->m_obstacle.setPosition(sf::Vector2f(0.0f, 0.0f));
-    this->m_obstacle.setOutlineColor(sf::Color::White);
-    this->m_obstacle.setFillColor(sf::Color::White);
+    this->m_obstacle.setFillColor(sf::Color::Transparent);
     this->m_x = 0.0f;
     this->m_y = 0.0f;
     this->m_width = 0.0f;
@@ -28,8 +27,7 @@ Obstacle::Obstacle() {
 Obstacle::Obstacle(float x, float y, float width, float height) {
     this->m_obstacle.setSize(sf::Vector2f(width, height));
     this->m_obstacle.setPosition(sf::Vector2f(x, y));
-    this->m_obstacle.setOutlineColor(sf::Color::Black);
-    this->m_obstacle.setFillColor(sf::Color(92,92,92));
+    this->m_obstacle.setFillColor(sf::Color::Transparent);
     this->m_x = x;
     this->m_y = y;
     this->m_width = width;
