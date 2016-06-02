@@ -31,6 +31,8 @@ private:
     string m_name;
     Map* m_map;
     sf::Clock m_lastShot;
+    sf::RectangleShape healthBarBackground;
+    sf::RectangleShape healthBarStatus;
 
 public:
     // Constuctor

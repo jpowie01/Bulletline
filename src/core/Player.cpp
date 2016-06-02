@@ -14,20 +14,38 @@
 //================================================================================
 
 Player::Player() : Circle() {
+    // Data
     this->m_dead = false;
     this->m_mainPlayer = false;
     this->m_health = PLAYER_HEALTH;
     this->m_speed = PLAYER_SPEED;
     this->m_map = NULL;
+    
+    // Create health bar
+    this->healthBarBackground.setFillColor(sf::Color(60, 60, 60));
+    this->healthBarBackground.setOutlineColor(sf::Color::Black);
+    this->healthBarBackground.setOutlineThickness(1.0f);
+    this->healthBarBackground.setSize(sf::Vector2f(30, 4));
+    this->healthBarStatus.setFillColor(sf::Color::Red);
+    this->healthBarStatus.setSize(sf::Vector2f(30, 4));
 }
 
 Player::Player(bool mainPlayer, float x, float y, Map* map) : Circle(x, y, 15.0f, sf::Color::Black, 2, sf::Color::Blue) {
+    // Data
     this->m_dead = false;
     this->m_mainPlayer = mainPlayer;
     this->m_health = PLAYER_HEALTH;
     this->m_speed = PLAYER_SPEED;
     this->m_map = map;
     this->m_lastShot.restart();
+    
+    // Create health bar
+    this->healthBarBackground.setFillColor(sf::Color(60, 60, 60));
+    this->healthBarBackground.setOutlineColor(sf::Color::Black);
+    this->healthBarBackground.setOutlineThickness(1.0f);
+    this->healthBarBackground.setSize(sf::Vector2f(30, 4));
+    this->healthBarStatus.setFillColor(sf::Color::Red);
+    this->healthBarStatus.setSize(sf::Vector2f(30, 4));
 }
 
 //================================================================================
@@ -153,6 +171,14 @@ Bullet* Player::shot(float mouseX, float mouseY) {
 
 void Player::draw(sf::RenderWindow& window) {
     if (!this->isDead()) {
+        // Draw player
         window.draw(this->m_shape);
+        
+        // Draw health bar under each player
+        healthBarBackground.setPosition(getX(), getY() - 11.0f);
+        healthBarStatus.setPosition(getX(), getY() - 11.0f);
+        healthBarStatus.setSize(sf::Vector2f(getHealth() / 100.0f * 30.f, 4));
+        window.draw(healthBarBackground);
+        window.draw(healthBarStatus);
     }
 }
