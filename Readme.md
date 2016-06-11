@@ -1,4 +1,4 @@
-# Counter Strike 2D
+# Bulletline
 All of the documentation is located in the `docs`, source in `src` and assets in `assets`.
 
 ## Technology
