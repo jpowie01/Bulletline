@@ -45,7 +45,6 @@ public:
     bool gameEnded = false;
 
     // Fonts
-    sf::Font arialFont;
     sf::Font bebasNeueFont;
     sf::Texture mainMenuBackgroundTexture;
     sf::Texture defaultBackgroundTexture;

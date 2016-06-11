@@ -34,12 +34,6 @@ CommonData::~CommonData() {
 //================================================================================
 
 void CommonData::loadFonts() {
-    // Load Arial font
-    if (!this->arialFont.loadFromFile(resourcePath() + "assets/fonts/Arial.ttf")) {
-        printf("Error loading font (Arial.ttf)!\n");
-        return;
-    }
-
     // Load Bebas Neue font
     if (!this->bebasNeueFont.loadFromFile(resourcePath() + "assets/fonts/BebasNeue.otf")) {
         printf("Failed to load font file (BebasNeue.otf)");
