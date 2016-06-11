@@ -5,7 +5,7 @@ Every contributor has to follow this code style. That will unify the source code
 Each file should contain the same header with copyrights.
 ```cpp
 /*
- * Counter Strike 2D
+ * Bulletline
  *
  * (c) 2016 Jakub Powierza & Karolina Olszewska
  *

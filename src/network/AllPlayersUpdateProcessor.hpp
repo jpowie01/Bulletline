@@ -1,5 +1,5 @@
 /*
- * Counter Strike 2D
+ * Bulletline
  *
  * (c) 2016 Jakub Powierza & Karolina Olszewska
  *

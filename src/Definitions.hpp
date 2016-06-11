@@ -1,5 +1,5 @@
 /*
- * Counter Strike 2D
+ * Bulletline
  *
  * (c) 2016 Jakub Powierza & Karolina Olszewska
  *
@@ -12,7 +12,7 @@
 #define ANTIALIASING_LEVEL  8
 
 // Core definitions
-#define GAME_TITLE          "Counter Strike 2D"
+#define GAME_TITLE          "Bulletline"
 #define AUTHOR_1            "Jakub Powierza"
 #define AUTHOR_2            "Karolina Olszewska"
 #define SCREEN_WIDTH        1200
