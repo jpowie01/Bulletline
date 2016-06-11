@@ -24,8 +24,8 @@ That's all - have fun!
 - [Karolina Olszewska](https://github.com/kolszewska)
 
 ## Screenshots
-![Screenshot 1](/docs/assets/screenshot_1.png?raw=true "Screenshot 1")
-![Screenshot 2](/docs/assets/screenshot_2.png?raw=true "Screenshot 2")
-![Screenshot 3](/docs/assets/screenshot_3.png?raw=true "Screenshot 3")
-![Screenshot 4](/docs/assets/screenshot_4.png?raw=true "Screenshot 4")
-![Screenshot 5](/docs/assets/screenshot_5.png?raw=true "Screenshot 5")
+![Screenshot 1](/docs/assets/screenshot_1.jpg?raw=true "Screenshot 1")
+![Screenshot 2](/docs/assets/screenshot_2.jpg?raw=true "Screenshot 2")
+![Screenshot 3](/docs/assets/screenshot_3.jpg?raw=true "Screenshot 3")
+![Screenshot 4](/docs/assets/screenshot_4.jpg?raw=true "Screenshot 4")
+![Screenshot 5](/docs/assets/screenshot_5.jpg?raw=true "Screenshot 5")
